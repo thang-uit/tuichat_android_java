@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.PhoneNumberActivity">
+
+    <ImageView
+        android:id="@+id/imvPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        app:srcCompat="@drawable/ic_mobile_auth" />
+
+    <TextView
+        android:id="@+id/tvPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imvPhoneNumber"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/tvPhoneNumber"
+        android:textAlignment="center"
+        android:textColor="@color/color_1"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvPhoneNumberTip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvPhoneNumber"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/tvPhoneNumberTip"
+        android:textAlignment="center"
+        android:textColor="@color/color_2"
+        android:textSize="14sp"
+        android:textStyle="normal" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvPhoneNumberTip"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="10dp">
+
+        <LinearLayout
+            android:id="@+id/llPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edtPNumber"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:digits="0123456789"
+                android:hint="@string/edtPNumber"
+                android:inputType="phone" />
+
+            <Button
+                android:id="@+id/btnPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/btnPhoneNumber"/>
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>
