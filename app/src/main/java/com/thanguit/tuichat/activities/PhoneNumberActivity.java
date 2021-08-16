@@ -4,44 +4,52 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
 
-import com.hbb20.CountryCodePicker;
 import com.thanguit.tuichat.R;
+import com.thanguit.tuichat.databinding.ActivityPhoneNumberBinding;
 
 public class PhoneNumberActivity extends AppCompatActivity {
+    private ActivityPhoneNumberBinding activityPhoneNumberBinding;
     private static final String TAG = "PhoneNumberActivity";
-
-    private CountryCodePicker ccpCountryCodePicker;
-    private EditText edtPNumber;
-    private Button btnPhoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_phone_number);
+        activityPhoneNumberBinding = ActivityPhoneNumberBinding.inflate(getLayoutInflater());
+        setContentView(activityPhoneNumberBinding.getRoot());
 
         initializeViews();
         listeners();
     }
 
     private void initializeViews() {
-        this.ccpCountryCodePicker = findViewById(R.id.ccpCountryCodePicker);
-        this.edtPNumber = findViewById(R.id.edtPNumber);
-        this.btnPhoneNumber = findViewById(R.id.btnPhoneNumber);
+        activityPhoneNumberBinding.ccpCountryCodePicker.setDefaultCountryUsingNameCode("VN");
+        activityPhoneNumberBinding.ccpCountryCodePicker.resetToDefaultCountry();
     }
 
     private void listeners() {
-        this.btnPhoneNumber.setOnClickListener(new View.OnClickListener() {
+        activityPhoneNumberBinding.btnPhoneNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PhoneNumberActivity.this, OTPActivity.class);
-                startActivity(intent);
+                String countryCode = activityPhoneNumberBinding.ccpCountryCodePicker.getSelectedCountryCodeWithPlus().trim();
+                String phoneNumber = activityPhoneNumberBinding.edtPNumber.getText().toString().trim();
+                String yourPhoneNumber = countryCode + phoneNumber;
+
+                if (phoneNumber.isEmpty()) {
+                    activityPhoneNumberBinding.edtPNumber.setError(getString(R.string.edtPNumberError));
+                } else {
+                    Log.d(TAG, "Your Phone Number: " + yourPhoneNumber.trim());
+
+                    Intent intent = new Intent(PhoneNumberActivity.this, OTPActivity.class);
+                    intent.putExtra("PHONE_NUMBER", yourPhoneNumber);
+                    startActivity(intent);
+                }
             }
         });
+
     }
 }

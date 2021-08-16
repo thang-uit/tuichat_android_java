@@ -6,10 +6,13 @@
     <string name="tvPhoneNumber">Verify your phone number</string>
     <string name="tvPhoneNumberTip">TuiChat will send an SMS message to verify your phone number</string>
     <string name="edtPNumber">Your phone number</string>
+    <string name="edtPNumberError">Enter your phone number</string>
     <string name="btnPhoneNumber">Continue</string>
 
     <string name="tvOTP">OTP Verification</string>
     <string name="tvOTPTip">Please enter the OTP sent to you</string>
+    <string name="tvErrorPhoneNumber">Null</string>
+
 
 
 

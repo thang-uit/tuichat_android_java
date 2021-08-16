@@ -1,38 +1,84 @@
 package com.thanguit.tuichat.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.WindowManager;
-import android.widget.EditText;
 
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.thanguit.tuichat.R;
+import com.thanguit.tuichat.databinding.ActivityOtpactivityBinding;
+
+import java.util.concurrent.TimeUnit;
 
 public class OTPActivity extends AppCompatActivity {
+    private ActivityOtpactivityBinding activityOtpactivityBinding;
     private static final String TAG = "OTPActivity";
 
-    private EditText edtOTPCode1, edtOTPCode2, edtOTPCode3, edtOTPCode4, edtOTPCode5, edtOTPCode6;
-
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_otpactivity);
+        activityOtpactivityBinding = ActivityOtpactivityBinding.inflate(getLayoutInflater());
+        setContentView(activityOtpactivityBinding.getRoot());
 
+        getIntentData();
         initializeViews();
         listeners();
     }
 
     private void initializeViews() {
-        this.edtOTPCode1 = findViewById(R.id.edtOTPCode1);
-        this.edtOTPCode2 = findViewById(R.id.edtOTPCode2);
-        this.edtOTPCode3 = findViewById(R.id.edtOTPCode3);
-        this.edtOTPCode4 = findViewById(R.id.edtOTPCode4);
-        this.edtOTPCode5 = findViewById(R.id.edtOTPCode5);
-        this.edtOTPCode6 = findViewById(R.id.edtOTPCode6);
+
+    }
+
+    private void getIntentData() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            if (intent.hasExtra("PHONE_NUMBER")) {
+                String yourPhoneNumber = intent.getStringExtra("PHONE_NUMBER");
+                if (yourPhoneNumber.trim().isEmpty()) {
+                    activityOtpactivityBinding.tvYourPhoneNumber.setText(getString(R.string.tvErrorPhoneNumber));
+                } else {
+                    Log.d(TAG, "Your Phone Number: " + yourPhoneNumber.trim());
+                    activityOtpactivityBinding.tvYourPhoneNumber.setText(yourPhoneNumber);
+
+                    firebaseAuth = FirebaseAuth.getInstance();
+                    PhoneAuthOptions phoneAuthOptions = PhoneAuthOptions.newBuilder(firebaseAuth)
+                            .setPhoneNumber(yourPhoneNumber)       // Phone number to verify
+                            .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                            .setActivity(this)                 // Activity (for callback binding)
+                            .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                                @Override
+                                public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+
+                                }
+
+                                @Override
+                                public void onVerificationFailed(@NonNull FirebaseException e) {
+
+                                }
+
+                                @Override
+                                public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                                    super.onCodeSent(s, forceResendingToken);
+                                }
+                            })
+                            .build();
+                    PhoneAuthProvider.verifyPhoneNumber(phoneAuthOptions);
+                }
+            }
+        }
     }
 
     private void listeners() {
@@ -40,7 +86,7 @@ public class OTPActivity extends AppCompatActivity {
     }
 
     private void numberOTPNext() {
-        this.edtOTPCode1.addTextChangedListener(new TextWatcher() {
+        activityOtpactivityBinding.edtOTPCode1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -48,7 +94,7 @@ public class OTPActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!charSequence.toString().trim().isEmpty()) {
-                    edtOTPCode2.requestFocus();
+                    activityOtpactivityBinding.edtOTPCode2.requestFocus();
                 }
             }
 
@@ -57,7 +103,7 @@ public class OTPActivity extends AppCompatActivity {
             }
         });
 
-        this.edtOTPCode2.addTextChangedListener(new TextWatcher() {
+        activityOtpactivityBinding.edtOTPCode2.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -65,9 +111,9 @@ public class OTPActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!charSequence.toString().trim().isEmpty()) {
-                    edtOTPCode3.requestFocus();
+                    activityOtpactivityBinding.edtOTPCode3.requestFocus();
                 } else {
-                    edtOTPCode1.requestFocus();
+                    activityOtpactivityBinding.edtOTPCode1.requestFocus();
                 }
             }
 
@@ -76,7 +122,7 @@ public class OTPActivity extends AppCompatActivity {
             }
         });
 
-        this.edtOTPCode3.addTextChangedListener(new TextWatcher() {
+        activityOtpactivityBinding.edtOTPCode3.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -84,9 +130,9 @@ public class OTPActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!charSequence.toString().trim().isEmpty()) {
-                    edtOTPCode4.requestFocus();
+                    activityOtpactivityBinding.edtOTPCode4.requestFocus();
                 } else {
-                    edtOTPCode2.requestFocus();
+                    activityOtpactivityBinding.edtOTPCode2.requestFocus();
                 }
             }
 
@@ -95,7 +141,7 @@ public class OTPActivity extends AppCompatActivity {
             }
         });
 
-        this.edtOTPCode4.addTextChangedListener(new TextWatcher() {
+        activityOtpactivityBinding.edtOTPCode4.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -103,9 +149,9 @@ public class OTPActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!charSequence.toString().trim().isEmpty()) {
-                    edtOTPCode5.requestFocus();
+                    activityOtpactivityBinding.edtOTPCode5.requestFocus();
                 } else {
-                    edtOTPCode3.requestFocus();
+                    activityOtpactivityBinding.edtOTPCode3.requestFocus();
                 }
             }
 
@@ -114,7 +160,7 @@ public class OTPActivity extends AppCompatActivity {
             }
         });
 
-        this.edtOTPCode5.addTextChangedListener(new TextWatcher() {
+        activityOtpactivityBinding.edtOTPCode5.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -122,9 +168,9 @@ public class OTPActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!charSequence.toString().trim().isEmpty()) {
-                    edtOTPCode6.requestFocus();
+                    activityOtpactivityBinding.edtOTPCode6.requestFocus();
                 } else {
-                    edtOTPCode4.requestFocus();
+                    activityOtpactivityBinding.edtOTPCode4.requestFocus();
                 }
             }
 
@@ -133,7 +179,7 @@ public class OTPActivity extends AppCompatActivity {
             }
         });
 
-        this.edtOTPCode6.addTextChangedListener(new TextWatcher() {
+        activityOtpactivityBinding.edtOTPCode6.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -141,7 +187,7 @@ public class OTPActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().isEmpty()) {
-                    edtOTPCode5.requestFocus();
+                    activityOtpactivityBinding.edtOTPCode5.requestFocus();
                 }
             }
 
