@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_main_2"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
     tools:context=".activities.PhoneNumberActivity">
 
     <ImageView
@@ -20,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imvPhoneNumber"
+        android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:gravity="center"
@@ -35,51 +39,53 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvPhoneNumber"
+        android:layout_centerInParent="true"
         android:gravity="center"
         android:padding="5dp"
         android:text="@string/tvPhoneNumberTip"
         android:textAlignment="center"
-        android:textColor="@color/color_2"
+        android:textColor="@color/color_3"
         android:textSize="14sp"
         android:textStyle="normal" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvPhoneNumber"
+    <LinearLayout
+        android:id="@+id/llPhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvPhoneNumberTip"
+        android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="10dp">
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/llPhoneNumber"
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/ccpCountryCodePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center" />
+
+        <EditText
+            android:id="@+id/edtPNumber"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:hint="@string/edtPNumber"
+            android:inputType="phone"
+            android:lines="1"
+            android:maxLines="1"
+            android:textColor="@color/color_2"
+            android:textColorHighlight="@color/color_main_1" />
+    </LinearLayout>
 
-            <EditText
-                android:id="@+id/edtPNumber"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:digits="0123456789"
-                android:hint="@string/edtPNumber"
-                android:inputType="phone" />
-
-            <Button
-                android:id="@+id/btnPhoneNumber"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/btnPhoneNumber"/>
-
-        </LinearLayout>
-
-
-    </androidx.cardview.widget.CardView>
-
-
+    <Button
+        android:id="@+id/btnPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llPhoneNumber"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_background_gradient_corner_10dp"
+        android:text="@string/btnPhoneNumber"
+        android:textColor="@color/color_1"
+        android:textStyle="bold" />
 </RelativeLayout>

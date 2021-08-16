@@ -18,21 +18,23 @@
         android:theme="@style/Theme.TuiChat"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.OTPActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.PhoneNumberActivity"
-            android:exported="true"
-            android:label="@string/title_activity_phone_number"
-            android:resizeableActivity="true"
-            android:theme="@style/Theme.TuiChat.NoActionBar"
-            tools:targetApi="24">
+            android:name=".activities.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.PhoneNumberActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
