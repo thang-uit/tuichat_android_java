@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">TuiChat</string>
 
+    <string name="toast1">Too many requests. Please wait 2 minutes and try again later</string>
+    <string name="toast2">Error! Please enter the correct phone number</string>
+    <string name="toast3">Error! Please try again</string>
+
+
     <string name="tvDeveloper">Thanguit Developer</string>
 
     <string name="tvPhoneNumber">Verify your phone number</string>
@@ -11,8 +16,10 @@
 
     <string name="tvOTP">OTP Verification</string>
     <string name="tvOTPTip">Please enter the OTP sent to you</string>
+    <string name="btnVerifyOTP">Verify</string>
     <string name="tvErrorPhoneNumber">Null</string>
     <string name="edtOTPError">Missing</string>
+
 
 
 

@@ -12,12 +12,20 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.FirebaseTooManyRequestsException;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.thanguit.tuichat.R;
+import com.thanguit.tuichat.animations.AnimationScale;
+import com.thanguit.tuichat.animations.OpenSoftKeyboard;
 import com.thanguit.tuichat.databinding.ActivityOtpactivityBinding;
 
 import java.util.concurrent.TimeUnit;
@@ -27,6 +35,14 @@ public class OTPActivity extends AppCompatActivity {
     private static final String TAG = "OTPActivity";
 
     private FirebaseAuth firebaseAuth;
+    private String verificationID;
+
+    private static final String CODE_1 = "CODE_1";
+    private static final String CODE_2 = "CODE_2";
+    private static final String CODE_3 = "CODE_3";
+    private static final String CODE_4 = "CODE_4";
+    private static final String CODE_5 = "CODE_5";
+    private static final String CODE_6 = "CODE_6";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +50,8 @@ public class OTPActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         activityOtpactivityBinding = ActivityOtpactivityBinding.inflate(getLayoutInflater());
         setContentView(activityOtpactivityBinding.getRoot());
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
         getIntentData();
         initializeViews();
@@ -55,7 +73,6 @@ public class OTPActivity extends AppCompatActivity {
                     Log.d(TAG, "Your Phone Number: " + yourPhoneNumber.trim());
                     activityOtpactivityBinding.tvYourPhoneNumber.setText(yourPhoneNumber);
 
-                    firebaseAuth = FirebaseAuth.getInstance();
                     PhoneAuthOptions phoneAuthOptions = PhoneAuthOptions.newBuilder(firebaseAuth)
                             .setPhoneNumber(yourPhoneNumber)       // Phone number to verify
                             .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
@@ -63,17 +80,41 @@ public class OTPActivity extends AppCompatActivity {
                             .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                                 @Override
                                 public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-
+                                    // This callback will be invoked in two situations:
+                                    // 1 - Instant verification. In some cases the phone number can be instantly
+                                    //     verified without needing to send or enter a verification code.
+                                    // 2 - Auto-retrieval. On some devices Google Play services can automatically
+                                    //     detect the incoming verification SMS and perform verification without
+                                    //     user action.
+                                    Log.d(TAG, "onVerificationCompleted: " + phoneAuthCredential);
+//                                    signInWithPhoneAuthCredential(credential);
                                 }
 
                                 @Override
                                 public void onVerificationFailed(@NonNull FirebaseException e) {
+                                    // This callback is invoked in an invalid request for verification is made,
+                                    // for instance if the the phone number format is not valid.
+                                    Log.d(TAG, "onVerificationFailed", e);
 
+                                    if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                                        Toast.makeText(OTPActivity.this, getString(R.string.toast2), Toast.LENGTH_LONG).show();
+                                    } else if (e instanceof FirebaseTooManyRequestsException) {
+                                        Toast.makeText(OTPActivity.this, getString(R.string.toast1), Toast.LENGTH_LONG).show();
+                                    } else {
+                                        Toast.makeText(OTPActivity.this, getString(R.string.toast3), Toast.LENGTH_LONG).show();
+                                    }
+                                    finish();
                                 }
 
                                 @Override
-                                public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                    super.onCodeSent(s, forceResendingToken);
+                                public void onCodeSent(@NonNull String code, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                                    super.onCodeSent(code, forceResendingToken);
+                                    // The SMS verification code has been sent to the provided phone number, we
+                                    // now need to ask the user to enter the code and then construct a credential
+                                    // by combining the code with a verification ID.
+                                    Log.d(TAG, "onCodeSent: " + code);
+
+                                    verificationID = code;
                                 }
                             })
                             .build();
@@ -85,6 +126,51 @@ public class OTPActivity extends AppCompatActivity {
 
     private void listeners() {
         numberOTPNext();
+
+        AnimationScale.getInstance().eventButton(this, activityOtpactivityBinding.btnVerifyOTP);
+        activityOtpactivityBinding.btnVerifyOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String OTP = checkOTP();
+                if (OTP.equals(CODE_1)) {
+                    activityOtpactivityBinding.edtOTPCode1.setError(getString(R.string.edtOTPError));
+                    OpenSoftKeyboard.getInstance().openSoftKeyboard(OTPActivity.this, activityOtpactivityBinding.edtOTPCode1);
+                } else if (OTP.equals(CODE_2)) {
+                    activityOtpactivityBinding.edtOTPCode2.setError(getString(R.string.edtOTPError));
+                    OpenSoftKeyboard.getInstance().openSoftKeyboard(OTPActivity.this, activityOtpactivityBinding.edtOTPCode2);
+                } else if (OTP.equals(CODE_3)) {
+                    activityOtpactivityBinding.edtOTPCode3.setError(getString(R.string.edtOTPError));
+                    OpenSoftKeyboard.getInstance().openSoftKeyboard(OTPActivity.this, activityOtpactivityBinding.edtOTPCode3);
+                } else if (OTP.equals(CODE_4)) {
+                    activityOtpactivityBinding.edtOTPCode4.setError(getString(R.string.edtOTPError));
+                    OpenSoftKeyboard.getInstance().openSoftKeyboard(OTPActivity.this, activityOtpactivityBinding.edtOTPCode4);
+                } else if (OTP.equals(CODE_5)) {
+                    activityOtpactivityBinding.edtOTPCode5.setError(getString(R.string.edtOTPError));
+                    OpenSoftKeyboard.getInstance().openSoftKeyboard(OTPActivity.this, activityOtpactivityBinding.edtOTPCode5);
+                } else if (OTP.equals(CODE_6)) {
+                    activityOtpactivityBinding.edtOTPCode6.setError(getString(R.string.edtOTPError));
+                    OpenSoftKeyboard.getInstance().openSoftKeyboard(OTPActivity.this, activityOtpactivityBinding.edtOTPCode6);
+                } else {
+                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(verificationID, OTP);
+                    firebaseAuth.signInWithCredential(phoneAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "signInWithCredential:success");
+                                Toast.makeText(OTPActivity.this, "Logged in", Toast.LENGTH_LONG).show();
+//                                FirebaseUser user = task.getResult().getUser();
+                                // Update UI
+                            } else {
+                                Toast.makeText(OTPActivity.this, "Fail", Toast.LENGTH_LONG).show();
+                                // Sign in failed, display a message and update the UI
+                                Log.d(TAG, "signInWithCredential:failure", task.getException());
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
 
     private void numberOTPNext() {
@@ -197,51 +283,31 @@ public class OTPActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
             }
         });
-
-
-        activityOtpactivityBinding.btnVerifyOTP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkOTP() == 1) {
-                    activityOtpactivityBinding.edtOTPCode1.setError(getString(R.string.edtOTPError));
-                } else if (checkOTP() == 2) {
-                    activityOtpactivityBinding.edtOTPCode2.setError(getString(R.string.edtOTPError));
-                } else if (checkOTP() == 3) {
-                    activityOtpactivityBinding.edtOTPCode3.setError(getString(R.string.edtOTPError));
-                } else if (checkOTP() == 4) {
-                    activityOtpactivityBinding.edtOTPCode4.setError(getString(R.string.edtOTPError));
-                } else if (checkOTP() == 5) {
-                    activityOtpactivityBinding.edtOTPCode5.setError(getString(R.string.edtOTPError));
-                } else if (checkOTP() == 6) {
-                    activityOtpactivityBinding.edtOTPCode6.setError(getString(R.string.edtOTPError));
-                } else if (checkOTP() == 0) {
-                    Toast.makeText(OTPActivity.this, "Bruh", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
     }
 
-    private int checkOTP() {
+    private String checkOTP() {
+        String OTP = activityOtpactivityBinding.edtOTPCode1.getText().toString().trim() +
+                activityOtpactivityBinding.edtOTPCode2.getText().toString().trim() +
+                activityOtpactivityBinding.edtOTPCode3.getText().toString().trim() +
+                activityOtpactivityBinding.edtOTPCode4.getText().toString().trim() +
+                activityOtpactivityBinding.edtOTPCode5.getText().toString().trim() +
+                activityOtpactivityBinding.edtOTPCode6.getText().toString().trim();
+
         if (activityOtpactivityBinding.edtOTPCode1.getText().toString().trim().isEmpty()) {
-            return 1;
-//            activityOtpactivityBinding.edtOTPCode1.setError(getString(R.string.edtOTPError));
+            return CODE_1;
         } else if (activityOtpactivityBinding.edtOTPCode2.getText().toString().trim().isEmpty()) {
-            return 2;
-//            activityOtpactivityBinding.edtOTPCode2.setError(getString(R.string.edtOTPError));
+            return CODE_2;
         } else if (activityOtpactivityBinding.edtOTPCode3.getText().toString().trim().isEmpty()) {
-            return 3;
-//            activityOtpactivityBinding.edtOTPCode3.setError(getString(R.string.edtOTPError));
+            return CODE_3;
         } else if (activityOtpactivityBinding.edtOTPCode4.getText().toString().trim().isEmpty()) {
-            return 4;
-//            activityOtpactivityBinding.edtOTPCode4.setError(getString(R.string.edtOTPError));
+            return CODE_4;
         } else if (activityOtpactivityBinding.edtOTPCode5.getText().toString().trim().isEmpty()) {
-            return 5;
-//            activityOtpactivityBinding.edtOTPCode5.setError(getString(R.string.edtOTPError));
+            return CODE_5;
         } else if (activityOtpactivityBinding.edtOTPCode6.getText().toString().trim().isEmpty()) {
-            return 6;
-//            activityOtpactivityBinding.edtOTPCode6.setError(getString(R.string.edtOTPError));
+            return CODE_6;
         } else {
-            return 0;
+            return OTP.trim();
         }
     }
+
 }

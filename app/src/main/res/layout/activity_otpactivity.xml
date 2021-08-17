@@ -218,8 +218,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/shape_background_gradient_corner_10dp"
-            android:text="@string/btnPhoneNumber"
+            android:text="@string/btnVerifyOTP"
             android:textColor="@color/color_1"
+            android:textSize="18sp"
             android:textStyle="bold" />
     </FrameLayout>
 </LinearLayout>

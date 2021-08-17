@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.thanguit.tuichat.R;
+import com.thanguit.tuichat.animations.AnimationScale;
+import com.thanguit.tuichat.animations.OpenSoftKeyboard;
 import com.thanguit.tuichat.databinding.ActivityPhoneNumberBinding;
 
 public class PhoneNumberActivity extends AppCompatActivity {
@@ -29,9 +31,12 @@ public class PhoneNumberActivity extends AppCompatActivity {
     private void initializeViews() {
         activityPhoneNumberBinding.ccpCountryCodePicker.setDefaultCountryUsingNameCode("VN");
         activityPhoneNumberBinding.ccpCountryCodePicker.resetToDefaultCountry();
+
+        activityPhoneNumberBinding.edtPNumber.requestFocus();
     }
 
     private void listeners() {
+        AnimationScale.getInstance().eventButton(this, activityPhoneNumberBinding.btnPhoneNumber);
         activityPhoneNumberBinding.btnPhoneNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,11 +46,12 @@ public class PhoneNumberActivity extends AppCompatActivity {
 
                 if (phoneNumber.isEmpty()) {
                     activityPhoneNumberBinding.edtPNumber.setError(getString(R.string.edtPNumberError));
+                    OpenSoftKeyboard.getInstance().openSoftKeyboard(PhoneNumberActivity.this, activityPhoneNumberBinding.edtPNumber);
                 } else {
                     Log.d(TAG, "Your Phone Number: " + yourPhoneNumber.trim());
 
                     Intent intent = new Intent(PhoneNumberActivity.this, OTPActivity.class);
-                    intent.putExtra("PHONE_NUMBER", yourPhoneNumber);
+                    intent.putExtra("PHONE_NUMBER", yourPhoneNumber.trim());
                     startActivity(intent);
                 }
             }
