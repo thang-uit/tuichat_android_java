@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
@@ -195,5 +197,51 @@ public class OTPActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
             }
         });
+
+
+        activityOtpactivityBinding.btnVerifyOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkOTP() == 1) {
+                    activityOtpactivityBinding.edtOTPCode1.setError(getString(R.string.edtOTPError));
+                } else if (checkOTP() == 2) {
+                    activityOtpactivityBinding.edtOTPCode2.setError(getString(R.string.edtOTPError));
+                } else if (checkOTP() == 3) {
+                    activityOtpactivityBinding.edtOTPCode3.setError(getString(R.string.edtOTPError));
+                } else if (checkOTP() == 4) {
+                    activityOtpactivityBinding.edtOTPCode4.setError(getString(R.string.edtOTPError));
+                } else if (checkOTP() == 5) {
+                    activityOtpactivityBinding.edtOTPCode5.setError(getString(R.string.edtOTPError));
+                } else if (checkOTP() == 6) {
+                    activityOtpactivityBinding.edtOTPCode6.setError(getString(R.string.edtOTPError));
+                } else if (checkOTP() == 0) {
+                    Toast.makeText(OTPActivity.this, "Bruh", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private int checkOTP() {
+        if (activityOtpactivityBinding.edtOTPCode1.getText().toString().trim().isEmpty()) {
+            return 1;
+//            activityOtpactivityBinding.edtOTPCode1.setError(getString(R.string.edtOTPError));
+        } else if (activityOtpactivityBinding.edtOTPCode2.getText().toString().trim().isEmpty()) {
+            return 2;
+//            activityOtpactivityBinding.edtOTPCode2.setError(getString(R.string.edtOTPError));
+        } else if (activityOtpactivityBinding.edtOTPCode3.getText().toString().trim().isEmpty()) {
+            return 3;
+//            activityOtpactivityBinding.edtOTPCode3.setError(getString(R.string.edtOTPError));
+        } else if (activityOtpactivityBinding.edtOTPCode4.getText().toString().trim().isEmpty()) {
+            return 4;
+//            activityOtpactivityBinding.edtOTPCode4.setError(getString(R.string.edtOTPError));
+        } else if (activityOtpactivityBinding.edtOTPCode5.getText().toString().trim().isEmpty()) {
+            return 5;
+//            activityOtpactivityBinding.edtOTPCode5.setError(getString(R.string.edtOTPError));
+        } else if (activityOtpactivityBinding.edtOTPCode6.getText().toString().trim().isEmpty()) {
+            return 6;
+//            activityOtpactivityBinding.edtOTPCode6.setError(getString(R.string.edtOTPError));
+        } else {
+            return 0;
+        }
     }
 }

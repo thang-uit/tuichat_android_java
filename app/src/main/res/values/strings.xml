@@ -12,6 +12,7 @@
     <string name="tvOTP">OTP Verification</string>
     <string name="tvOTPTip">Please enter the OTP sent to you</string>
     <string name="tvErrorPhoneNumber">Null</string>
+    <string name="edtOTPError">Missing</string>
 
 
 
