@@ -22,4 +22,6 @@
 
     <string name="tvLoading">Please wait...🐌</string>
 
+    <string name="tvToast">This is toast content</string>
+
 </resources>

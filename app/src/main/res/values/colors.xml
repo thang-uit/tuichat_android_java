@@ -8,14 +8,31 @@
 <!--    <color name="black">#FF000000</color>-->
 <!--    <color name="white">#FFFFFFFF</color>-->
 
-
     <color name="color_main_1">#FFD000</color>
     <color name="color_main_2">#21FFC107</color>
     <color name="colorGradient1">#FFD000</color>
     <color name="colorGradient2">#FECE2F</color>
 
+    <color name="color_1">#000000</color> // Main Text color (Chính)
+    <color name="color_2">#000000</color> // For button, edittext, icon, tab, toolbar, ... (No change)
+    <color name="color_3">#4D4E4E</color> // Text color (Phụ)
 
-    <color name="color_1">#000000</color>
-    <color name="color_2">#000000</color> // For button, edittext, tab, toolbar, ...
-    <color name="color_3">#4D4E4E</color>
+
+<!--    <color name="color_4">#47C54C</color>-->
+
+    <!--    Background Colors-->
+    <color name="warning_color">#FBC02D</color>
+    <color name="error_color">#D50000</color>
+    <color name="success_color">#17B978</color>
+    <color name="info_color">#0004FF</color>
+
+    <color name="delete_color">#0288D1</color>
+
+    <!--    Background Transparent Colors-->
+    <color name="warning_bg_color">#33FBC02D</color>
+    <color name="error_bg_color">#33D32F2F</color>
+    <color name="success_bg_color">#3317B978</color>
+    <color name="info_bg_color">#330004FF</color>
+
+    <color name="delete_bg_color">#330288D1</color>
 </resources>

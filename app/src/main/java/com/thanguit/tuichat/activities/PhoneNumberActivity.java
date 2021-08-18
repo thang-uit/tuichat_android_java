@@ -2,13 +2,18 @@ package com.thanguit.tuichat.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 
+import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.animations.AnimationScale;
-import com.thanguit.tuichat.utils.LoadingDialog;
 import com.thanguit.tuichat.databinding.ActivityPhoneNumberBinding;
+import com.thanguit.tuichat.utils.MyToast;
+import com.thanguit.tuichat.utils.OpenSoftKeyboard;
+
+import java.util.Random;
 
 public class PhoneNumberActivity extends AppCompatActivity {
     private ActivityPhoneNumberBinding activityPhoneNumberBinding;
@@ -17,7 +22,6 @@ public class PhoneNumberActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         activityPhoneNumberBinding = ActivityPhoneNumberBinding.inflate(getLayoutInflater());
         setContentView(activityPhoneNumberBinding.getRoot());
 
@@ -41,7 +45,8 @@ public class PhoneNumberActivity extends AppCompatActivity {
                 String phoneNumber = activityPhoneNumberBinding.edtPNumber.getText().toString().trim();
                 String yourPhoneNumber = countryCode + phoneNumber;
 
-                LoadingDialog.getInstance().startLoading(PhoneNumberActivity.this);
+                int type = new Random().nextInt(4) + 1;
+                MyToast.makeText(PhoneNumberActivity.this, type, "This is content. This is content. This is content.", MyToast.SHORT).show();
 
 //                if (phoneNumber.isEmpty()) {
 //                    activityPhoneNumberBinding.edtPNumber.setError(getString(R.string.edtPNumberError));

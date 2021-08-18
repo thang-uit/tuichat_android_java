@@ -7,24 +7,21 @@
     android:gravity="center">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvLoading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:padding="20dp">
 
             <ProgressBar
-                android:id="@+id/pgbLoading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -34,11 +31,10 @@
                 android:indeterminateTintMode="src_atop" />
 
             <TextView
-                android:id="@+id/tvLoading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:text="@string/tvLoading"
                 android:textAlignment="center"

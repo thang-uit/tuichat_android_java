@@ -79,6 +79,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/shape_background_gradient_corner_10dp"
         android:text="@string/btnPhoneNumber"
+        android:textAllCaps="false"
         android:textColor="@color/color_1"
         android:textSize="18sp"
         android:textStyle="bold" />

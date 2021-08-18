@@ -28,7 +28,7 @@ public class LoadingDialog {
         return instance;
     }
 
-    public void startLoading(Context context) {
+    public void startLoading(Context context, boolean setCancelable) {
         dialog = new Dialog(context);
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -38,14 +38,14 @@ public class LoadingDialog {
         if (window == null) {
             return;
         }
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+//        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         WindowManager.LayoutParams windowAttributes = window.getAttributes();
         windowAttributes.gravity = Gravity.CENTER;
         window.setAttributes(windowAttributes);
 
-        dialog.setCancelable(false);
+        dialog.setCancelable(setCancelable);
 
         dialog.show();
     }
