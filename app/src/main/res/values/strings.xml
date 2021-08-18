@@ -20,6 +20,10 @@
     <string name="tvErrorPhoneNumber">Null</string>
     <string name="edtOTPError">Missing</string>
 
+    <string name="tvLoading">Please wait...🐌</string>
+
+
+
 
 
 

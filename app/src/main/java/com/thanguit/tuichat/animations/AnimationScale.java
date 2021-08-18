@@ -13,7 +13,7 @@ public class AnimationScale {
     private static AnimationScale instance;
     private Animation scaleUpAnimation, scaleDownAnimation;
 
-    public AnimationScale() {
+    private AnimationScale() {
     }
 
     public static AnimationScale getInstance() {

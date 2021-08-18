@@ -1,4 +1,4 @@
-package com.thanguit.tuichat.animations;
+package com.thanguit.tuichat.utils;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -9,7 +9,7 @@ import android.widget.EditText;
 public class OpenSoftKeyboard {
     private static OpenSoftKeyboard instance;
 
-    public OpenSoftKeyboard() {
+    private OpenSoftKeyboard() {
     }
 
     public static OpenSoftKeyboard getInstance() {
