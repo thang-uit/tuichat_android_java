@@ -23,6 +23,8 @@ import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.animations.AnimationScale;
+import com.thanguit.tuichat.utils.LoadingDialog;
+import com.thanguit.tuichat.utils.MyToast;
 import com.thanguit.tuichat.utils.OpenSoftKeyboard;
 import com.thanguit.tuichat.databinding.ActivityOtpactivityBinding;
 
@@ -57,7 +59,7 @@ public class OTPActivity extends AppCompatActivity {
     }
 
     private void initializeViews() {
-
+        LoadingDialog.getInstance().startLoading(OTPActivity.this, false);
     }
 
     private void getIntentData() {
@@ -95,11 +97,11 @@ public class OTPActivity extends AppCompatActivity {
                                     Log.d(TAG, "onVerificationFailed", e);
 
                                     if (e instanceof FirebaseAuthInvalidCredentialsException) {
-                                        Toast.makeText(OTPActivity.this, getString(R.string.toast2), Toast.LENGTH_LONG).show();
+                                        MyToast.makeText(OTPActivity.this, MyToast.ERROR, getString(R.string.toast2), MyToast.SHORT).show();
                                     } else if (e instanceof FirebaseTooManyRequestsException) {
-                                        Toast.makeText(OTPActivity.this, getString(R.string.toast1), Toast.LENGTH_LONG).show();
+                                        MyToast.makeText(OTPActivity.this, MyToast.ERROR, getString(R.string.toast1), MyToast.SHORT).show();
                                     } else {
-                                        Toast.makeText(OTPActivity.this, getString(R.string.toast3), Toast.LENGTH_LONG).show();
+                                        MyToast.makeText(OTPActivity.this, MyToast.ERROR, getString(R.string.toast3), MyToast.SHORT).show();
                                     }
                                     finish();
                                 }
@@ -112,6 +114,7 @@ public class OTPActivity extends AppCompatActivity {
                                     // by combining the code with a verification ID.
                                     Log.d(TAG, "onCodeSent: " + code);
 
+                                    LoadingDialog.getInstance().cancelLoading();
                                     verificationID = code;
                                 }
                             })
@@ -156,13 +159,15 @@ public class OTPActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInWithCredential:success");
-                                Toast.makeText(OTPActivity.this, "Logged in", Toast.LENGTH_LONG).show();
-//                                FirebaseUser user = task.getResult().getUser();
-                                // Update UI
+
+                                Intent intent = new Intent(OTPActivity.this, SetupProfileActivity.class);
+                                startActivity(intent);
+                                finishAffinity();
+
                             } else {
-                                Toast.makeText(OTPActivity.this, "Fail", Toast.LENGTH_LONG).show();
-                                // Sign in failed, display a message and update the UI
                                 Log.d(TAG, "signInWithCredential:failure", task.getException());
+
+                                MyToast.makeText(OTPActivity.this, MyToast.ERROR, getString(R.string.toast3), Toast.LENGTH_LONG).show();
                             }
                         }
                     });

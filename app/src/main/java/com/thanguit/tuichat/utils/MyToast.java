@@ -16,7 +16,7 @@ public class MyToast extends Toast {
     public static final int WARNING = 3;
     public static final int INFORMATION = 4;
 
-    public static final int SHORT = 3000;
+    public static final int SHORT = 3500;
     public static final int LONG = 5000;
 
     public MyToast(Context context) {
@@ -29,9 +29,9 @@ public class MyToast extends Toast {
         toast.setDuration(duration);
 
         View layout = LayoutInflater.from(context).inflate(R.layout.layout_toast, null, false);
-        LinearLayout llBackgroundToast = (LinearLayout) layout.findViewById(R.id.llBackgroundToast);
-        ImageView ivIconToast = (ImageView) layout.findViewById(R.id.ivIconToast);
-        TextView tvTextToast = (TextView) layout.findViewById(R.id.tvTextToast);
+        LinearLayout llBackgroundToast = layout.findViewById(R.id.llBackgroundToast);
+        ImageView ivIconToast = layout.findViewById(R.id.ivIconToast);
+        TextView tvTextToast = layout.findViewById(R.id.tvTextToast);
         if (content.isEmpty()) {
             tvTextToast.setText("");
         } else {

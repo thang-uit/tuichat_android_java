@@ -23,5 +23,9 @@
     <string name="tvLoading">Please wait...🐌</string>
 
     <string name="tvToast">This is toast content</string>
+    <string name="tvSetupProfile">Profile Information</string>
+    <string name="tvSetupProfileTip">Please set your name and an optional profile image</string>
+    <string name="edtSetupProfileName">Type your name</string>
+    <string name="btnSetupProfile">Setup Profile</string>
 
 </resources>

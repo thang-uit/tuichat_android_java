@@ -10,10 +10,7 @@ import android.view.View;
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.animations.AnimationScale;
 import com.thanguit.tuichat.databinding.ActivityPhoneNumberBinding;
-import com.thanguit.tuichat.utils.MyToast;
 import com.thanguit.tuichat.utils.OpenSoftKeyboard;
-
-import java.util.Random;
 
 public class PhoneNumberActivity extends AppCompatActivity {
     private ActivityPhoneNumberBinding activityPhoneNumberBinding;
@@ -45,19 +42,16 @@ public class PhoneNumberActivity extends AppCompatActivity {
                 String phoneNumber = activityPhoneNumberBinding.edtPNumber.getText().toString().trim();
                 String yourPhoneNumber = countryCode + phoneNumber;
 
-                int type = new Random().nextInt(4) + 1;
-                MyToast.makeText(PhoneNumberActivity.this, type, "This is content. This is content. This is content.", MyToast.SHORT).show();
+                if (phoneNumber.isEmpty()) {
+                    activityPhoneNumberBinding.edtPNumber.setError(getString(R.string.edtPNumberError));
+                    OpenSoftKeyboard.getInstance().openSoftKeyboard(PhoneNumberActivity.this, activityPhoneNumberBinding.edtPNumber);
+                } else {
+                    Log.d(TAG, "Your Phone Number: " + yourPhoneNumber.trim());
 
-//                if (phoneNumber.isEmpty()) {
-//                    activityPhoneNumberBinding.edtPNumber.setError(getString(R.string.edtPNumberError));
-//                    OpenSoftKeyboard.getInstance().openSoftKeyboard(PhoneNumberActivity.this, activityPhoneNumberBinding.edtPNumber);
-//                } else {
-//                    Log.d(TAG, "Your Phone Number: " + yourPhoneNumber.trim());
-//
-//                    Intent intent = new Intent(PhoneNumberActivity.this, OTPActivity.class);
-//                    intent.putExtra("PHONE_NUMBER", yourPhoneNumber.trim());
-//                    startActivity(intent);
-//                }
+                    Intent intent = new Intent(PhoneNumberActivity.this, OTPActivity.class);
+                    intent.putExtra("PHONE_NUMBER", yourPhoneNumber.trim());
+                    startActivity(intent);
+                }
             }
         });
 

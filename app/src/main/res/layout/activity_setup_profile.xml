@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/color_main_2"
     android:orientation="vertical"
-    tools:context=".activities.PhoneNumberActivity">
+    tools:context=".activities.SetupProfileActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,73 +17,62 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imvPhoneNumber"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civUserAvatar"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                app:srcCompat="@drawable/ic_logo" />
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:src="@drawable/ic_user_avatar"
+                app:civ_border_color="@color/color_main_1"
+                app:civ_border_width="1dp"
+                app:srcCompat="@drawable/ic_user_avatar" />
 
             <TextView
-                android:id="@+id/tvPhoneNumber"
+                android:id="@+id/tvSetupProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="@string/tvPhoneNumber"
+                android:text="@string/tvSetupProfile"
                 android:textAlignment="center"
                 android:textColor="@color/color_1"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvPhoneNumberTip"
+                android:id="@+id/tvSetupProfileTip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="@string/tvPhoneNumberTip"
+                android:text="@string/tvSetupProfileTip"
                 android:textAlignment="center"
                 android:textColor="@color/color_3"
                 android:textSize="14sp"
                 android:textStyle="normal" />
 
-            <LinearLayout
-                android:id="@+id/llPhoneNumber"
+            <EditText
+                android:id="@+id/edtSetupProfileName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="30dp"
-                android:orientation="horizontal">
-
-                <com.hbb20.CountryCodePicker
-                    android:id="@+id/ccpCountryCodePicker"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center" />
-
-                <EditText
-                    android:id="@+id/edtPNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:digits="0123456789"
-                    android:hint="@string/edtPNumber"
-                    android:inputType="phone"
-                    android:lines="1"
-                    android:maxLines="1"
-                    android:textColor="@color/color_2"
-                    android:textColorHighlight="@color/color_main_1" />
-            </LinearLayout>
+                android:layout_marginEnd="10dp"
+                android:hint="@string/edtSetupProfileName"
+                android:lines="1"
+                android:maxLength="100"
+                android:maxLines="1"
+                android:textColor="@color/color_2"
+                android:textColorHighlight="@color/color_main_1"
+                android:textSize="20sp" />
 
             <Button
-                android:id="@+id/btnPhoneNumber"
+                android:id="@+id/btnSetupProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -91,7 +80,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/shape_background_gradient_corner_10dp"
-                android:text="@string/btnPhoneNumber"
+                android:text="@string/btnSetupProfile"
                 android:textAllCaps="false"
                 android:textColor="@color/color_1"
                 android:textSize="18sp"
