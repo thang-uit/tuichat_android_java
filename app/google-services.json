@@ -1,41 +1,34 @@
 {
   "project_info": {
-    "project_number": "441355744887",
-    "project_id": "tuichat-33902",
-    "storage_bucket": "tuichat-33902.appspot.com"
+    "project_number": "100071186878",
+    "firebase_url": "https://tuichat-21962-default-rtdb.firebaseio.com",
+    "project_id": "tuichat-21962",
+    "storage_bucket": "tuichat-21962.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:441355744887:android:f2269a83ec54894772b872",
+        "mobilesdk_app_id": "1:100071186878:android:50bacaea6cdd4b4f88d9ef",
         "android_client_info": {
           "package_name": "com.thanguit.tuichat"
         }
       },
       "oauth_client": [
         {
-          "client_id": "441355744887-o58t188rd4a7araiqr4a1gia09pq1guc.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.thanguit.tuichat",
-            "certificate_hash": "811f550ddf5cbae47942a5435e590dbf4f437134"
-          }
-        },
-        {
-          "client_id": "441355744887-226kjs8f50anj5eqm4hv8skr3ge8cshu.apps.googleusercontent.com",
+          "client_id": "100071186878-6i6k720u6vb3vhggu7mc6ci5a2uek536.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAsgRfZTTHGtk2Jvks8TgFWy9Qm2yywII8"
+          "current_key": "AIzaSyBLLiBHuVBgbPqmTzFVjKPJjcHVpDAixrQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "441355744887-226kjs8f50anj5eqm4hv8skr3ge8cshu.apps.googleusercontent.com",
+              "client_id": "100071186878-6i6k720u6vb3vhggu7mc6ci5a2uek536.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
