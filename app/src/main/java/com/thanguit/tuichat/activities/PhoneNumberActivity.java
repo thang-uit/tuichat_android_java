@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.animations.AnimationScale;
 import com.thanguit.tuichat.databinding.ActivityPhoneNumberBinding;
@@ -16,14 +18,30 @@ public class PhoneNumberActivity extends AppCompatActivity {
     private ActivityPhoneNumberBinding activityPhoneNumberBinding;
     private static final String TAG = "PhoneNumberActivity";
 
+    private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityPhoneNumberBinding = ActivityPhoneNumberBinding.inflate(getLayoutInflater());
         setContentView(activityPhoneNumberBinding.getRoot());
 
+        firebaseAuth = FirebaseAuth.getInstance();
+
         initializeViews();
         listeners();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void initializeViews() {
