@@ -30,4 +30,8 @@
     <string name="btnSetupProfile">Setup Profile</string>
     <string name="edtSetupProfileNameError">Type your name</string>
 
+    <string name="menuActionChat">Chat</string>
+    <string name="menuActionPeople">People</string>
+    <string name="menuActionSetting">Setting</string>
+
 </resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menuActionChat"
+        android:icon="@drawable/ic_chat"
+        android:title="@string/menuActionChat" />
+
+    <item
+        android:id="@+id/menuActionPeople"
+        android:icon="@drawable/ic_users"
+        android:title="@string/menuActionPeople" />
+
+    <item
+        android:id="@+id/menuActionSetting"
+        android:icon="@drawable/ic_setting"
+        android:title="@string/menuActionSetting" />
+</menu>
