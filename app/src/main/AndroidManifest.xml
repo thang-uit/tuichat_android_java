@@ -18,6 +18,9 @@
         android:theme="@style/Theme.TuiChat"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.LoginActivity"
+            android:exported="true" />
+        <activity
             android:name=".activities.SetupProfileActivity"
             android:exported="true" />
         <activity

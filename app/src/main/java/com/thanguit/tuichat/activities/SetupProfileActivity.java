@@ -86,9 +86,10 @@ public class SetupProfileActivity extends AppCompatActivity {
                                         String uid = firebaseUser.getUid();
                                         String name = activitySetupProfileBinding.edtSetupProfileName.getText().toString().trim();
                                         String phoneNumber = firebaseUser.getPhoneNumber();
+                                        String email = "Null";
                                         String avatar = uri.toString().trim();
 
-                                        User user = new User(uid, name, phoneNumber, avatar);
+                                        User user = new User(uid, name, phoneNumber, email, avatar);
                                         firebaseDatabase.getReference()
                                                 .child(USER_DATABASE.trim())
                                                 .child(uid)

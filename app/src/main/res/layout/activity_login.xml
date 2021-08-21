@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_main_2"
+    tools:context=".activities.LoginActivity">
+
+    <ImageView
+        android:id="@+id/ivWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        app:srcCompat="@drawable/ic_mobile_login" />
+
+    <Button
+        android:id="@+id/btnLoginFacebook"
+        style="@style/btnLogin"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/btn_loginfb"
+        android:drawableStart="@drawable/ic_logo_facebook"
+        android:text="@string/btnLoginFacebook" />
+
+    <Button
+        android:id="@+id/btnLoginGoogle"
+        style="@style/btnLogin"
+        android:layout_above="@+id/btnLoginFacebook"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/btn_logingg"
+        android:drawableStart="@drawable/ic_logo_google"
+        android:text="@string/btnLoginGoogle" />
+
+    <Button
+        android:id="@+id/btnLoginPhoneNumber"
+        style="@style/btnLogin"
+        android:layout_above="@+id/btnLoginGoogle"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/shape_background_gradient_corner_10dp"
+        android:drawableStart="@drawable/ic_smartphone"
+        android:text="@string/btnLoginPhoneNumber" />
+
+</RelativeLayout>

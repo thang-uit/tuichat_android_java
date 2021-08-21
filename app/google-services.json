@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "100071186878-9gj1mr56jvn0l93d8eplqt0p3jmsm68g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thanguit.tuichat",
+            "certificate_hash": "811f550ddf5cbae47942a5435e590dbf4f437134"
+          }
+        },
+        {
           "client_id": "100071186878-6i6k720u6vb3vhggu7mc6ci5a2uek536.apps.googleusercontent.com",
           "client_type": 3
         }
