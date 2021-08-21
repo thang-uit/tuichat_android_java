@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">TuiChat</string>
 
+    <string name="facebook_app_id">2892103481040828</string>
+    <string name="fb_login_protocol_scheme">fb2892103481040828</string>
+
 
     <string name="btnLoginPhoneNumber">Continue with phone number</string>
     <string name="btnLoginGoogle">Continue with Google</string>
@@ -11,6 +14,7 @@
     <string name="toast2">Error! Please enter the correct phone number</string>
     <string name="toast3">Error! Please try again</string>
     <string name="toast4">Select your image</string>
+    <string name="toast5">Canceled login</string>
 
     <string name="tvDeveloper">Thanguit Developer</string>
 

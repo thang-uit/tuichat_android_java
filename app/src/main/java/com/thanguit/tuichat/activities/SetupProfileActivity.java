@@ -5,11 +5,13 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,6 +38,10 @@ public class SetupProfileActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private FirebaseStorage firebaseStorage;
 
+    private AnimationScale animationScale;
+    private OpenSoftKeyboard openSoftKeyboard;
+    private LoadingDialog loadingDialog;
+
     private static final String USER_AVATAR_STORAGE = "USER_AVATAR";
     private static final String USER_DATABASE = "users";
 
@@ -45,6 +51,11 @@ public class SetupProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int startColor = getWindow().getStatusBarColor();
+            int endColor = ContextCompat.getColor(this, R.color.color_main_2);
+            ObjectAnimator.ofArgb(getWindow(), "statusBarColor", startColor, endColor).start();
+        }
         activitySetupProfileBinding = ActivitySetupProfileBinding.inflate(getLayoutInflater());
         setContentView(activitySetupProfileBinding.getRoot());
 
@@ -52,28 +63,32 @@ public class SetupProfileActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
 
+        animationScale = AnimationScale.getInstance();
+        openSoftKeyboard = OpenSoftKeyboard.getInstance();
+        loadingDialog = LoadingDialog.getInstance();
+
         initializeViews();
         listeners();
     }
 
     private void initializeViews() {
+        animationScale.eventCircleImageView(this, activitySetupProfileBinding.civUserAvatar);
+        animationScale.eventButton(this, activitySetupProfileBinding.btnSetupProfile);
     }
 
     private void listeners() {
-        AnimationScale.getInstance().eventCircleImageView(this, activitySetupProfileBinding.civUserAvatar);
         activitySetupProfileBinding.civUserAvatar.setOnClickListener(view -> activityResultLauncher.launch("image/*"));
 
-        AnimationScale.getInstance().eventButton(this, activitySetupProfileBinding.btnSetupProfile);
         activitySetupProfileBinding.btnSetupProfile.setOnClickListener(view -> {
             if (activitySetupProfileBinding.edtSetupProfileName.getText().toString().trim().isEmpty()) {
                 activitySetupProfileBinding.edtSetupProfileName.setError(getString(R.string.edtSetupProfileNameError));
-                OpenSoftKeyboard.getInstance().openSoftKeyboard(this, activitySetupProfileBinding.edtSetupProfileName);
+                openSoftKeyboard.openSoftKeyboard(this, activitySetupProfileBinding.edtSetupProfileName);
             } else if (selectImg == null) {
                 MyToast.makeText(this, MyToast.WARNING, getString(R.string.toast4), MyToast.SHORT).show();
             } else {
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if (firebaseUser != null) {
-                    LoadingDialog.getInstance().startLoading(this, false);
+                    loadingDialog.startLoading(this, false);
 
                     StorageReference storageReference = firebaseStorage.getReference().child(USER_AVATAR_STORAGE.trim()).child(firebaseUser.getUid());
                     storageReference.putFile(selectImg).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -97,7 +112,7 @@ public class SetupProfileActivity extends AppCompatActivity {
                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void unused) {
-                                                        LoadingDialog.getInstance().cancelLoading();
+                                                        loadingDialog.cancelLoading();
 
                                                         Intent intent = new Intent(SetupProfileActivity.this, MainActivity.class);
                                                         startActivity(intent);

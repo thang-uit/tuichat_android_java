@@ -2,8 +2,11 @@ package com.thanguit.tuichat.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -37,6 +40,10 @@ public class OTPActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private String verificationID;
 
+    private AnimationScale animationScale;
+    private LoadingDialog loadingDialog;
+    private OpenSoftKeyboard openSoftKeyboard;
+
     private static final String CODE_1 = "CODE_1";
     private static final String CODE_2 = "CODE_2";
     private static final String CODE_3 = "CODE_3";
@@ -47,11 +54,18 @@ public class OTPActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int startColor = getWindow().getStatusBarColor();
+            int endColor = ContextCompat.getColor(this, R.color.color_main_2);
+            ObjectAnimator.ofArgb(getWindow(), "statusBarColor", startColor, endColor).start();
+        }
         activityOtpactivityBinding = ActivityOtpactivityBinding.inflate(getLayoutInflater());
         setContentView(activityOtpactivityBinding.getRoot());
 
         firebaseAuth = FirebaseAuth.getInstance();
+        animationScale = AnimationScale.getInstance();
+        loadingDialog = LoadingDialog.getInstance();
+        openSoftKeyboard = OpenSoftKeyboard.getInstance();
 
         getIntentData();
         initializeViews();
@@ -59,7 +73,9 @@ public class OTPActivity extends AppCompatActivity {
     }
 
     private void initializeViews() {
-        LoadingDialog.getInstance().startLoading(OTPActivity.this, false);
+        animationScale.eventButton(this, activityOtpactivityBinding.btnVerifyOTP);
+
+        loadingDialog.startLoading(OTPActivity.this, false);
     }
 
     private void getIntentData() {
@@ -114,7 +130,7 @@ public class OTPActivity extends AppCompatActivity {
                                     // by combining the code with a verification ID.
                                     Log.d(TAG, "onCodeSent: " + code);
 
-                                    LoadingDialog.getInstance().cancelLoading();
+                                    loadingDialog.cancelLoading();
                                     verificationID = code;
                                 }
                             })
@@ -128,29 +144,28 @@ public class OTPActivity extends AppCompatActivity {
     private void listeners() {
         numberOTPNext();
 
-        AnimationScale.getInstance().eventButton(this, activityOtpactivityBinding.btnVerifyOTP);
         activityOtpactivityBinding.btnVerifyOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String OTP = checkOTP();
                 if (OTP.equals(CODE_1)) {
                     activityOtpactivityBinding.edtOTPCode1.setError(getString(R.string.edtOTPError));
-                    OpenSoftKeyboard.getInstance().openSoftKeyboard(OTPActivity.this, activityOtpactivityBinding.edtOTPCode1);
+                    openSoftKeyboard.openSoftKeyboard(OTPActivity.this, activityOtpactivityBinding.edtOTPCode1);
                 } else if (OTP.equals(CODE_2)) {
                     activityOtpactivityBinding.edtOTPCode2.setError(getString(R.string.edtOTPError));
-                    OpenSoftKeyboard.getInstance().openSoftKeyboard(OTPActivity.this, activityOtpactivityBinding.edtOTPCode2);
+                    openSoftKeyboard.openSoftKeyboard(OTPActivity.this, activityOtpactivityBinding.edtOTPCode2);
                 } else if (OTP.equals(CODE_3)) {
                     activityOtpactivityBinding.edtOTPCode3.setError(getString(R.string.edtOTPError));
-                    OpenSoftKeyboard.getInstance().openSoftKeyboard(OTPActivity.this, activityOtpactivityBinding.edtOTPCode3);
+                    openSoftKeyboard.openSoftKeyboard(OTPActivity.this, activityOtpactivityBinding.edtOTPCode3);
                 } else if (OTP.equals(CODE_4)) {
                     activityOtpactivityBinding.edtOTPCode4.setError(getString(R.string.edtOTPError));
-                    OpenSoftKeyboard.getInstance().openSoftKeyboard(OTPActivity.this, activityOtpactivityBinding.edtOTPCode4);
+                    openSoftKeyboard.openSoftKeyboard(OTPActivity.this, activityOtpactivityBinding.edtOTPCode4);
                 } else if (OTP.equals(CODE_5)) {
                     activityOtpactivityBinding.edtOTPCode5.setError(getString(R.string.edtOTPError));
-                    OpenSoftKeyboard.getInstance().openSoftKeyboard(OTPActivity.this, activityOtpactivityBinding.edtOTPCode5);
+                    openSoftKeyboard.openSoftKeyboard(OTPActivity.this, activityOtpactivityBinding.edtOTPCode5);
                 } else if (OTP.equals(CODE_6)) {
                     activityOtpactivityBinding.edtOTPCode6.setError(getString(R.string.edtOTPError));
-                    OpenSoftKeyboard.getInstance().openSoftKeyboard(OTPActivity.this, activityOtpactivityBinding.edtOTPCode6);
+                    openSoftKeyboard.openSoftKeyboard(OTPActivity.this, activityOtpactivityBinding.edtOTPCode6);
                 } else {
                     PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(verificationID, OTP);
                     firebaseAuth.signInWithCredential(phoneAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
