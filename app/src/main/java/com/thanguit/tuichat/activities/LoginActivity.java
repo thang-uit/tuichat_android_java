@@ -6,15 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.thanguit.tuichat.animations.AnimationScale;
 import com.thanguit.tuichat.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private ActivityLoginBinding activityLoginBinding;
-
-    private GoogleSignInClient googleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
