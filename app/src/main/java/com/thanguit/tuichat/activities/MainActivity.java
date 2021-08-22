@@ -12,9 +12,14 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.adapters.ViewPagerAdapter;
+import com.thanguit.tuichat.animations.AnimationScale;
 import com.thanguit.tuichat.animations.ZoomOutPageTransformer;
+import com.thanguit.tuichat.database.FirebaseManager;
 import com.thanguit.tuichat.databinding.ActivityMainBinding;
 import com.thanguit.tuichat.databinding.ActivityPhoneNumberBinding;
 
@@ -22,7 +27,12 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding activityMainBinding;
     private static final String TAG = "MainActivity";
 
+    private FirebaseManager firebaseManager;
+
     private ViewPagerAdapter viewPagerAdapter;
+    private FirebaseAuth firebaseAuth;
+
+    private AnimationScale animationScale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
 
+        firebaseManager = FirebaseManager.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+
         initializeViews();
         listeners();
     }
@@ -45,6 +58,16 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding.vp2ViewPager2.setCurrentItem(0); // Set default fragment
         activityMainBinding.vp2ViewPager2.setOffscreenPageLimit(2);
         activityMainBinding.vp2ViewPager2.setPageTransformer(new ZoomOutPageTransformer()); // Set animation change page
+
+//        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+//        if (currentUser != null) {
+//            Picasso.get()
+//                    .load(firebaseManager.getUserAvatar(currentUser.getUid()))
+//                    .placeholder(R.drawable.ic_logo)
+//                    .error(R.drawable.ic_logo)
+//                    .into(activityMainBinding.civAvatar);
+//        }
+
     }
 
     private void listeners() {
@@ -61,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
 
         activityMainBinding.vp2ViewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override

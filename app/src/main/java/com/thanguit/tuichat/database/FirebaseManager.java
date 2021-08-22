@@ -1,18 +1,15 @@
 package com.thanguit.tuichat.database;
 
-import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.thanguit.tuichat.models.User;
 
 public class FirebaseManager {
     private static FirebaseManager instance;
@@ -22,6 +19,8 @@ public class FirebaseManager {
 
     private static FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private static FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+
+    private String url = "";
 
 
     private FirebaseManager() {
@@ -39,5 +38,20 @@ public class FirebaseManager {
     }
 
     public void createUserProfile(String uid, String name, String phoneNumber, Uri avatar) {
+    }
+
+    public String getUserAvatar(String uid) {
+        firebaseDatabase.getReference().child("users").child(uid).child("avatar").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.d("firebase", "Error getting data", task.getException());
+                } else {
+                    url = task.getResult().getValue().toString();
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                }
+            }
+        });
+        return url;
     }
 }

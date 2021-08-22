@@ -7,22 +7,35 @@
     android:background="@color/color_main_2"
     tools:context=".activities.LoginActivity">
 
-    <ImageView
-        android:id="@+id/ivWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lavAnimation"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
-        app:srcCompat="@drawable/ic_mobile_login" />
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/animation_1" />
+
+    <!--    <ImageView-->
+    <!--        android:id="@+id/ivWelcome"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentTop="true"-->
+    <!--        android:layout_centerInParent="true"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:layout_marginTop="30dp"-->
+    <!--        android:gravity="center"-->
+    <!--        app:srcCompat="@drawable/ic_mobile_login" />-->
 
     <Button
         android:id="@+id/btnLoginFacebook"
         style="@style/btnLogin"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/btn_loginfb"
         android:drawableStart="@drawable/ic_logo_facebook"
         android:text="@string/btnLoginFacebook" />
