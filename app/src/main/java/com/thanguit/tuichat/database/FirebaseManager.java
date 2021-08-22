@@ -20,9 +20,6 @@ public class FirebaseManager {
     private static FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private static FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
 
-    private String url = "";
-
-
     private FirebaseManager() {
     }
 
@@ -37,21 +34,38 @@ public class FirebaseManager {
         return instance;
     }
 
+
+
+
+    public interface GetUserAvatarListener {
+        void getUserAvatarListener(String avatar);
+    }
+
+    private GetUserAvatarListener getUserAvatarListener;
+
+    public void setReadUserAvatar(GetUserAvatarListener getUserAvatarListener) {
+        this.getUserAvatarListener = getUserAvatarListener;
+    }
+
+
+
+
+
+
     public void createUserProfile(String uid, String name, String phoneNumber, Uri avatar) {
     }
 
-    public String getUserAvatar(String uid) {
-        firebaseDatabase.getReference().child("users").child(uid).child("avatar").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+    public void getUserAvatar(String uid) {
+        firebaseDatabase.getReference().child("users/" + uid.trim() + "/avatar").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.d("firebase", "Error getting data", task.getException());
                 } else {
-                    url = task.getResult().getValue().toString();
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    getUserAvatarListener.getUserAvatarListener(String.valueOf(task.getResult().getValue()));
                 }
             }
         });
-        return url;
     }
 }

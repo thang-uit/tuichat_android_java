@@ -75,7 +75,6 @@ public class ChatFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
@@ -85,6 +84,5 @@ public class ChatFragment extends Fragment {
         super.onDestroyView();
         fragmentChatBinding = null;
     }
-
 
 }

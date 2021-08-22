@@ -41,8 +41,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Picasso.get()
                 .load(userList.get(position).getAvatar())
-                .placeholder(R.drawable.ic_logo)
-                .error(R.drawable.ic_logo)
+                .placeholder(R.drawable.ic_user_avatar)
+                .error(R.drawable.ic_user_avatar)
                 .into(holder.itemConversationBinding.civAvatar);
         holder.itemConversationBinding.tvChatName.setText(userList.get(position).getName().trim());
     }

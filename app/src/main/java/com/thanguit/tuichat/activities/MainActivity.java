@@ -9,7 +9,6 @@ import android.animation.ObjectAnimator;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.WindowManager;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,7 +20,6 @@ import com.thanguit.tuichat.animations.AnimationScale;
 import com.thanguit.tuichat.animations.ZoomOutPageTransformer;
 import com.thanguit.tuichat.database.FirebaseManager;
 import com.thanguit.tuichat.databinding.ActivityMainBinding;
-import com.thanguit.tuichat.databinding.ActivityPhoneNumberBinding;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding activityMainBinding;
@@ -47,27 +45,35 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseManager = FirebaseManager.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
+        animationScale = AnimationScale.getInstance();
 
         initializeViews();
         listeners();
     }
 
     private void initializeViews() {
+        animationScale.eventCircleImageView(this, activityMainBinding.civAvatar);
+
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), getLifecycle());
         activityMainBinding.vp2ViewPager2.setAdapter(viewPagerAdapter);
         activityMainBinding.vp2ViewPager2.setCurrentItem(0); // Set default fragment
         activityMainBinding.vp2ViewPager2.setOffscreenPageLimit(2);
         activityMainBinding.vp2ViewPager2.setPageTransformer(new ZoomOutPageTransformer()); // Set animation change page
 
-//        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-//        if (currentUser != null) {
-//            Picasso.get()
-//                    .load(firebaseManager.getUserAvatar(currentUser.getUid()))
-//                    .placeholder(R.drawable.ic_logo)
-//                    .error(R.drawable.ic_logo)
-//                    .into(activityMainBinding.civAvatar);
-//        }
-
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            firebaseManager.getUserAvatar(currentUser.getUid().trim());
+            firebaseManager.setReadUserAvatar(new FirebaseManager.GetUserAvatarListener() {
+                @Override
+                public void getUserAvatarListener(String avatar) {
+                    Picasso.get()
+                            .load(avatar)
+                            .placeholder(R.drawable.ic_user_avatar)
+                            .error(R.drawable.ic_user_avatar)
+                            .into(activityMainBinding.civAvatar);
+                }
+            });
+        }
     }
 
     private void listeners() {
