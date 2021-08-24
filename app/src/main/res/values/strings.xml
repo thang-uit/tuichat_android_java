@@ -47,5 +47,11 @@
     <string name="tvLastMessage">Last message</string>
     <string name="tvChatTime">00:00</string>
 
+    <string name="edtChatMessage">Type something</string>
+    <string name="tvUserName">User name</string>
+
+    <string name="tvSend">Text send</string>
+    <string name="tvReceive">Text receive</string>
+
 
 </resources>

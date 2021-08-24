@@ -1,6 +1,8 @@
 package com.thanguit.tuichat.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.thanguit.tuichat.R;
+import com.thanguit.tuichat.activities.ChatActivity;
 import com.thanguit.tuichat.databinding.ItemConversationBinding;
 import com.thanguit.tuichat.models.User;
 
@@ -45,6 +48,15 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                 .error(R.drawable.ic_user_avatar)
                 .into(holder.itemConversationBinding.civAvatar);
         holder.itemConversationBinding.tvChatName.setText(userList.get(position).getName().trim());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ChatActivity.class);
+                intent.putExtra("USER", userList.get(holder.getLayoutPosition()));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

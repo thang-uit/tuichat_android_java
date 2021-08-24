@@ -23,6 +23,9 @@
     <color name="color_3">#4D4E4E</color> // Text color (Phụ)
     <color name="color_4">#C4C4C4</color> // Setup User Avatar
     <color name="color_5">#FFFFFF</color> // Main background (Trắng sữa, tinh khiết)
+    <color name="color_6">#EDEDED</color> // EditText Box Chat
+    <color name="color_7">#E2EBF0</color> // Text receive
+
 
 
     <!--    Background Colors-->

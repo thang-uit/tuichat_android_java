@@ -36,7 +36,7 @@
                 android:padding="5dp"
                 android:text="@string/tvOTP"
                 android:textAlignment="center"
-                android:textColor="@color/color_1"
+                android:textColor="@color/color_2"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
@@ -62,7 +62,7 @@
                 android:gravity="center"
                 android:padding="5dp"
                 android:textAlignment="center"
-                android:textColor="@color/color_1"
+                android:textColor="@color/color_2"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -229,7 +229,7 @@
                     android:background="@drawable/shape_background_gradient_corner_10dp"
                     android:text="@string/btnVerifyOTP"
                     android:textAllCaps="false"
-                    android:textColor="@color/color_1"
+                    android:textColor="@color/color_2"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </FrameLayout>
