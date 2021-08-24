@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.activities.ChatActivity;
@@ -24,6 +26,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private Context context;
     private List<User> userList;
+
+    private FirebaseAuth firebaseAuth;
 
     public UserAdapter() {
     }
@@ -42,6 +46,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        handleUser(holder, position);
+
         Picasso.get()
                 .load(userList.get(position).getAvatar())
                 .placeholder(R.drawable.ic_user_avatar)
@@ -59,11 +65,20 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         });
     }
 
+    private void handleUser(ViewHolder holder, int position) {
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            if (userList.get(position).getUid().trim().equals(currentUser.getUid().trim())) {
+                holder.itemView.setVisibility(View.GONE);
+            }
+        }
+    }
+
     @Override
     public int getItemCount() {
         return userList.size();
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ItemConversationBinding itemConversationBinding;

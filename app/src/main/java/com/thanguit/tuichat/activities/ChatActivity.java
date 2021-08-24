@@ -1,11 +1,20 @@
 package com.thanguit.tuichat.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.adapters.ChatMessageAdapter;
@@ -15,16 +24,27 @@ import com.thanguit.tuichat.models.ChatMessage;
 import com.thanguit.tuichat.models.User;
 import com.thanguit.tuichat.utils.OpenSoftKeyboard;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ChatActivity extends AppCompatActivity {
     private ActivityChatBinding activityChatBinding;
     private static final String TAG = "ChatActivity";
 
+    private FirebaseAuth firebaseAuth;
+    private FirebaseDatabase firebaseDatabase;
+
     private AnimationScale animationScale;
     private OpenSoftKeyboard openSoftKeyboard;
 
     private String avatar;
+
+    private String senderRoom;
+    private String receiverRoom;
 
     private List<ChatMessage> chatMessageList;
     private ChatMessageAdapter chatMessageAdapter;
@@ -36,10 +56,11 @@ public class ChatActivity extends AppCompatActivity {
         activityChatBinding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(activityChatBinding.getRoot());
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
         animationScale = AnimationScale.getInstance();
         openSoftKeyboard = OpenSoftKeyboard.getInstance();
 
-        getDataIntent();
         initializeViews();
         listeners();
     }
@@ -52,15 +73,14 @@ public class ChatActivity extends AppCompatActivity {
         animationScale.eventImageView(this, activityChatBinding.ivPicture);
         animationScale.eventImageView(this, activityChatBinding.ivSend);
         activityChatBinding.tvUserName.setSelected(true);
-    }
 
-    private void getDataIntent() {
         Intent intent = getIntent();
         if (intent != null) {
             if (intent.hasExtra("USER")) {
                 User user = new User();
                 user = (User) intent.getParcelableExtra("USER");
                 if (user != null) {
+                    String receiverID = user.getUid().trim();
                     String name = user.getName().trim();
                     avatar = user.getAvatar().trim();
 
@@ -70,6 +90,80 @@ public class ChatActivity extends AppCompatActivity {
                             .placeholder(R.drawable.ic_user_avatar)
                             .error(R.drawable.ic_user_avatar)
                             .into(activityChatBinding.civAvatar);
+
+                    FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+                    if (currentUser != null) {
+                        senderRoom = currentUser.getUid() + receiverID.trim();
+                        receiverRoom = receiverID.trim() + currentUser.getUid();
+
+                        chatMessageList = new ArrayList<>();
+                        chatMessageAdapter = new ChatMessageAdapter(this, chatMessageList, avatar);
+                        activityChatBinding.rvChatMessage.setLayoutManager(new LinearLayoutManager(this));
+                        activityChatBinding.rvChatMessage.setAdapter(chatMessageAdapter);
+
+                        firebaseDatabase.getReference()
+                                .child("chats")
+                                .child(senderRoom)
+                                .child("messages")
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        chatMessageList.clear();
+                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                            ChatMessage chatMessage = dataSnapshot.getValue(ChatMessage.class);
+                                            chatMessageList.add(chatMessage);
+                                        }
+                                        chatMessageAdapter.notifyDataSetChanged();
+                                        if (chatMessageAdapter.getItemCount() > 0) {
+                                            activityChatBinding.rvChatMessage.smoothScrollToPosition(activityChatBinding.rvChatMessage.getAdapter().getItemCount() - 1);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+
+                        activityChatBinding.ivSend.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                String message = activityChatBinding.edtChatMessage.getText().toString().trim();
+                                if (message.isEmpty()) {
+                                    activityChatBinding.edtChatMessage.setError(getString(R.string.edtChatMessage));
+                                    openSoftKeyboard.openSoftKeyboard(ChatActivity.this, activityChatBinding.edtChatMessage);
+                                } else {
+                                    Date date = new Date();
+                                    DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+                                    String time = dateFormat.format(date);
+
+                                    ChatMessage chatMessage = new ChatMessage(currentUser.getUid().trim(), message, time);
+                                    firebaseDatabase.getReference().child("chats")
+                                            .child(senderRoom.trim())
+                                            .child("messages")
+                                            .push()
+                                            .setValue(chatMessage)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    firebaseDatabase.getReference().child("chats")
+                                                            .child(receiverRoom.trim())
+                                                            .child("messages")
+                                                            .push()
+                                                            .setValue(chatMessage)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void unused) {
+                                                                    activityChatBinding.edtChatMessage.setText("");
+                                                                    activityChatBinding.rvChatMessage.smoothScrollToPosition(activityChatBinding.rvChatMessage.getAdapter().getItemCount() - 1);
+                                                                }
+                                                            });
+                                                }
+                                            });
+                                }
+                            }
+                        });
+                    }
                 }
             }
         }
@@ -80,16 +174,6 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-            }
-        });
-
-        activityChatBinding.ivSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (activityChatBinding.edtChatMessage.getText().toString().trim().isEmpty()) {
-                    activityChatBinding.edtChatMessage.setError(getString(R.string.edtChatMessage));
-                    openSoftKeyboard.openSoftKeyboard(ChatActivity.this, activityChatBinding.edtChatMessage);
-                }
             }
         });
     }

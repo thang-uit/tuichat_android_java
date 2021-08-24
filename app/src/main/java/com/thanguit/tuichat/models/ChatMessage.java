@@ -4,19 +4,19 @@ public class ChatMessage {
     private String messageID;
     private String message;
     private String senderID;
-    private long time;
+    private String time;
     private int emoticon;
 
     public ChatMessage() {
     }
 
-    public ChatMessage(String senderID, String message, long time) {
+    public ChatMessage(String senderID, String message, String time) {
         this.senderID = senderID;
         this.message = message;
         this.time = time;
     }
 
-    public ChatMessage(String messageID, String message, String senderID, long time, int emoticon) {
+    public ChatMessage(String messageID, String message, String senderID, String time, int emoticon) {
         this.messageID = messageID;
         this.message = message;
         this.senderID = senderID;
@@ -48,11 +48,11 @@ public class ChatMessage {
         this.senderID = senderID;
     }
 
-    public long getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

@@ -55,22 +55,20 @@ public class ChatFragment extends Fragment {
     }
 
     private void initializeViews() {
-        userList = new ArrayList<>();
-        userAdapter = new UserAdapter(getContext(), userList);
-        fragmentChatBinding.rvChat.setHasFixedSize(true);
-        fragmentChatBinding.rvChat.setAdapter(userAdapter);
     }
 
     private void listeners() {
         firebaseDatabase.getReference().child("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                userList.clear();
+                userList = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     User user = dataSnapshot.getValue(User.class);
                     userList.add(user);
                 }
-                userAdapter.notifyDataSetChanged();
+                userAdapter = new UserAdapter(getContext(), userList);
+                fragmentChatBinding.rvChat.setHasFixedSize(true);
+                fragmentChatBinding.rvChat.setAdapter(userAdapter);
             }
 
             @Override
