@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,6 +23,7 @@ import com.thanguit.tuichat.animations.AnimationScale;
 import com.thanguit.tuichat.databinding.ActivityChatBinding;
 import com.thanguit.tuichat.models.ChatMessage;
 import com.thanguit.tuichat.models.User;
+import com.thanguit.tuichat.utils.MyToast;
 import com.thanguit.tuichat.utils.OpenSoftKeyboard;
 
 import java.text.DateFormat;
@@ -114,6 +116,7 @@ public class ChatActivity extends AppCompatActivity {
                                             chatMessageList.add(chatMessage);
                                         }
                                         chatMessageAdapter.notifyDataSetChanged();
+
                                         if (chatMessageAdapter.getItemCount() > 0) {
                                             activityChatBinding.rvChatMessage.smoothScrollToPosition(activityChatBinding.rvChatMessage.getAdapter().getItemCount() - 1);
                                         }
@@ -125,6 +128,7 @@ public class ChatActivity extends AppCompatActivity {
                                     }
                                 });
 
+
                         activityChatBinding.ivSend.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -133,28 +137,36 @@ public class ChatActivity extends AppCompatActivity {
                                     activityChatBinding.edtChatMessage.setError(getString(R.string.edtChatMessage));
                                     openSoftKeyboard.openSoftKeyboard(ChatActivity.this, activityChatBinding.edtChatMessage);
                                 } else {
+                                    String randomID = firebaseDatabase.getReference().push().getKey(); // It mean key
+
                                     Date date = new Date();
                                     DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
                                     String time = dateFormat.format(date);
 
+                                    activityChatBinding.edtChatMessage.setText("");
                                     ChatMessage chatMessage = new ChatMessage(currentUser.getUid().trim(), message, time);
                                     firebaseDatabase.getReference().child("chats")
                                             .child(senderRoom.trim())
                                             .child("messages")
-                                            .push()
+                                            .child(randomID)
                                             .setValue(chatMessage)
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    MyToast.makeText(ChatActivity.this, MyToast.ERROR, getString(R.string.toast3), MyToast.SHORT).show();
+                                                }
+                                            })
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
                                                     firebaseDatabase.getReference().child("chats")
                                                             .child(receiverRoom.trim())
                                                             .child("messages")
-                                                            .push()
+                                                            .child(randomID)
                                                             .setValue(chatMessage)
                                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override
                                                                 public void onSuccess(Void unused) {
-                                                                    activityChatBinding.edtChatMessage.setText("");
                                                                     activityChatBinding.rvChatMessage.smoothScrollToPosition(activityChatBinding.rvChatMessage.getAdapter().getItemCount() - 1);
                                                                 }
                                                             });

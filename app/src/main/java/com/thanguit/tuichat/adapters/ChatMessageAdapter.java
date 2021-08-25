@@ -2,12 +2,16 @@ package com.thanguit.tuichat.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.pgreze.reactions.ReactionPopup;
+import com.github.pgreze.reactions.ReactionsConfig;
+import com.github.pgreze.reactions.ReactionsConfigBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
@@ -27,6 +31,15 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
 
     private final int ITEM_SEND = 1;
     private final int ITEM_RECEIVE = 2;
+
+    int[] emoticon = new int[]{
+            R.drawable.ic_love,
+            R.drawable.ic_laughing,
+            R.drawable.ic_crying,
+            R.drawable.ic_angry,
+            R.drawable.ic_surprised,
+            R.drawable.ic_cool
+    };
 
     public ChatMessageAdapter(Context context, List<ChatMessage> chatMessageList) {
         this.context = context;
@@ -67,6 +80,11 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        ReactionsConfig config = new ReactionsConfigBuilder(context)
+                .withReactions(emoticon)
+                .withPopupColor(context.getResources().getColor(R.color.color_8))
+                .build();
+
         if (getItemViewType(position) == ITEM_SEND) {
             SendViewHolder sendViewHolder = (SendViewHolder) holder;
             sendViewHolder.itemChatMessageSendBinding.tvSend.setText(chatMessageList.get(position).getMessage().trim());
@@ -77,6 +95,20 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                     .error(R.drawable.ic_user_avatar)
                     .into(receiveViewHolder.itemChatMessageReceiveBinding.civAvatar);
             receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setText(chatMessageList.get(position).getMessage().trim());
+
+            ReactionPopup popup = new ReactionPopup(context, config, (index) -> {
+                receiveViewHolder.itemChatMessageReceiveBinding.ivEmoticon.setImageResource(emoticon[index]);
+                receiveViewHolder.itemChatMessageReceiveBinding.ivEmoticon.setVisibility(View.VISIBLE);
+                return true; // true is closing popup, false is requesting a new selection
+            });
+
+            receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    popup.onTouch(view, motionEvent);
+                    return false;
+                }
+            });
         }
 
 //        if (holder.getClass().toString().trim().equals(SendViewHolder.class.toString().trim())) {
