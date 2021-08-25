@@ -51,7 +51,6 @@ public class ChatActivity extends AppCompatActivity {
     private List<ChatMessage> chatMessageList;
     private ChatMessageAdapter chatMessageAdapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +65,6 @@ public class ChatActivity extends AppCompatActivity {
         initializeViews();
         listeners();
     }
-
 
     private void initializeViews() {
         animationScale.eventImageView(this, activityChatBinding.ivBack);
@@ -95,11 +93,15 @@ public class ChatActivity extends AppCompatActivity {
 
                     FirebaseUser currentUser = firebaseAuth.getCurrentUser();
                     if (currentUser != null) {
+                        if (user.getUid().trim().equals(currentUser.getUid().trim())) {
+                            activityChatBinding.ivVideoCall.setVisibility(View.GONE);
+                            activityChatBinding.ivCall.setVisibility(View.GONE);
+                        }
                         senderRoom = currentUser.getUid() + receiverID.trim();
                         receiverRoom = receiverID.trim() + currentUser.getUid();
 
                         chatMessageList = new ArrayList<>();
-                        chatMessageAdapter = new ChatMessageAdapter(this, chatMessageList, avatar);
+                        chatMessageAdapter = new ChatMessageAdapter(this, chatMessageList, user.getUid(), avatar);
                         activityChatBinding.rvChatMessage.setLayoutManager(new LinearLayoutManager(this));
                         activityChatBinding.rvChatMessage.setAdapter(chatMessageAdapter);
 

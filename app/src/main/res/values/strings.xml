@@ -52,6 +52,7 @@
 
     <string name="tvSend">Text send</string>
     <string name="tvReceive">Text receive</string>
+    <string name="tvTime">00:00</string>
 
 
 </resources>

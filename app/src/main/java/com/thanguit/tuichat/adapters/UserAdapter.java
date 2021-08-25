@@ -2,7 +2,6 @@ package com.thanguit.tuichat.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +9,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.activities.ChatActivity;
 import com.thanguit.tuichat.databinding.ItemConversationBinding;
 import com.thanguit.tuichat.models.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
@@ -26,8 +22,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private Context context;
     private List<User> userList;
-
-    private FirebaseAuth firebaseAuth;
 
     public UserAdapter() {
     }
@@ -46,8 +40,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        handleUser(holder, position);
-
         Picasso.get()
                 .load(userList.get(position).getAvatar())
                 .placeholder(R.drawable.ic_user_avatar)
@@ -63,16 +55,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                 context.startActivity(intent);
             }
         });
-    }
-
-    private void handleUser(ViewHolder holder, int position) {
-        firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser != null) {
-            if (userList.get(position).getUid().trim().equals(currentUser.getUid().trim())) {
-                holder.itemView.setVisibility(View.GONE);
-            }
-        }
     }
 
     @Override

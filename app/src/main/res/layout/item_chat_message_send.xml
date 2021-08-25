@@ -3,14 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp">
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="end"
+        android:text="@string/tvTime"
+        android:textColor="@color/color_9"
+        android:textSize="11sp"
+        android:textStyle="normal"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/tvSend"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/tvSend"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="5dp"
         android:background="@drawable/shape_background_textsend_corner_20dp"
         android:padding="10dp"
@@ -19,7 +35,7 @@
         android:textSize="15sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTime" />
 
     <ImageView
         android:id="@+id/ivEmoticon"
@@ -30,5 +46,6 @@
         app:layout_constraintEnd_toStartOf="@+id/tvSend"
         app:layout_constraintStart_toStartOf="@+id/tvSend"
         app:srcCompat="@drawable/ic_love" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

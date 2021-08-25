@@ -63,8 +63,8 @@
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/fragment_people.xml" value="0.20244565217391305" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/fragment_setting.xml" value="0.20244565217391305" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/item_chat_message.xml" value="0.2151268115942029" />
-        <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/item_chat_message_receive.xml" value="0.6" />
-        <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/item_chat_message_send.xml" value="0.4" />
+        <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/item_chat_message_receive.xml" value="1.2" />
+        <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/item_chat_message_send.xml" value="0.8800000000000001" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/item_conversation.xml" value="0.264" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/layout_loading.xml" value="0.264" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/layout_toast.xml" value="0.22644927536231885" />
