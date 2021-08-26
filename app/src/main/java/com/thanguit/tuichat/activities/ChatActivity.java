@@ -30,6 +30,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -147,7 +148,8 @@ public class ChatActivity extends AppCompatActivity {
 
                                     activityChatBinding.edtChatMessage.setText("");
                                     ChatMessage chatMessage = new ChatMessage(currentUser.getUid().trim(), message, time);
-                                    firebaseDatabase.getReference().child("chats")
+                                    firebaseDatabase.getReference()
+                                            .child("chats")
                                             .child(senderRoom.trim())
                                             .child("messages")
                                             .child(randomID)
@@ -161,7 +163,8 @@ public class ChatActivity extends AppCompatActivity {
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
-                                                    firebaseDatabase.getReference().child("chats")
+                                                    firebaseDatabase.getReference()
+                                                            .child("chats")
                                                             .child(receiverRoom.trim())
                                                             .child("messages")
                                                             .child(randomID)
@@ -170,6 +173,12 @@ public class ChatActivity extends AppCompatActivity {
                                                                 @Override
                                                                 public void onSuccess(Void unused) {
                                                                     activityChatBinding.rvChatMessage.smoothScrollToPosition(activityChatBinding.rvChatMessage.getAdapter().getItemCount() - 1);
+
+                                                                    HashMap<String, Object> lastMessageObj = new HashMap<>();
+                                                                    lastMessageObj.put("lastMessage", chatMessage.getMessage().trim());
+                                                                    lastMessageObj.put("lastMessageTime", chatMessage.getTime().trim());
+                                                                    firebaseDatabase.getReference().child("chats").child(senderRoom.trim()).updateChildren(lastMessageObj);
+                                                                    firebaseDatabase.getReference().child("chats").child(receiverRoom.trim()).updateChildren(lastMessageObj);
                                                                 }
                                                             });
                                                 }

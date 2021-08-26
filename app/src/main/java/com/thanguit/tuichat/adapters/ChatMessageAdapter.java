@@ -163,20 +163,6 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
 //                }
 //            });
         }
-
-//        if (holder.getClass().toString().trim().equals(SendViewHolder.class.toString().trim())) {
-//            SendViewHolder sendViewHolder = (SendViewHolder) holder;
-//
-//            sendViewHolder.itemChatMessageSendBinding.tvSend.setText(chatMessageList.get(position).getMessage().trim());
-//        } else {
-//            ReceiveViewHolder receiveViewHolder = (ReceiveViewHolder) holder;
-//
-//            Picasso.get().load(avatar)
-//                    .placeholder(R.drawable.ic_user_avatar)
-//                    .error(R.drawable.ic_user_avatar)
-//                    .into(receiveViewHolder.itemChatMessageReceiveBinding.civAvatar);
-//            receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setText(chatMessageList.get(position).getMessage().trim());
-//        }
     }
 
     @Override
