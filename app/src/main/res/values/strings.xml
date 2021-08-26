@@ -19,6 +19,8 @@
     <string name="toast3">Error! Please try again</string>
     <string name="toast4">Select your image</string>
     <string name="toast5">Canceled login</string>
+    <string name="toast6">Permission Granted</string>
+    <string name="toast7">Permission Denied. </string>
 
     <string name="tvDeveloper">Thanguit Developer</string>
 
@@ -58,5 +60,8 @@
     <string name="tvReceive">Text receive</string>
     <string name="tvTime">00:00</string>
 
+    <string name="tedBottomPicker1">Done</string>
+    <string name="tedBottomPicker2">No Image</string>
+    <string name="tedBottomPicker3">You can only select up to 10 images</string>
 
 </resources>

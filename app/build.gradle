@@ -54,6 +54,9 @@ dependencies {
     implementation 'com.airbnb.android:lottie:4.1.0'
     implementation 'com.github.pgreze:android-reactions:1.6'
 
+    implementation 'gun0912.ted:tedpermission:2.2.3'
+    implementation 'gun0912.ted:tedbottompicker:2.0.1'
+
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

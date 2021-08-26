@@ -34,9 +34,6 @@ public class FirebaseManager {
         return instance;
     }
 
-
-
-
     public interface GetUserAvatarListener {
         void getUserAvatarListener(String avatar);
     }
@@ -47,14 +44,9 @@ public class FirebaseManager {
         this.getUserAvatarListener = getUserAvatarListener;
     }
 
-
-
-
-
-
     public void createUserProfile(String uid, String name, String phoneNumber, Uri avatar) {
     }
-    
+
     public void getUserAvatar(String uid) {
         firebaseDatabase.getReference().child("users/" + uid.trim() + "/avatar").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -67,5 +59,8 @@ public class FirebaseManager {
                 }
             }
         });
+    }
+
+    public void uploadStory() {
     }
 }
