@@ -54,7 +54,7 @@ public class FirebaseManager {
 
     public void createUserProfile(String uid, String name, String phoneNumber, Uri avatar) {
     }
-
+    
     public void getUserAvatar(String uid) {
         firebaseDatabase.getReference().child("users/" + uid.trim() + "/avatar").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override

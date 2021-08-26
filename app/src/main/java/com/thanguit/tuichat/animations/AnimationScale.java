@@ -7,6 +7,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.thanguit.tuichat.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -66,6 +68,20 @@ public class AnimationScale {
                 circleImageView.startAnimation(scaleDownAnimation);
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
                 circleImageView.startAnimation(scaleUpAnimation);
+            }
+            return false;
+        });
+    }
+
+    public void eventConstraintLayout(Context context, ConstraintLayout constraintLayout) {
+        this.scaleUpAnimation = AnimationUtils.loadAnimation(context, R.anim.scale_up);
+        this.scaleDownAnimation = AnimationUtils.loadAnimation(context, R.anim.scale_down);
+
+        constraintLayout.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                constraintLayout.startAnimation(scaleDownAnimation);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                constraintLayout.startAnimation(scaleUpAnimation);
             }
             return false;
         });
