@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), getLifecycle());
         activityMainBinding.vp2ViewPager2.setAdapter(viewPagerAdapter);
         activityMainBinding.vp2ViewPager2.setCurrentItem(0); // Set default fragment
-        activityMainBinding.vp2ViewPager2.setOffscreenPageLimit(2);
+//        activityMainBinding.vp2ViewPager2.setOffscreenPageLimit(2);
         activityMainBinding.vp2ViewPager2.setPageTransformer(new ZoomOutPageTransformer()); // Set animation change page
 
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();

@@ -102,7 +102,7 @@ public class ChatActivity extends AppCompatActivity {
                         receiverRoom = receiverID.trim() + currentUser.getUid();
 
                         chatMessageList = new ArrayList<>();
-                        chatMessageAdapter = new ChatMessageAdapter(this, chatMessageList, user.getUid(), avatar);
+                        chatMessageAdapter = new ChatMessageAdapter(this, chatMessageList, user.getUid(), avatar, senderRoom, receiverRoom);
                         activityChatBinding.rvChatMessage.setLayoutManager(new LinearLayoutManager(this));
                         activityChatBinding.rvChatMessage.setAdapter(chatMessageAdapter);
 
@@ -116,6 +116,7 @@ public class ChatActivity extends AppCompatActivity {
                                         chatMessageList.clear();
                                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                             ChatMessage chatMessage = dataSnapshot.getValue(ChatMessage.class);
+                                            chatMessage.setMessageID(dataSnapshot.getKey());
                                             chatMessageList.add(chatMessage);
                                         }
                                         chatMessageAdapter.notifyDataSetChanged();

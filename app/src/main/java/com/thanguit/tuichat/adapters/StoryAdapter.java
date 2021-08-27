@@ -39,6 +39,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
                 .placeholder(R.drawable.ic_user_avatar)
                 .error(R.drawable.ic_user_avatar)
                 .into(holder.itemStoryBinding.civStory);
+        holder.itemStoryBinding.tvUserStory.setText(userStoryList.get(position).getName().trim());
     }
 
     @Override
@@ -56,6 +57,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
             super(itemView);
 
             itemStoryBinding = ItemStoryBinding.bind(itemView);
+            itemStoryBinding.tvUserStory.setSelected(true);
         }
     }
 }

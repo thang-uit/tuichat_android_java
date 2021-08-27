@@ -5,7 +5,7 @@ public class ChatMessage {
     private String message;
     private String senderID;
     private String time;
-    private int emoticon;
+    private int emoticon = -1;
 
     public ChatMessage() {
     }

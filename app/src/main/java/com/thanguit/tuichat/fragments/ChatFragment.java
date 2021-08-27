@@ -11,7 +11,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +45,6 @@ import com.thanguit.tuichat.utils.MyToast;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -137,28 +135,20 @@ public class ChatFragment extends Fragment {
                 }
             });
 
-            firebaseDatabase.getReference().child("users/" + currentUser.getUid().trim() + "/avatar").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if (!task.isSuccessful()) {
-                        Log.d("firebase", "Error getting data", task.getException());
-                    } else {
-                        Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                        Picasso.get()
-                                .load(String.valueOf(task.getResult().getValue()))
-                                .placeholder(R.drawable.ic_user_avatar)
-                                .error(R.drawable.ic_user_avatar)
-                                .into(fragmentChatBinding.civStory);
-                    }
-                }
-            });
-
             firebaseManager.getUserInfo(currentUser.getUid().trim());
             firebaseManager.setReadUserInformation(new FirebaseManager.GetUserInformationListener() {
                 @Override
                 public void getUserInformationListener(User user) {
-                    mUser = new User();
-                    mUser = user;
+                    if (user != null) {
+                        mUser = new User();
+                        mUser = user;
+
+                        Picasso.get()
+                                .load(user.getAvatar())
+                                .placeholder(R.drawable.ic_user_avatar)
+                                .error(R.drawable.ic_user_avatar)
+                                .into(fragmentChatBinding.civStory);
+                    }
                 }
             });
 
@@ -182,17 +172,17 @@ public class ChatFragment extends Fragment {
                             userStory.setStoryList(storyList);
                             userStoryList.add(userStory);
                         }
-                        storyAdapter = new StoryAdapter(getContext(), userStoryList);
-                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-                        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
                         fragmentChatBinding.rvStory.setLayoutManager(linearLayoutManager);
+                        storyAdapter = new StoryAdapter(getContext(), userStoryList);
+                        fragmentChatBinding.rvStory.setHasFixedSize(true);
                         fragmentChatBinding.rvStory.setAdapter(storyAdapter);
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
                 }
             });
         }
@@ -304,38 +294,6 @@ public class ChatFragment extends Fragment {
         }
     }
 
-    private void addToDatabaseRealtime(String storyImage) {
-    }
-
-    private String handleDate(String date) {
-        // Code lấy từ link này nè: https://vnsharebox.com/blog/convert-string-to-datetime-android/
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
-        try {
-            Date datetime_1 = simpleDateFormat.parse(date); // Chuyển String ngày nhập vào thành Date
-
-            String currentTime = simpleDateFormat.format(calendar.getTime()); // calendar.getTime(): Trả về đối tượng Date dựa trên giá trị của Calendar.
-            Date datetime_2 = simpleDateFormat.parse(currentTime); // Chuyển String ngày nhập vào thành Date
-
-            long diff = datetime_2.getTime() - datetime_1.getTime();
-            int hours = (int) (diff / (60 * 60 * 1000));
-            int minutes = (int) (diff / (1000 * 60)) % 60;
-            int days = (int) (diff / (24 * 60 * 60 * 1000));
-
-            if (days > 0) {
-                return days + getResources().getString(R.string.days);
-            } else {
-                if (hours > 0) {
-                    return hours + getResources().getString(R.string.hours);
-                } else {
-                    return minutes + getResources().getString(R.string.minutes);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return getResources().getString(R.string.today);
-        }
-    }
 //    ActivityResultLauncher<String> activityResultLauncher = registerForActivityResult(
 //            new ActivityResultContracts.GetContent(),
 //            new ActivityResultCallback<Uri>() {

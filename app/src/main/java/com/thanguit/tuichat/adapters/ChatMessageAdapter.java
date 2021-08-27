@@ -16,6 +16,7 @@ import com.github.pgreze.reactions.ReactionsConfig;
 import com.github.pgreze.reactions.ReactionsConfigBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.databinding.ItemChatMessageReceiveBinding;
@@ -33,9 +34,13 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
     private List<ChatMessage> chatMessageList;
     private String uid;
     private String avatar;
+    private String senderRoom;
+    private String receiverRoom;
 
     private final int ITEM_SEND = 1;
     private final int ITEM_RECEIVE = 2;
+
+    private FirebaseDatabase firebaseDatabase;
 
     int[] emoticon = new int[]{
             R.drawable.ic_love,
@@ -51,11 +56,13 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
         this.chatMessageList = chatMessageList;
     }
 
-    public ChatMessageAdapter(Context context, List<ChatMessage> chatMessageList, String uid, String avatar) {
+    public ChatMessageAdapter(Context context, List<ChatMessage> chatMessageList, String uid, String avatar, String senderRoom, String receiverRoom) {
         this.context = context;
         this.chatMessageList = chatMessageList;
         this.uid = uid;
         this.avatar = avatar;
+        this.senderRoom = senderRoom;
+        this.receiverRoom = receiverRoom;
     }
 
     @NonNull
@@ -86,6 +93,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
@@ -116,6 +124,13 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                     sendViewHolder.itemChatMessageSendBinding.tvSend.setText(chatMessageList.get(position).getMessage().trim());
                     sendViewHolder.itemChatMessageSendBinding.tvTime.setText(chatMessageList.get(position).getTime().trim());
 
+                    if (chatMessageList.get(position).getEmoticon() >= 0) {
+                        sendViewHolder.itemChatMessageSendBinding.ivEmoticon.setImageResource(emoticon[chatMessageList.get(position).getEmoticon()]);
+                        sendViewHolder.itemChatMessageSendBinding.ivEmoticon.setVisibility(View.VISIBLE);
+                    } else {
+                        sendViewHolder.itemChatMessageSendBinding.ivEmoticon.setVisibility(View.GONE);
+                    }
+
                     sendViewHolder.itemChatMessageSendBinding.tvSend.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -135,6 +150,13 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                     receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setText(chatMessageList.get(position).getMessage().trim());
                     receiveViewHolder.itemChatMessageReceiveBinding.tvTime.setText(chatMessageList.get(position).getTime().trim());
 
+                    if (chatMessageList.get(position).getEmoticon() >= 0) {
+                        receiveViewHolder.itemChatMessageReceiveBinding.ivEmoticon.setImageResource(emoticon[chatMessageList.get(position).getEmoticon()]);
+                        receiveViewHolder.itemChatMessageReceiveBinding.ivEmoticon.setVisibility(View.VISIBLE);
+                    } else {
+                        receiveViewHolder.itemChatMessageReceiveBinding.ivEmoticon.setVisibility(View.GONE);
+                    }
+
                     receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -147,20 +169,38 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                     });
 
                     ReactionPopup popup = new ReactionPopup(context, config, (index) -> {
+                        if (index < 0) {
+                            return false;
+                        }
                         receiveViewHolder.itemChatMessageReceiveBinding.ivEmoticon.setImageResource(emoticon[index]);
                         receiveViewHolder.itemChatMessageReceiveBinding.ivEmoticon.setVisibility(View.VISIBLE);
+
+                        firebaseDatabase.getReference()
+                                .child("chats")
+                                .child(senderRoom)
+                                .child("messages")
+                                .child(chatMessageList.get(position).getMessageID())
+                                .child("emoticon")
+                                .setValue(index);
+                        firebaseDatabase.getReference()
+                                .child("chats")
+                                .child(receiverRoom)
+                                .child("messages")
+                                .child(chatMessageList.get(position).getMessageID())
+                                .child("emoticon")
+                                .setValue(index);
                         return true; // true is closing popup, false is requesting a new selection
+                    });
+
+                    receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            popup.onTouch(view, motionEvent);
+                            return false;
+                        }
                     });
                 }
             }
-
-//            receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setOnTouchListener(new View.OnTouchListener() {
-//                @Override
-//                public boolean onTouch(View view, MotionEvent motionEvent) {
-//                    popup.onTouch(view, motionEvent);
-//                    return false;
-//                }
-//            });
         }
     }
 
