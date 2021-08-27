@@ -34,7 +34,6 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
         Story lastStory = userStoryList.get(position).getStoryList().get(userStoryList.get(position).getStoryList().size() - 1);
         Picasso.get().load(lastStory.getImage())
                 .placeholder(R.drawable.ic_user_avatar)
