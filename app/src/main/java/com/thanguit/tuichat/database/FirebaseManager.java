@@ -8,8 +8,11 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.thanguit.tuichat.models.User;
 
 public class FirebaseManager {
     private static FirebaseManager instance;
@@ -44,23 +47,49 @@ public class FirebaseManager {
         this.getUserAvatarListener = getUserAvatarListener;
     }
 
+    public interface GetUserInformationListener {
+        void getUserInformationListener(User user);
+    }
+
+    private GetUserInformationListener getUserInformationListener;
+
+    public void setReadUserInformation(GetUserInformationListener getUserInformationListener) {
+        this.getUserInformationListener = getUserInformationListener;
+    }
+
+
     public void createUserProfile(String uid, String name, String phoneNumber, Uri avatar) {
     }
 
     public void getUserAvatar(String uid) {
-        firebaseDatabase.getReference().child("users/" + uid.trim() + "/avatar").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        firebaseDatabase.getReference().child("users/" + uid.trim() + "/avatar").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.d("firebase", "Error getting data", task.getException());
-                } else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    getUserAvatarListener.getUserAvatarListener(String.valueOf(task.getResult().getValue()));
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    getUserAvatarListener.getUserAvatarListener(snapshot.getValue(String.class));
                 }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("firebase", error.getMessage().trim());
             }
         });
     }
 
-    public void uploadStory() {
+    public void getUserInfo(String uid) {
+        firebaseDatabase.getReference().child("users/" + uid.trim()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    getUserInformationListener.getUserInformationListener(snapshot.getValue(User.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("firebase", error.getMessage().trim());
+            }
+        });
     }
 }

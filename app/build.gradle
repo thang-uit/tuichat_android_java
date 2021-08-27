@@ -53,7 +53,6 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.airbnb.android:lottie:4.1.0'
     implementation 'com.github.pgreze:android-reactions:1.6'
-
     implementation 'gun0912.ted:tedpermission:2.2.3'
     implementation 'gun0912.ted:tedbottompicker:2.0.1'
 

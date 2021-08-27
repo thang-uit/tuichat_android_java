@@ -154,7 +154,6 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                 }
             }
 
-
 //            receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setOnTouchListener(new View.OnTouchListener() {
 //                @Override
 //                public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -167,7 +166,10 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return chatMessageList.size();
+        if (chatMessageList != null) {
+            return chatMessageList.size();
+        }
+        return 0;
     }
 
     public class SendViewHolder extends RecyclerView.ViewHolder {

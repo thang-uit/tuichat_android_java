@@ -21,6 +21,8 @@
     <string name="toast5">Canceled login</string>
     <string name="toast6">Permission Granted</string>
     <string name="toast7">Permission Denied. </string>
+    <string name="toast8">Upload failed! Please try again</string>
+    <string name="toast9">Upload successful!</string>
 
     <string name="tvDeveloper">Thanguit Developer</string>
 
@@ -62,6 +64,6 @@
 
     <string name="tedBottomPicker1">Done</string>
     <string name="tedBottomPicker2">No Image</string>
-    <string name="tedBottomPicker3">You can only select up to 10 images</string>
+    <string name="tedBottomPicker3">You can only select up to 5 images</string>
 
 </resources>

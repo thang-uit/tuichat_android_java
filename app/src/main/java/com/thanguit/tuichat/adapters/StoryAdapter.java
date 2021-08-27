@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.databinding.ItemStoryBinding;
+import com.thanguit.tuichat.models.Story;
 import com.thanguit.tuichat.models.UserStory;
 
 import java.util.List;
@@ -32,6 +34,12 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        Story lastStory = userStoryList.get(position).getStoryList().get(userStoryList.get(position).getStoryList().size() - 1);
+        Picasso.get().load(lastStory.getImage())
+                .placeholder(R.drawable.ic_user_avatar)
+                .error(R.drawable.ic_user_avatar)
+                .into(holder.itemStoryBinding.civStory);
     }
 
     @Override
