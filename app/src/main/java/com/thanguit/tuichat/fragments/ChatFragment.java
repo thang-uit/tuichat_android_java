@@ -128,6 +128,9 @@ public class ChatFragment extends Fragment {
                     userAdapter = new UserAdapter(getContext(), userList);
                     fragmentChatBinding.rvChat.setHasFixedSize(true);
                     fragmentChatBinding.rvChat.setAdapter(userAdapter);
+
+                    fragmentChatBinding.sflItemConversation.setVisibility(View.GONE);
+                    fragmentChatBinding.rvChat.setVisibility(View.VISIBLE);
                 }
 
                 @Override
@@ -178,6 +181,9 @@ public class ChatFragment extends Fragment {
                         storyAdapter = new StoryAdapter(getContext(), userStoryList);
                         fragmentChatBinding.rvStory.setHasFixedSize(true);
                         fragmentChatBinding.rvStory.setAdapter(storyAdapter);
+
+                        fragmentChatBinding.sflItemStory.setVisibility(View.GONE);
+                        fragmentChatBinding.rvStory.setVisibility(View.VISIBLE);
                     }
                 }
 

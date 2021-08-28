@@ -4,48 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="3dp"
+    android:layout_marginEnd="5dp"
     android:layout_marginBottom="8dp">
 
-    <TextView
-        android:id="@+id/tvTime"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="end"
-        android:text="@string/tvTime"
-        android:textColor="@color/color_9"
-        android:textSize="11sp"
-        android:textStyle="normal"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/tvSend"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/tvSend"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvSend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="5dp"
         android:background="@drawable/shape_background_textsend_corner_20dp"
-        android:padding="10dp"
-        android:text="@string/tvSend"
-        android:textColor="@color/color_2"
-        android:textSize="15sp"
-        android:textStyle="normal"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTime" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_margin="10dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_user_avatar" />
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="end"
+            android:text="@string/tvTime"
+            android:textColor="@color/color_9"
+            android:textSize="11sp"
+            android:textStyle="normal"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_background_textsend_corner_20dp"
+            android:padding="10dp"
+            android:text="@string/tvSend"
+            android:textColor="@color/color_2"
+            android:textSize="15sp"
+            android:textStyle="normal" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/ivEmoticon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/tvSend"
-        app:layout_constraintEnd_toStartOf="@+id/tvSend"
-        app:layout_constraintStart_toStartOf="@+id/tvSend"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
         app:srcCompat="@drawable/ic_love" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

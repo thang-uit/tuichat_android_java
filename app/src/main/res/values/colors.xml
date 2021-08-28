@@ -27,6 +27,7 @@
     <color name="color_7">#E2EBF0</color> // Text receive
     <color name="color_8">#C1C1C1</color> // Background reactions icon
     <color name="color_9">#8A8787</color> // BText for time message
+    <color name="color_10">#BCBCBC</color> // Shimmer
 
 
     <!--    Background Colors-->
