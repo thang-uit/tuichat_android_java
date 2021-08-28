@@ -121,7 +121,10 @@
                 android:background="@drawable/shape_background_edt_corner_20dp"
                 android:hint="@string/edtChatMessage"
                 android:maxHeight="100dp"
+                android:overScrollMode="always"
                 android:padding="10dp"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
                 android:textColor="@color/color_2"
                 android:textColorHighlight="@color/color_main_1"
                 android:textSize="17sp" />
