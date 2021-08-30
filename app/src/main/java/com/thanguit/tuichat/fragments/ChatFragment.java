@@ -64,7 +64,7 @@ public class ChatFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
     private FirebaseStorage firebaseStorage;
-    private FirebaseManager firebaseManager;
+//    private FirebaseManager firebaseManager;
 
     private List<User> userList;
     private UserAdapter userAdapter;
@@ -98,7 +98,6 @@ public class ChatFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
-        firebaseManager = FirebaseManager.getInstance();
         animationScale = AnimationScale.getInstance();
         loadingDialog = LoadingDialog.getInstance();
 
@@ -138,8 +137,8 @@ public class ChatFragment extends Fragment {
                 }
             });
 
-            firebaseManager.getUserInfo(currentUser.getUid().trim());
-            firebaseManager.setReadUserInformation(new FirebaseManager.GetUserInformationListener() {
+            FirebaseManager.getInstance().getUserInfo(currentUser.getUid().trim());
+            FirebaseManager.getInstance().setReadUserInformation(new FirebaseManager.GetUserInformationListener() {
                 @Override
                 public void getUserInformationListener(User user) {
                     if (user != null) {
