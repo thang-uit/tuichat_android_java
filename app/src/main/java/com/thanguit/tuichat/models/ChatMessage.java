@@ -3,6 +3,7 @@ package com.thanguit.tuichat.models;
 public class ChatMessage {
     private String messageID;
     private String message;
+    private String image;
     private String senderID;
     private String time;
     private int emoticon = -1;
@@ -13,6 +14,13 @@ public class ChatMessage {
     public ChatMessage(String senderID, String message, String time) {
         this.senderID = senderID;
         this.message = message;
+        this.time = time;
+    }
+
+    public ChatMessage(String senderID, String message, String image, String time) {
+        this.senderID = senderID;
+        this.message = message;
+        this.image = image;
         this.time = time;
     }
 
@@ -62,5 +70,13 @@ public class ChatMessage {
 
     public void setEmoticon(int emoticon) {
         this.emoticon = emoticon;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

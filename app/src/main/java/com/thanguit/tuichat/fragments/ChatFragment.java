@@ -183,6 +183,9 @@ public class ChatFragment extends Fragment {
 
                         fragmentChatBinding.sflItemStory.setVisibility(View.GONE);
                         fragmentChatBinding.rvStory.setVisibility(View.VISIBLE);
+                    } else {
+                        fragmentChatBinding.sflItemStory.setVisibility(View.GONE);
+                        fragmentChatBinding.rvStory.setVisibility(View.VISIBLE);
                     }
                 }
 

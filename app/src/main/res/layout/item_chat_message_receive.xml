@@ -4,56 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp">
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="5dp">
 
     <TextView
         android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:gravity="start"
         android:text="@string/tvTime"
         android:textColor="@color/color_9"
         android:textSize="11sp"
         android:textStyle="normal"
         android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/tvReceive"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tvReceive"
+        app:layout_constraintStart_toStartOf="@+id/llChatReceive"
         app:layout_constraintTop_toTopOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civAvatar"
-        android:layout_width="40.6dp"
-        android:layout_height="40.6dp"
-        android:layout_marginStart="5dp"
+        android:layout_width="40.5dp"
+        android:layout_height="40.5dp"
         android:src="@drawable/ic_user_avatar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvReceive" />
+        app:layout_constraintBottom_toBottomOf="@+id/llChatReceive"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/tvReceive"
+    <LinearLayout
+        android:id="@+id/llChatReceive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginStart="3dp"
         android:background="@drawable/shape_background_textreceive_corner_10dp"
-        android:padding="10dp"
-        android:text="@string/tvReceive"
-        android:textColor="@color/color_2"
-        android:textSize="15sp"
-        android:textStyle="normal"
+        android:orientation="vertical"
         app:layout_constraintStart_toEndOf="@+id/civAvatar"
-        app:layout_constraintTop_toBottomOf="@+id/tvTime" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTime">
+
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_picture" />
+
+        <TextView
+            android:id="@+id/tvReceive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/tvReceive"
+            android:textColor="@color/color_2"
+            android:textSize="15sp"
+            android:textStyle="normal" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/ivEmoticon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tvReceive"
-        app:layout_constraintStart_toEndOf="@+id/tvReceive"
+        app:layout_constraintBottom_toBottomOf="@+id/llChatReceive"
+        app:layout_constraintEnd_toEndOf="@+id/llChatReceive"
+        app:layout_constraintStart_toEndOf="@+id/llChatReceive"
         app:srcCompat="@drawable/ic_love" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

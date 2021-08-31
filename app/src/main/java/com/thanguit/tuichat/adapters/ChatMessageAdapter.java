@@ -103,7 +103,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                 sendViewHolder.itemChatMessageSendBinding.tvSend.setText(chatMessageList.get(position).getMessage().trim());
                 sendViewHolder.itemChatMessageSendBinding.tvTime.setText(chatMessageList.get(position).getTime().trim());
 
-                sendViewHolder.itemChatMessageSendBinding.tvSend.setOnClickListener(new View.OnClickListener() {
+                sendViewHolder.itemChatMessageSendBinding.llChatSend.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (sendViewHolder.itemChatMessageSendBinding.tvTime.getVisibility() == View.GONE) {
@@ -123,6 +123,14 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                     SendViewHolder sendViewHolder = (SendViewHolder) holder;
                     sendViewHolder.itemChatMessageSendBinding.tvSend.setText(chatMessageList.get(position).getMessage().trim());
                     sendViewHolder.itemChatMessageSendBinding.tvTime.setText(chatMessageList.get(position).getTime().trim());
+                    if (!chatMessageList.get(position).getImage().trim().isEmpty()) {
+                        sendViewHolder.itemChatMessageSendBinding.ivImage.setVisibility(View.VISIBLE);
+                        sendViewHolder.itemChatMessageSendBinding.tvSend.setVisibility(View.GONE);
+                        Picasso.get().load(chatMessageList.get(position).getImage().trim())
+                                .placeholder(R.drawable.ic_picture)
+                                .error(R.drawable.ic_picture)
+                                .into(sendViewHolder.itemChatMessageSendBinding.ivImage);
+                    }
 
                     if (chatMessageList.get(position).getEmoticon() >= 0) {
                         sendViewHolder.itemChatMessageSendBinding.ivEmoticon.setImageResource(emoticon[chatMessageList.get(position).getEmoticon()]);
@@ -131,7 +139,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                         sendViewHolder.itemChatMessageSendBinding.ivEmoticon.setVisibility(View.GONE);
                     }
 
-                    sendViewHolder.itemChatMessageSendBinding.tvSend.setOnClickListener(new View.OnClickListener() {
+                    sendViewHolder.itemChatMessageSendBinding.llChatSend.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             if (sendViewHolder.itemChatMessageSendBinding.tvTime.getVisibility() == View.GONE) {
@@ -149,6 +157,14 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                             .into(receiveViewHolder.itemChatMessageReceiveBinding.civAvatar);
                     receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setText(chatMessageList.get(position).getMessage().trim());
                     receiveViewHolder.itemChatMessageReceiveBinding.tvTime.setText(chatMessageList.get(position).getTime().trim());
+                    if (!chatMessageList.get(position).getImage().trim().isEmpty()) {
+                        receiveViewHolder.itemChatMessageReceiveBinding.ivImage.setVisibility(View.VISIBLE);
+                        receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setVisibility(View.GONE);
+                        Picasso.get().load(chatMessageList.get(position).getImage().trim())
+                                .placeholder(R.drawable.ic_picture)
+                                .error(R.drawable.ic_picture)
+                                .into(receiveViewHolder.itemChatMessageReceiveBinding.ivImage);
+                    }
 
                     if (chatMessageList.get(position).getEmoticon() >= 0) {
                         receiveViewHolder.itemChatMessageReceiveBinding.ivEmoticon.setImageResource(emoticon[chatMessageList.get(position).getEmoticon()]);
@@ -157,7 +173,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                         receiveViewHolder.itemChatMessageReceiveBinding.ivEmoticon.setVisibility(View.GONE);
                     }
 
-                    receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setOnClickListener(new View.OnClickListener() {
+                    receiveViewHolder.itemChatMessageReceiveBinding.llChatReceive.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             if (receiveViewHolder.itemChatMessageReceiveBinding.tvTime.getVisibility() == View.GONE) {
@@ -192,7 +208,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                         return true; // true is closing popup, false is requesting a new selection
                     });
 
-                    receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setOnTouchListener(new View.OnTouchListener() {
+                    receiveViewHolder.itemChatMessageReceiveBinding.llChatReceive.setOnTouchListener(new View.OnTouchListener() {
                         @Override
                         public boolean onTouch(View view, MotionEvent motionEvent) {
                             popup.onTouch(view, motionEvent);

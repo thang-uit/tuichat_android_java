@@ -24,16 +24,36 @@
             android:padding="10dp"
             app:srcCompat="@drawable/ic_back" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/civAvatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cslAvatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignTop="@+id/ivBack"
             android:layout_alignBottom="@+id/ivBack"
             android:layout_centerInParent="true"
             android:layout_marginStart="5dp"
-            android:layout_toEndOf="@+id/ivBack"
-            android:src="@drawable/ic_user_avatar" />
+            android:layout_toEndOf="@+id/ivBack">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civAvatar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_user_avatar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivStatusOnline"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@drawable/shape_background_status_online_oval_corner_20dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/civAvatar"
+                app:layout_constraintEnd_toEndOf="@+id/civAvatar"
+                app:layout_constraintStart_toEndOf="@+id/civAvatar" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/tvUserName"
@@ -45,7 +65,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_toStartOf="@+id/ivVideoCall"
-            android:layout_toEndOf="@+id/civAvatar"
+            android:layout_toEndOf="@+id/cslAvatar"
             android:ellipsize="marquee"
             android:gravity="center_vertical"
             android:marqueeRepeatLimit="marquee_forever"
@@ -78,65 +98,90 @@
     </RelativeLayout>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvChatMessage"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/cvChat"
-        android:layout_below="@+id/rlChatInfo"
-        android:background="@color/color_5" />
+        android:layout_below="@+id/rlChatInfo">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvChatMessage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/color_5"
+            app:layout_constraintBottom_toTopOf="@+id/cvChat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvChat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/color_5">
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lavAnimationTyping"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toTopOf="@+id/cvChat"
+            app:layout_constraintStart_toStartOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/animation_2" />
 
-        <RelativeLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvChat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_alignParentBottom="true"
             android:background="@color/color_5"
-            android:gravity="center"
-            android:padding="8dp">
+            app:cardElevation="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-            <ImageView
-                android:id="@+id/ivPicture"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignParentStart="true"
-                android:layout_centerInParent="true"
-                app:srcCompat="@drawable/ic_picture" />
-
-            <EditText
-                android:id="@+id/edtChatMessage"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_toStartOf="@+id/ivSend"
-                android:layout_toEndOf="@+id/ivPicture"
-                android:background="@drawable/shape_background_edt_corner_20dp"
-                android:hint="@string/edtChatMessage"
-                android:maxHeight="100dp"
-                android:overScrollMode="always"
-                android:padding="10dp"
-                android:scrollbarStyle="insideInset"
-                android:scrollbars="vertical"
-                android:textColor="@color/color_2"
-                android:textColorHighlight="@color/color_main_1"
-                android:textSize="17sp" />
+                android:layout_gravity="center"
+                android:background="@color/color_5"
+                android:gravity="center"
+                android:padding="8dp">
 
-            <ImageView
-                android:id="@+id/ivSend"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerInParent="true"
-                app:srcCompat="@drawable/ic_send" />
+                <ImageView
+                    android:id="@+id/ivPicture"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
+                    app:srcCompat="@drawable/ic_picture" />
 
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+                <EditText
+                    android:id="@+id/edtChatMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toStartOf="@+id/ivSend"
+                    android:layout_toEndOf="@+id/ivPicture"
+                    android:background="@drawable/shape_background_edt_corner_20dp"
+                    android:hint="@string/edtChatMessage"
+                    android:maxHeight="100dp"
+                    android:overScrollMode="always"
+                    android:padding="10dp"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
+                    android:textColor="@color/color_2"
+                    android:textColorHighlight="@color/color_main_1"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:id="@+id/ivSend"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    app:srcCompat="@drawable/ic_send" />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </RelativeLayout>
