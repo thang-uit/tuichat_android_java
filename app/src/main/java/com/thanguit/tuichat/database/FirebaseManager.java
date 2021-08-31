@@ -17,8 +17,11 @@ import com.thanguit.tuichat.models.User;
 public class FirebaseManager {
     private static FirebaseManager instance;
 
-    private static final String USER_AVATAR_STORAGE = "User_Avatar";
-    private static final String USER_DATABASE = "users";
+    //    private static final String USER_AVATAR_STORAGE = "User_Avatar";
+//    private static final String USER_DATABASE = "users";
+    private static final String STATUS_DATABASE = "status";
+    private static final String STATUS_DATABASE_ONLINE = "online";
+    private static final String STATUS_DATABASE_OFFLINE = "offline";
 
     private static FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private static FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
@@ -91,5 +94,13 @@ public class FirebaseManager {
                 Log.d("firebase", error.getMessage().trim());
             }
         });
+    }
+
+    public void setStatusOnline(String uid) {
+        firebaseDatabase.getReference().child(STATUS_DATABASE.trim()).child(uid.trim()).setValue(STATUS_DATABASE_ONLINE.trim());
+    }
+
+    public void setStatusOffline(String uid) {
+        firebaseDatabase.getReference().child(STATUS_DATABASE.trim()).child(uid.trim()).setValue(STATUS_DATABASE_OFFLINE.trim());
     }
 }

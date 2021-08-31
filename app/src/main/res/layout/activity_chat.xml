@@ -117,6 +117,7 @@
             android:id="@+id/lavAnimationTyping"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/cvChat"
             app:layout_constraintStart_toStartOf="parent"
             app:lottie_autoPlay="true"

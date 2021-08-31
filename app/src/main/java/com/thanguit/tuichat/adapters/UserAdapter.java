@@ -63,7 +63,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
-            String senderRoom = currentUser.getUid().trim() + userList.get(position).getUid().trim();
+            String senderRoom = currentUser.getUid().trim() + userList.get(holder.getLayoutPosition()).getUid().trim();
 
             firebaseDatabase = FirebaseDatabase.getInstance();
             firebaseDatabase.getReference().child("chats")

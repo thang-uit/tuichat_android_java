@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.adapters.ViewPagerAdapter;
@@ -49,6 +50,18 @@ public class MainActivity extends AppCompatActivity {
 
         initializeViews();
         listeners();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setStatusOnline();
+    }
+
+    @Override
+    protected void onDestroy() {
+        setStatusOffline();
+        super.onDestroy();
     }
 
     private void initializeViews() {
@@ -122,5 +135,19 @@ public class MainActivity extends AppCompatActivity {
                 super.onPageScrollStateChanged(state);
             }
         });
+    }
+
+    private void setStatusOnline() {
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            firebaseManager.setStatusOnline(currentUser.getUid().trim());
+        }
+    }
+
+    private void setStatusOffline() {
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            firebaseManager.setStatusOffline(currentUser.getUid().trim());
+        }
     }
 }

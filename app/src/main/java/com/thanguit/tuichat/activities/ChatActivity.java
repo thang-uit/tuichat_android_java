@@ -68,6 +68,9 @@ public class ChatActivity extends AppCompatActivity {
     private ChatMessageAdapter chatMessageAdapter;
 
     private static final String USER_CHAT_STORAGE = "USER_CHAT/";
+    private static final String STATUS_DATABASE = "status";
+    private static final String STATUS_DATABASE_ONLINE = "online";
+    private static final String STATUS_DATABASE_OFFLINE = "offline";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +113,25 @@ public class ChatActivity extends AppCompatActivity {
                             .placeholder(R.drawable.ic_user_avatar)
                             .error(R.drawable.ic_user_avatar)
                             .into(activityChatBinding.civAvatar);
+                    firebaseDatabase.getReference().child(STATUS_DATABASE.trim()).child(receiverID.trim()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                String status = snapshot.getValue(String.class);
+                                if (status != null && !status.isEmpty()) {
+                                    if (status.equals(STATUS_DATABASE_ONLINE.trim())) {
+                                        activityChatBinding.ivStatusOnline.setVisibility(View.VISIBLE);
+                                    } else if (status.equals(STATUS_DATABASE_OFFLINE.trim())) {
+                                        activityChatBinding.ivStatusOnline.setVisibility(View.GONE);
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
 
                     FirebaseUser currentUser = firebaseAuth.getCurrentUser();
                     if (currentUser != null) {
@@ -150,13 +172,11 @@ public class ChatActivity extends AppCompatActivity {
                                     }
                                 });
 
-
                         activityChatBinding.ivSend.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 String message = activityChatBinding.edtChatMessage.getText().toString().trim();
                                 if (message.isEmpty()) {
-                                    activityChatBinding.edtChatMessage.setError(getString(R.string.edtChatMessage));
                                     openSoftKeyboard.openSoftKeyboard(ChatActivity.this, activityChatBinding.edtChatMessage);
                                 } else {
                                     String randomID = firebaseDatabase.getReference().push().getKey(); // It mean key
