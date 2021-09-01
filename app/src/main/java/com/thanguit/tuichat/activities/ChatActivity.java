@@ -8,6 +8,9 @@ import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -59,6 +62,7 @@ public class ChatActivity extends AppCompatActivity {
     private OpenSoftKeyboard openSoftKeyboard;
     private LoadingDialog loadingDialog;
 
+    private User user = new User();
     private String avatar;
 
     private String senderRoom;
@@ -71,6 +75,9 @@ public class ChatActivity extends AppCompatActivity {
     private static final String STATUS_DATABASE = "status";
     private static final String STATUS_DATABASE_ONLINE = "online";
     private static final String STATUS_DATABASE_OFFLINE = "offline";
+    private static final String TYPING = "true";
+    private static final String NOT_TYPING = "false";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +107,6 @@ public class ChatActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null) {
             if (intent.hasExtra("USER")) {
-                User user = new User();
                 user = (User) intent.getParcelableExtra("USER");
                 if (user != null) {
                     String receiverID = user.getUid().trim();
@@ -135,22 +141,39 @@ public class ChatActivity extends AppCompatActivity {
 
                     FirebaseUser currentUser = firebaseAuth.getCurrentUser();
                     if (currentUser != null) {
+                        senderRoom = currentUser.getUid() + receiverID.trim();
+                        receiverRoom = receiverID.trim() + currentUser.getUid();
+
                         if (user.getUid().trim().equals(currentUser.getUid().trim())) {
                             activityChatBinding.ivVideoCall.setVisibility(View.GONE);
                             activityChatBinding.ivCall.setVisibility(View.GONE);
+                        } else {
+                            firebaseDatabase.getReference().child("chats").child(senderRoom).child("friendTyping").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    String isTyping = snapshot.getValue(String.class);
+
+                                    if (isTyping != null && !isTyping.isEmpty()) {
+                                        if (isTyping.equals(TYPING)) {
+                                            activityChatBinding.lavAnimationTyping.setVisibility(View.VISIBLE);
+                                        } else {
+                                            activityChatBinding.lavAnimationTyping.setVisibility(View.GONE);
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                }
+                            });
                         }
-                        senderRoom = currentUser.getUid() + receiverID.trim();
-                        receiverRoom = receiverID.trim() + currentUser.getUid();
 
                         chatMessageList = new ArrayList<>();
                         chatMessageAdapter = new ChatMessageAdapter(this, chatMessageList, user.getUid(), avatar, senderRoom, receiverRoom);
                         activityChatBinding.rvChatMessage.setLayoutManager(new LinearLayoutManager(this));
                         activityChatBinding.rvChatMessage.setAdapter(chatMessageAdapter);
 
-                        firebaseDatabase.getReference()
-                                .child("chats")
-                                .child(senderRoom)
-                                .child("messages")
+                        firebaseDatabase.getReference().child("chats").child(senderRoom).child("messages")
                                 .addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -267,6 +290,40 @@ public class ChatActivity extends AppCompatActivity {
                         .check();
             }
         });
+
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            if (!user.getUid().trim().equals(currentUser.getUid().trim())) {
+                final Handler handler = new Handler();
+                Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        HashMap<String, Object> isTyping = new HashMap<>();
+                        isTyping.put("friendTyping", NOT_TYPING);
+                        firebaseDatabase.getReference().child("chats").child(receiverRoom.trim()).updateChildren(isTyping);
+                    }
+                };
+                activityChatBinding.edtChatMessage.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        HashMap<String, Object> isTyping = new HashMap<>();
+                        isTyping.put("friendTyping", TYPING);
+                        firebaseDatabase.getReference().child("chats").child(receiverRoom.trim()).updateChildren(isTyping);
+
+                        handler.removeCallbacksAndMessages(null);
+                        handler.postDelayed(runnable, 1000);
+                    }
+                });
+            }
+        }
     }
 
     private void selectImageFromGallery() {
