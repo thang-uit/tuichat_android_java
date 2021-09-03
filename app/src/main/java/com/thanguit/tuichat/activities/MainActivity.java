@@ -10,10 +10,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.adapters.ViewPagerAdapter;
@@ -75,6 +77,15 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
+            FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
+                @Override
+                public void onSuccess(String token) {
+                    if (token != null && !token.isEmpty()) {
+                        FirebaseManager.getInstance().setUserToken(currentUser.getUid().trim(), token);
+                    }
+                }
+            });
+
             firebaseManager.getUserAvatar(currentUser.getUid().trim());
             firebaseManager.setReadUserAvatar(new FirebaseManager.GetUserAvatarListener() {
                 @Override

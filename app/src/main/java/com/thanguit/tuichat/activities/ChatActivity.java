@@ -11,8 +11,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,6 +47,8 @@ import com.thanguit.tuichat.utils.LoadingDialog;
 import com.thanguit.tuichat.utils.MyToast;
 import com.thanguit.tuichat.utils.OpenSoftKeyboard;
 
+import org.json.JSONObject;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,6 +56,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import gun0912.tedbottompicker.TedBottomPicker;
 import gun0912.tedbottompicker.TedBottomSheetDialogFragment;
@@ -184,16 +195,16 @@ public class ChatActivity extends AppCompatActivity {
                                             chatMessageList.add(chatMessage);
                                         }
                                         chatMessageAdapter.notifyDataSetChanged();
-
-                                        if (chatMessageAdapter.getItemCount() > 0) {
-                                            activityChatBinding.rvChatMessage.smoothScrollToPosition(activityChatBinding.rvChatMessage.getAdapter().getItemCount() - 1);
-                                        }
+                                        activityChatBinding.rvChatMessage.smoothScrollToPosition(activityChatBinding.rvChatMessage.getAdapter().getItemCount());
                                     }
 
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError error) {
                                     }
                                 });
+
+//                        Log.d("TAG", "Bruh: " + activityChatBinding.rvChatMessage.getAdapter().getItemCount());
+//                        activityChatBinding.rvChatMessage.smoothScrollToPosition(activityChatBinding.rvChatMessage.getAdapter().getItemCount());
 
                         activityChatBinding.ivSend.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -240,13 +251,15 @@ public class ChatActivity extends AppCompatActivity {
                                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override
                                                                 public void onSuccess(Void unused) {
-                                                                    activityChatBinding.rvChatMessage.smoothScrollToPosition(activityChatBinding.rvChatMessage.getAdapter().getItemCount() - 1);
+                                                                    activityChatBinding.rvChatMessage.smoothScrollToPosition(activityChatBinding.rvChatMessage.getAdapter().getItemCount());
 
                                                                     HashMap<String, Object> lastMessageObj = new HashMap<>();
                                                                     lastMessageObj.put("lastMessage", chatMessage.getMessage().trim());
                                                                     lastMessageObj.put("lastMessageTime", chatMessage.getTime().trim());
                                                                     firebaseDatabase.getReference().child("chats").child(senderRoom.trim()).updateChildren(lastMessageObj);
                                                                     firebaseDatabase.getReference().child("chats").child(receiverRoom.trim()).updateChildren(lastMessageObj);
+
+                                                                    sendNotification(user.getToken().trim(), user.getName().trim(), message.trim());
                                                                 }
                                                             });
                                                 }
@@ -383,7 +396,7 @@ public class ChatActivity extends AppCompatActivity {
                                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                         @Override
                                                                         public void onSuccess(Void unused) {
-                                                                            activityChatBinding.rvChatMessage.smoothScrollToPosition(activityChatBinding.rvChatMessage.getAdapter().getItemCount() - 1);
+                                                                            activityChatBinding.rvChatMessage.smoothScrollToPosition(activityChatBinding.rvChatMessage.getAdapter().getItemCount());
 
                                                                             HashMap<String, Object> lastMessageObj = new HashMap<>();
                                                                             lastMessageObj.put("lastMessage", "photo");
@@ -404,5 +417,43 @@ public class ChatActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void sendNotification(String token, String name, String message) {
+        // Document: https://firebase.google.com/docs/reference/fcmdata/rest
+        try {
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            String url = "https://fcm.googleapis.com/fcm/send";
+
+            JSONObject data = new JSONObject();
+            data.put("title", name);
+            data.put("body", message);
+
+            JSONObject notificationData = new JSONObject();
+            notificationData.put("notification", data);
+            notificationData.put("to", token);
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, notificationData, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("Authorization", "key=AAAAF0y1Ib4:APA91bEMO5OUyMax7T3PW0SvIT2Yfzug2lEoY0v8_rHOPZh0pftP1iJRXFdmi8loFI9VyRR1YncSaSTksIvfjTH7KFcFtjsNgBK81l0n2WLNcMg3eQqAov3BlQ97htJQP3s_vsryEXGj");
+                    hashMap.put("Content_Type", "application/json");
+
+                    return hashMap;
+                }
+            };
+            requestQueue.add(jsonObjectRequest);
+
+        } catch (Exception e) {
+        }
     }
 }

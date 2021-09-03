@@ -23,8 +23,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civAvatar"
-        android:layout_width="40.5dp"
-        android:layout_height="40.5dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@drawable/ic_user_avatar"
         app:layout_constraintBottom_toBottomOf="@+id/llChatReceive"
         app:layout_constraintStart_toStartOf="parent" />

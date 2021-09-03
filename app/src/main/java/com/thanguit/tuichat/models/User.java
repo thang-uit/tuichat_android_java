@@ -9,8 +9,18 @@ public class User implements Parcelable {
     private String phoneNumber;
     private String email;
     private String avatar;
+    private String token;
 
     public User() {
+    }
+
+    public User(String uid, String name, String phoneNumber, String email, String avatar, String token) {
+        this.uid = uid;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.avatar = avatar;
+        this.token = token;
     }
 
     public User(String uid, String name, String phoneNumber, String email, String avatar) {
@@ -27,6 +37,7 @@ public class User implements Parcelable {
         phoneNumber = in.readString();
         email = in.readString();
         avatar = in.readString();
+        token = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -81,6 +92,14 @@ public class User implements Parcelable {
         this.avatar = avatar;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -93,5 +112,6 @@ public class User implements Parcelable {
         parcel.writeString(phoneNumber);
         parcel.writeString(email);
         parcel.writeString(avatar);
+        parcel.writeString(token);
     }
 }

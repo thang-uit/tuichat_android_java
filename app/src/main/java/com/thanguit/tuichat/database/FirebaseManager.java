@@ -14,7 +14,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.thanguit.tuichat.models.User;
 
+import java.util.HashMap;
+
 public class FirebaseManager {
+    private static final String TAG = "FirebaseManager";
     private static FirebaseManager instance;
 
     //    private static final String USER_AVATAR_STORAGE = "User_Avatar";
@@ -22,6 +25,7 @@ public class FirebaseManager {
     private static final String STATUS_DATABASE = "status";
     private static final String STATUS_DATABASE_ONLINE = "online";
     private static final String STATUS_DATABASE_OFFLINE = "offline";
+    private static final String TOKEN = "token";
 
     private static FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private static FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
@@ -58,10 +62,6 @@ public class FirebaseManager {
 
     public void setReadUserInformation(GetUserInformationListener getUserInformationListener) {
         this.getUserInformationListener = getUserInformationListener;
-    }
-
-
-    public void createUserProfile(String uid, String name, String phoneNumber, Uri avatar) {
     }
 
     public void getUserAvatar(String uid) {
@@ -102,5 +102,13 @@ public class FirebaseManager {
 
     public void setStatusOffline(String uid) {
         firebaseDatabase.getReference().child(STATUS_DATABASE.trim()).child(uid.trim()).setValue(STATUS_DATABASE_OFFLINE.trim());
+    }
+
+    public void setUserToken(String uid, String token) {
+        HashMap<String, Object> setToken = new HashMap<>();
+        setToken.put(TOKEN, token);
+        firebaseDatabase.getReference().child("users/" + uid.trim()).updateChildren(setToken);
+
+        Log.d(TAG, token.trim());
     }
 }
