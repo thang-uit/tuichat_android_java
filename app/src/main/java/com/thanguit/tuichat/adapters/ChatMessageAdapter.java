@@ -95,17 +95,28 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        ChatMessage chatMessage = chatMessageList.get(holder.getLayoutPosition());
+
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
-        ChatMessage chatMessage = chatMessageList.get(holder.getLayoutPosition());
 
         if (currentUser != null) {
             if (uid.trim().equals(currentUser.getUid().trim())) {
                 SendViewHolder sendViewHolder = (SendViewHolder) holder;
-                sendViewHolder.itemChatMessageSendBinding.tvSend.setText(chatMessageList.get(sendViewHolder.getLayoutPosition()).getMessage().trim());
-                sendViewHolder.itemChatMessageSendBinding.tvTime.setText(chatMessageList.get(sendViewHolder.getLayoutPosition()).getTime().trim());
+
+                if (!chatMessage.getImage().trim().isEmpty()) {
+                    sendViewHolder.itemChatMessageSendBinding.ivImage.setVisibility(View.VISIBLE);
+                    sendViewHolder.itemChatMessageSendBinding.tvSend.setVisibility(View.GONE);
+                    Picasso.get()
+                            .load(chatMessage.getImage().trim())
+                            .placeholder(R.drawable.ic_picture)
+                            .error(R.drawable.ic_picture)
+                            .into(sendViewHolder.itemChatMessageSendBinding.ivImage);
+                }
+                sendViewHolder.itemChatMessageSendBinding.tvSend.setText(chatMessage.getMessage().trim());
+                sendViewHolder.itemChatMessageSendBinding.tvTime.setText(chatMessage.getTime().trim());
 
                 sendViewHolder.itemChatMessageSendBinding.llChatSend.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -125,19 +136,21 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
 
                 if (getItemViewType(position) == ITEM_SEND) {
                     SendViewHolder sendViewHolder = (SendViewHolder) holder;
-                    sendViewHolder.itemChatMessageSendBinding.tvSend.setText(chatMessageList.get(sendViewHolder.getLayoutPosition()).getMessage().trim());
-                    sendViewHolder.itemChatMessageSendBinding.tvTime.setText(chatMessageList.get(sendViewHolder.getLayoutPosition()).getTime().trim());
-//                    if (!chatMessageList.get(sendViewHolder.getLayoutPosition()).getImage().trim().isEmpty()) {
-//                        sendViewHolder.itemChatMessageSendBinding.ivImage.setVisibility(View.VISIBLE);
-//                        sendViewHolder.itemChatMessageSendBinding.tvSend.setVisibility(View.GONE);
-//                        Picasso.get().load(chatMessageList.get(sendViewHolder.getLayoutPosition()).getImage().trim())
-//                                .placeholder(R.drawable.ic_picture)
-//                                .error(R.drawable.ic_picture)
-//                                .into(sendViewHolder.itemChatMessageSendBinding.ivImage);
-//                    }
 
-                    if (chatMessageList.get(sendViewHolder.getLayoutPosition()).getEmoticon() >= 0) {
-                        sendViewHolder.itemChatMessageSendBinding.ivEmoticon.setImageResource(emoticon[chatMessageList.get(sendViewHolder.getLayoutPosition()).getEmoticon()]);
+                    if (!chatMessage.getImage().trim().isEmpty()) {
+                        sendViewHolder.itemChatMessageSendBinding.ivImage.setVisibility(View.VISIBLE);
+                        sendViewHolder.itemChatMessageSendBinding.tvSend.setVisibility(View.GONE);
+                        Picasso.get()
+                                .load(chatMessage.getImage().trim())
+                                .placeholder(R.drawable.ic_picture)
+                                .error(R.drawable.ic_picture)
+                                .into(sendViewHolder.itemChatMessageSendBinding.ivImage);
+                    }
+                    sendViewHolder.itemChatMessageSendBinding.tvSend.setText(chatMessage.getMessage().trim());
+                    sendViewHolder.itemChatMessageSendBinding.tvTime.setText(chatMessage.getTime().trim());
+
+                    if (chatMessage.getEmoticon() >= 0) {
+                        sendViewHolder.itemChatMessageSendBinding.ivEmoticon.setImageResource(emoticon[chatMessage.getEmoticon()]);
                         sendViewHolder.itemChatMessageSendBinding.ivEmoticon.setVisibility(View.VISIBLE);
                     } else {
                         sendViewHolder.itemChatMessageSendBinding.ivEmoticon.setVisibility(View.GONE);
@@ -155,23 +168,26 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                     });
                 } else {
                     ReceiveViewHolder receiveViewHolder = (ReceiveViewHolder) holder;
-                    Picasso.get().load(avatar)
+
+                    Picasso.get()
+                            .load(avatar)
                             .placeholder(R.drawable.ic_user_avatar)
                             .error(R.drawable.ic_user_avatar)
                             .into(receiveViewHolder.itemChatMessageReceiveBinding.civAvatar);
-                    receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setText(chatMessageList.get(receiveViewHolder.getLayoutPosition()).getMessage().trim());
-                    receiveViewHolder.itemChatMessageReceiveBinding.tvTime.setText(chatMessageList.get(receiveViewHolder.getLayoutPosition()).getTime().trim());
-//                    if (!chatMessageList.get(receiveViewHolder.getLayoutPosition()).getImage().trim().isEmpty()) {
-//                        receiveViewHolder.itemChatMessageReceiveBinding.ivImage.setVisibility(View.VISIBLE);
-//                        receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setVisibility(View.GONE);
-//                        Picasso.get().load(chatMessageList.get(receiveViewHolder.getLayoutPosition()).getImage().trim())
-//                                .placeholder(R.drawable.ic_picture)
-//                                .error(R.drawable.ic_picture)
-//                                .into(receiveViewHolder.itemChatMessageReceiveBinding.ivImage);
-//                    }
+                    if (!chatMessage.getImage().trim().isEmpty()) {
+                        receiveViewHolder.itemChatMessageReceiveBinding.ivImage.setVisibility(View.VISIBLE);
+                        receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setVisibility(View.GONE);
+                        Picasso.get()
+                                .load(chatMessage.getImage().trim())
+                                .placeholder(R.drawable.ic_picture)
+                                .error(R.drawable.ic_picture)
+                                .into(receiveViewHolder.itemChatMessageReceiveBinding.ivImage);
+                    }
+                    receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setText(chatMessage.getMessage().trim());
+                    receiveViewHolder.itemChatMessageReceiveBinding.tvTime.setText(chatMessage.getTime().trim());
 
-                    if (chatMessageList.get(receiveViewHolder.getLayoutPosition()).getEmoticon() >= 0) {
-                        receiveViewHolder.itemChatMessageReceiveBinding.ivEmoticon.setImageResource(emoticon[chatMessageList.get(receiveViewHolder.getLayoutPosition()).getEmoticon()]);
+                    if (chatMessage.getEmoticon() >= 0) {
+                        receiveViewHolder.itemChatMessageReceiveBinding.ivEmoticon.setImageResource(emoticon[chatMessage.getEmoticon()]);
                         receiveViewHolder.itemChatMessageReceiveBinding.ivEmoticon.setVisibility(View.VISIBLE);
                     } else {
                         receiveViewHolder.itemChatMessageReceiveBinding.ivEmoticon.setVisibility(View.GONE);
@@ -199,7 +215,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                                 .child("chats")
                                 .child(senderRoom)
                                 .child("messages")
-                                .child(chatMessageList.get(receiveViewHolder.getLayoutPosition()).getMessageID())
+                                .child(chatMessage.getMessageID())
                                 .child("emoticon").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DataSnapshot> task1) {
@@ -207,7 +223,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                                         .child("chats")
                                         .child(receiverRoom)
                                         .child("messages")
-                                        .child(chatMessageList.get(receiveViewHolder.getLayoutPosition()).getMessageID())
+                                        .child(chatMessage.getMessageID())
                                         .child("emoticon").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DataSnapshot> task2) {
@@ -221,14 +237,14 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                                                         .child("chats")
                                                         .child(senderRoom)
                                                         .child("messages")
-                                                        .child(chatMessageList.get(receiveViewHolder.getLayoutPosition()).getMessageID())
+                                                        .child(chatMessage.getMessageID())
                                                         .child("emoticon")
                                                         .setValue(-1);
                                                 firebaseDatabase.getReference()
                                                         .child("chats")
                                                         .child(receiverRoom)
                                                         .child("messages")
-                                                        .child(chatMessageList.get(receiveViewHolder.getLayoutPosition()).getMessageID())
+                                                        .child(chatMessage.getMessageID())
                                                         .child("emoticon")
                                                         .setValue(-1);
                                             } else {
@@ -236,14 +252,14 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                                                         .child("chats")
                                                         .child(senderRoom)
                                                         .child("messages")
-                                                        .child(chatMessageList.get(receiveViewHolder.getLayoutPosition()).getMessageID())
+                                                        .child(chatMessage.getMessageID())
                                                         .child("emoticon")
                                                         .setValue(index);
                                                 firebaseDatabase.getReference()
                                                         .child("chats")
                                                         .child(receiverRoom)
                                                         .child("messages")
-                                                        .child(chatMessageList.get(receiveViewHolder.getLayoutPosition()).getMessageID())
+                                                        .child(chatMessage.getMessageID())
                                                         .child("emoticon")
                                                         .setValue(index);
                                             }
