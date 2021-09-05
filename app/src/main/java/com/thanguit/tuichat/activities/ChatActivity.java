@@ -431,7 +431,7 @@ public class ChatActivity extends AppCompatActivity {
 
             JSONObject notificationData = new JSONObject();
             notificationData.put("notification", data);
-            notificationData.put("to", token);
+            notificationData.put("to", token.trim());
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, notificationData, new Response.Listener<JSONObject>() {
                 @Override

@@ -99,6 +99,8 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
+        ChatMessage chatMessage = chatMessageList.get(holder.getLayoutPosition());
+
         if (currentUser != null) {
             if (uid.trim().equals(currentUser.getUid().trim())) {
                 SendViewHolder sendViewHolder = (SendViewHolder) holder;

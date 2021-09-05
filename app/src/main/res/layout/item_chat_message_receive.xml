@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="3dp"
-        android:background="@drawable/shape_background_textreceive_corner_10dp"
+        android:background="@drawable/shape_background_textreceive_corner_20dp"
         android:orientation="vertical"
         app:layout_constraintStart_toEndOf="@+id/civAvatar"
         app:layout_constraintTop_toBottomOf="@+id/tvTime">
@@ -43,7 +43,7 @@
             android:id="@+id/ivImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:scaleType="centerCrop"
             android:visibility="gone"
             app:srcCompat="@drawable/ic_picture" />

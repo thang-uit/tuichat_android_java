@@ -25,7 +25,7 @@
         android:id="@+id/llChatSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_background_textsend_corner_10dp"
+        android:background="@drawable/shape_background_textsend_corner_20dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTime">
@@ -34,7 +34,7 @@
             android:id="@+id/ivImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:scaleType="centerCrop"
             android:visibility="gone"
             app:srcCompat="@drawable/ic_picture" />
@@ -43,7 +43,7 @@
             android:id="@+id/tvSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_background_textsend_corner_10dp"
+            android:background="@drawable/shape_background_textsend_corner_20dp"
             android:padding="10dp"
             android:text="@string/tvSend"
             android:textColor="@color/color_2"
