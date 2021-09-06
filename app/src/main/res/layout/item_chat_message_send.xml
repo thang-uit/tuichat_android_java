@@ -58,7 +58,6 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/llChatSend"
         app:layout_constraintEnd_toStartOf="@+id/llChatSend"
-        app:layout_constraintStart_toStartOf="@+id/llChatSend"
         app:srcCompat="@drawable/ic_love" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

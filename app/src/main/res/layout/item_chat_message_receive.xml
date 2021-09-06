@@ -63,10 +63,8 @@
         android:id="@+id/ivEmoticon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/llChatReceive"
-        app:layout_constraintEnd_toEndOf="@+id/llChatReceive"
         app:layout_constraintStart_toEndOf="@+id/llChatReceive"
-        app:srcCompat="@drawable/ic_love" />
+        app:srcCompat="@drawable/ic_add_1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
