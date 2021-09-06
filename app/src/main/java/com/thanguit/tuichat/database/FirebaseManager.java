@@ -64,6 +64,16 @@ public class FirebaseManager {
         this.getUserInformationListener = getUserInformationListener;
     }
 
+    public interface GetUserNameListener {
+        void getUserNameListener(String name);
+    }
+
+    private GetUserNameListener getUserNameListener;
+
+    public void setReadUserName(GetUserNameListener getUserNameListener) {
+        this.getUserNameListener = getUserNameListener;
+    }
+
     public void getUserAvatar(String uid) {
         firebaseDatabase.getReference().child("users/" + uid.trim() + "/avatar").addValueEventListener(new ValueEventListener() {
             @Override
@@ -86,6 +96,22 @@ public class FirebaseManager {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     getUserInformationListener.getUserInformationListener(snapshot.getValue(User.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("firebase", error.getMessage().trim());
+            }
+        });
+    }
+
+    public void getUserName(String uid) {
+        firebaseDatabase.getReference().child("users/" + uid.trim() + "/name").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    getUserNameListener.getUserNameListener(snapshot.getValue(String.class));
                 }
             }
 

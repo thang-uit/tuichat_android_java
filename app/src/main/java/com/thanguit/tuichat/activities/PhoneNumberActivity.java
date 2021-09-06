@@ -1,11 +1,7 @@
 package com.thanguit.tuichat.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
-import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,11 +25,6 @@ public class PhoneNumberActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            int startColor = getWindow().getStatusBarColor();
-            int endColor = ContextCompat.getColor(this, R.color.color_main_2);
-            ObjectAnimator.ofArgb(getWindow(), "statusBarColor", startColor, endColor).start();
-        }
         activityPhoneNumberBinding = ActivityPhoneNumberBinding.inflate(getLayoutInflater());
         setContentView(activityPhoneNumberBinding.getRoot());
 

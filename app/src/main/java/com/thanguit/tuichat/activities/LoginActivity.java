@@ -67,11 +67,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            int startColor = getWindow().getStatusBarColor();
-            int endColor = ContextCompat.getColor(this, R.color.color_main_2);
-            ObjectAnimator.ofArgb(getWindow(), "statusBarColor", startColor, endColor).start();
-        }
         activityLoginBinding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(activityLoginBinding.getRoot());
 

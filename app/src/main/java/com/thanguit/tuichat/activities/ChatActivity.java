@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 
 import com.android.volley.AuthFailureError;
@@ -40,6 +39,7 @@ import com.squareup.picasso.Picasso;
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.adapters.ChatMessageAdapter;
 import com.thanguit.tuichat.animations.AnimationScale;
+import com.thanguit.tuichat.database.FirebaseManager;
 import com.thanguit.tuichat.databinding.ActivityChatBinding;
 import com.thanguit.tuichat.models.ChatMessage;
 import com.thanguit.tuichat.models.User;
@@ -68,6 +68,7 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseStorage firebaseStorage;
     private FirebaseDatabase firebaseDatabase;
+    private FirebaseManager firebaseManager;
 
     private AnimationScale animationScale;
     private OpenSoftKeyboard openSoftKeyboard;
@@ -99,6 +100,7 @@ public class ChatActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseManager = FirebaseManager.getInstance();
         animationScale = AnimationScale.getInstance();
         openSoftKeyboard = OpenSoftKeyboard.getInstance();
         loadingDialog = LoadingDialog.getInstance();
@@ -259,7 +261,15 @@ public class ChatActivity extends AppCompatActivity {
                                                                     firebaseDatabase.getReference().child("chats").child(senderRoom.trim()).updateChildren(lastMessageObj);
                                                                     firebaseDatabase.getReference().child("chats").child(receiverRoom.trim()).updateChildren(lastMessageObj);
 
-                                                                    sendNotification(user.getToken().trim(), user.getName().trim(), message.trim());
+                                                                    if (!user.getUid().trim().equals(currentUser.getUid().trim())) {
+                                                                        firebaseManager.getUserName(currentUser.getUid().trim());
+                                                                        firebaseManager.setReadUserName(new FirebaseManager.GetUserNameListener() {
+                                                                            @Override
+                                                                            public void getUserNameListener(String name) {
+                                                                                sendNotification(user.getToken().trim(), name.trim(), message.trim());
+                                                                            }
+                                                                        });
+                                                                    }
                                                                 }
                                                             });
                                                 }
@@ -403,6 +413,16 @@ public class ChatActivity extends AppCompatActivity {
                                                                             lastMessageObj.put("lastMessageTime", chatMessage.getTime().trim());
                                                                             firebaseDatabase.getReference().child("chats").child(senderRoom.trim()).updateChildren(lastMessageObj);
                                                                             firebaseDatabase.getReference().child("chats").child(receiverRoom.trim()).updateChildren(lastMessageObj);
+
+                                                                            if (!user.getUid().trim().equals(currentUser.getUid().trim())) {
+                                                                                firebaseManager.getUserName(currentUser.getUid().trim());
+                                                                                firebaseManager.setReadUserName(new FirebaseManager.GetUserNameListener() {
+                                                                                    @Override
+                                                                                    public void getUserNameListener(String name) {
+                                                                                        sendNotification(user.getToken().trim(), name.trim(), "photo");
+                                                                                    }
+                                                                                });
+                                                                            }
                                                                         }
                                                                     });
                                                             loadingDialog.cancelLoading();
@@ -426,8 +446,8 @@ public class ChatActivity extends AppCompatActivity {
             String url = "https://fcm.googleapis.com/fcm/send";
 
             JSONObject data = new JSONObject();
-            data.put("title", name);
-            data.put("body", message);
+            data.put("title", name.trim());
+            data.put("body", message.trim());
 
             JSONObject notificationData = new JSONObject();
             notificationData.put("notification", data);

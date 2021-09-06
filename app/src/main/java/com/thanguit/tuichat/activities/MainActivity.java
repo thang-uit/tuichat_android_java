@@ -2,11 +2,8 @@ package com.thanguit.tuichat.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.animation.ObjectAnimator;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -14,7 +11,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 import com.thanguit.tuichat.R;
@@ -38,11 +34,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            int startColor = getWindow().getStatusBarColor();
-            int endColor = ContextCompat.getColor(this, R.color.color_5);
-            ObjectAnimator.ofArgb(getWindow(), "statusBarColor", startColor, endColor).start();
-        }
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
 

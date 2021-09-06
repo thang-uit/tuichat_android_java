@@ -102,12 +102,12 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                 SendViewHolder sendViewHolder = (SendViewHolder) holder;
 
                 sendViewHolder.itemChatMessageSendBinding.tvTime.setText(chatMessage.getTime().trim());
-                sendViewHolder.itemChatMessageSendBinding.tvSend.setText(chatMessage.getMessage().trim());
                 if (!chatMessage.getImage().trim().isEmpty()) {
+                    handleImage(sendViewHolder.itemChatMessageSendBinding.ivImage, chatMessage.getImage().trim());
                     sendViewHolder.itemChatMessageSendBinding.ivImage.setVisibility(View.VISIBLE);
                     sendViewHolder.itemChatMessageSendBinding.tvSend.setVisibility(View.GONE);
-                    handleImage(sendViewHolder.itemChatMessageSendBinding.ivImage, chatMessage.getImage().trim());
                 } else {
+                    sendViewHolder.itemChatMessageSendBinding.tvSend.setText(chatMessage.getMessage().trim());
                     sendViewHolder.itemChatMessageSendBinding.ivImage.setVisibility(View.GONE);
                     sendViewHolder.itemChatMessageSendBinding.tvSend.setVisibility(View.VISIBLE);
                 }
@@ -121,12 +121,12 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                     SendViewHolder sendViewHolder = (SendViewHolder) holder;
 
                     sendViewHolder.itemChatMessageSendBinding.tvTime.setText(chatMessage.getTime().trim());
-                    sendViewHolder.itemChatMessageSendBinding.tvSend.setText(chatMessage.getMessage().trim());
                     if (!chatMessage.getImage().trim().isEmpty()) {
+                        handleImage(sendViewHolder.itemChatMessageSendBinding.ivImage, chatMessage.getImage().trim());
                         sendViewHolder.itemChatMessageSendBinding.ivImage.setVisibility(View.VISIBLE);
                         sendViewHolder.itemChatMessageSendBinding.tvSend.setVisibility(View.GONE);
-                        handleImage(sendViewHolder.itemChatMessageSendBinding.ivImage, chatMessage.getImage().trim());
                     } else {
+                        sendViewHolder.itemChatMessageSendBinding.tvSend.setText(chatMessage.getMessage().trim());
                         sendViewHolder.itemChatMessageSendBinding.ivImage.setVisibility(View.GONE);
                         sendViewHolder.itemChatMessageSendBinding.tvSend.setVisibility(View.VISIBLE);
                     }
@@ -146,12 +146,12 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                             .error(R.drawable.ic_user_avatar)
                             .into(receiveViewHolder.itemChatMessageReceiveBinding.civAvatar);
                     receiveViewHolder.itemChatMessageReceiveBinding.tvTime.setText(chatMessage.getTime().trim());
-                    receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setText(chatMessage.getMessage().trim());
                     if (!chatMessage.getImage().trim().isEmpty()) {
+                        handleImage(receiveViewHolder.itemChatMessageReceiveBinding.ivImage, chatMessage.getImage().trim());
                         receiveViewHolder.itemChatMessageReceiveBinding.ivImage.setVisibility(View.VISIBLE);
                         receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setVisibility(View.GONE);
-                        handleImage(receiveViewHolder.itemChatMessageReceiveBinding.ivImage, chatMessage.getImage().trim());
                     } else {
+                        receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setText(chatMessage.getMessage().trim());
                         receiveViewHolder.itemChatMessageReceiveBinding.ivImage.setVisibility(View.GONE);
                         receiveViewHolder.itemChatMessageReceiveBinding.tvReceive.setVisibility(View.VISIBLE);
                     }
