@@ -2,11 +2,14 @@ package com.thanguit.tuichat.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.Manifest;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -94,6 +97,11 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int startColor = getWindow().getStatusBarColor();
+            int endColor = ContextCompat.getColor(this, R.color.color_main_1);
+            ObjectAnimator.ofArgb(getWindow(), "statusBarColor", startColor, endColor).start();
+        }
         activityChatBinding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(activityChatBinding.getRoot());
 
@@ -110,9 +118,9 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void initializeViews() {
-        animationScale.eventImageView(this, activityChatBinding.ivBack);
-        animationScale.eventImageView(this, activityChatBinding.ivVideoCall);
-        animationScale.eventImageView(this, activityChatBinding.ivCall);
+//        animationScale.eventImageView(this, activityChatBinding.ivBack);
+//        animationScale.eventImageView(this, activityChatBinding.ivVideoCall);
+//        animationScale.eventImageView(this, activityChatBinding.ivCall);
         animationScale.eventImageView(this, activityChatBinding.ivPicture);
         animationScale.eventImageView(this, activityChatBinding.ivSend);
         activityChatBinding.tvUserName.setSelected(true);
@@ -158,8 +166,8 @@ public class ChatActivity extends AppCompatActivity {
                         receiverRoom = receiverID.trim() + currentUser.getUid();
 
                         if (user.getUid().trim().equals(currentUser.getUid().trim())) {
-                            activityChatBinding.ivVideoCall.setVisibility(View.GONE);
-                            activityChatBinding.ivCall.setVisibility(View.GONE);
+                            activityChatBinding.ibVideoCall.setVisibility(View.GONE);
+                            activityChatBinding.ibCall.setVisibility(View.GONE);
                         } else {
                             firebaseDatabase.getReference().child("chats").child(senderRoom).child("friendTyping").addValueEventListener(new ValueEventListener() {
                                 @Override
@@ -284,7 +292,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void listeners() {
-        activityChatBinding.ivBack.setOnClickListener(new View.OnClickListener() {
+        activityChatBinding.ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
