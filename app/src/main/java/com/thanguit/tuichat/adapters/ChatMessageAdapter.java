@@ -241,14 +241,6 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private void handleImage(ImageView ivImage, String image) {
-        Picasso.get()
-                .load(image)
-                .placeholder(R.drawable.ic_picture)
-                .error(R.drawable.ic_picture)
-                .into(ivImage);
-    }
-
     @Override
     public int getItemCount() {
         if (chatMessageList != null) {
@@ -311,5 +303,13 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                 }
             });
         }
+    }
+
+    private void handleImage(ImageView ivImage, String image) {
+        Picasso.get()
+                .load(image.trim())
+                .placeholder(R.drawable.ic_picture)
+                .error(R.drawable.ic_picture)
+                .into(ivImage);
     }
 }
