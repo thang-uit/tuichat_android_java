@@ -92,7 +92,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/shape_background_gradient_corner_10dp"
+                android:background="@drawable/shape_background_gradient_1_corner_10dp"
                 android:gravity="center"
                 android:text="@string/btnPhoneNumber"
                 android:textAllCaps="false"

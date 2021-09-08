@@ -1,15 +1,23 @@
 package com.thanguit.tuichat.adapters;
 
+import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.pgreze.reactions.ReactionPopup;
@@ -17,15 +25,23 @@ import com.github.pgreze.reactions.ReactionsConfig;
 import com.github.pgreze.reactions.ReactionsConfigBuilder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 import com.thanguit.tuichat.R;
+import com.thanguit.tuichat.animations.AnimationScale;
+import com.thanguit.tuichat.databinding.ActivityChatBinding;
 import com.thanguit.tuichat.databinding.ItemChatMessageReceiveBinding;
 import com.thanguit.tuichat.databinding.ItemChatMessageSendBinding;
+import com.thanguit.tuichat.databinding.LayoutBottomSheetChatBinding;
+import com.thanguit.tuichat.databinding.LayoutTextviewDialogBinding;
 import com.thanguit.tuichat.models.ChatMessage;
+import com.thanguit.tuichat.utils.MyToast;
 
 import java.util.List;
 
@@ -33,6 +49,9 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
     private static final String TAG = "ChatMessageAdapter";
 
     private FirebaseAuth firebaseAuth;
+
+    private BottomSheetDialog bottomSheetDialog;
+    private Dialog dialog;
 
     private Context context;
     private List<ChatMessage> chatMessageList;
@@ -118,6 +137,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                 sendViewHolder.itemChatMessageSendBinding.llChatSend.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View view) {
+                        openChatBottomSheetDialog(CHAT_SEND.trim(), chatMessage);
                         return false;
                     }
                 });
@@ -152,6 +172,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                     sendViewHolder.itemChatMessageSendBinding.llChatSend.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View view) {
+                            openChatBottomSheetDialog(CHAT_SEND.trim(), chatMessage);
                             return false;
                         }
                     });
@@ -183,6 +204,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                     receiveViewHolder.itemChatMessageReceiveBinding.llChatReceive.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View view) {
+                            openChatBottomSheetDialog(CHAT_RECEIVE.trim(), chatMessage);
                             return false;
                         }
                     });
@@ -336,5 +358,136 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                 .placeholder(R.drawable.ic_picture)
                 .error(R.drawable.ic_picture)
                 .into(ivImage);
+    }
+
+    private void openChatBottomSheetDialog(String layout, ChatMessage chatMessage) {
+        bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDialogTheme);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_bottom_sheet_chat, null);
+        LayoutBottomSheetChatBinding layoutBottomSheetChatBinding;
+        layoutBottomSheetChatBinding = LayoutBottomSheetChatBinding.bind(view);
+        bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.setCancelable(true);
+
+        if (layout.equals(CHAT_RECEIVE)) {
+            layoutBottomSheetChatBinding.rlRemoveForYou.setVisibility(View.GONE);
+            layoutBottomSheetChatBinding.rlRemoveForEveryone.setVisibility(View.GONE);
+        }
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            if (uid.trim().equals(currentUser.getUid().trim())) {
+                layoutBottomSheetChatBinding.rlRemoveForEveryone.setVisibility(View.GONE);
+            }
+        }
+
+        layoutBottomSheetChatBinding.rlCopy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("text", chatMessage.getMessage().trim());
+                clipboardManager.setPrimaryClip(clipData);
+
+                MyToast.makeText(context, MyToast.SUCCESS, context.getString(R.string.toast10), MyToast.SHORT).show();
+                bottomSheetDialog.dismiss();
+            }
+        });
+
+        layoutBottomSheetChatBinding.rlRemoveForYou.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openConfirmDialog("REMOVE_FOR_YOU", bottomSheetDialog, chatMessage, senderRoom, receiverRoom);
+            }
+        });
+
+        layoutBottomSheetChatBinding.rlRemoveForEveryone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openConfirmDialog("REMOVE_FOR_EVERYONE", bottomSheetDialog, chatMessage, senderRoom, receiverRoom);
+            }
+        });
+
+        bottomSheetDialog.show();
+    }
+
+    private void openConfirmDialog(String layout, BottomSheetDialog bottomSheetDialog, ChatMessage chatMessage, String senderRoom, String receiverRoom) {
+        dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_textview_dialog, null);
+        LayoutTextviewDialogBinding layoutTextviewDialogBinding;
+        layoutTextviewDialogBinding = LayoutTextviewDialogBinding.bind(view);
+        dialog.setContentView(view);
+        dialog.setCancelable(true);
+
+        Window window = (Window) dialog.getWindow();
+        if (window == null) {
+            return;
+        }
+//        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        WindowManager.LayoutParams windowAttributes = window.getAttributes();
+        windowAttributes.gravity = Gravity.CENTER;
+        window.setAttributes(windowAttributes);
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        AnimationScale.getInstance().eventButton(context, layoutTextviewDialogBinding.btnDialogCancel);
+        AnimationScale.getInstance().eventButton(context, layoutTextviewDialogBinding.btnDialogAction);
+
+        layoutTextviewDialogBinding.btnDialogCancel.setText(context.getString(R.string.btnDialog11).trim());
+        layoutTextviewDialogBinding.btnDialogAction.setText(context.getString(R.string.btnDialog22).trim());
+
+        if (layout.equals("REMOVE_FOR_YOU")) {
+            layoutTextviewDialogBinding.tvDialogTitle.setText(context.getString(R.string.tvRemoveForYou).trim());
+            layoutTextviewDialogBinding.tvDialogContent.setText(context.getString(R.string.tvDialogContent1).trim());
+
+            layoutTextviewDialogBinding.btnDialogAction.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    firebaseDatabase.getReference().child("chats").child(senderRoom).child("messages").child(chatMessage.getMessageID())
+                            .removeValue(new DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                    dialog.dismiss();
+                                    bottomSheetDialog.dismiss();
+                                    MyToast.makeText(context, MyToast.SUCCESS, context.getString(R.string.toast11), MyToast.SHORT).show();
+                                }
+                            });
+                }
+            });
+        } else {
+            layoutTextviewDialogBinding.tvDialogTitle.setText(context.getString(R.string.tvRemoveForEveryone).trim());
+            layoutTextviewDialogBinding.tvDialogContent.setText(context.getString(R.string.tvDialogContent2).trim());
+
+            layoutTextviewDialogBinding.btnDialogAction.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    firebaseDatabase.getReference().child("chats").child(senderRoom).child("messages").child(chatMessage.getMessageID())
+                            .removeValue(new DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                    firebaseDatabase.getReference().child("chats").child(receiverRoom).child("messages").child(chatMessage.getMessageID())
+                                            .removeValue(new DatabaseReference.CompletionListener() {
+                                                @Override
+                                                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                                    dialog.dismiss();
+                                                    bottomSheetDialog.dismiss();
+                                                    MyToast.makeText(context, MyToast.SUCCESS, context.getString(R.string.toast11), MyToast.SHORT).show();
+                                                }
+                                            });
+                                }
+                            });
+                }
+            });
+        }
+
+        layoutTextviewDialogBinding.btnDialogCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 }

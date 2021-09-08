@@ -54,7 +54,7 @@
         style="@style/btnLogin"
         android:layout_above="@+id/btnLoginGoogle"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/shape_background_gradient_corner_10dp"
+        android:background="@drawable/shape_background_gradient_1_corner_10dp"
         android:drawableStart="@drawable/ic_smartphone"
         android:text="@string/btnLoginPhoneNumber" />
 
