@@ -68,4 +68,8 @@
     <string name="tedBottomPicker2">No Image</string>
     <string name="tedBottomPicker3">You can only select up to 5 images</string>
 
+    <string name="tvCopy">Copy</string>
+    <string name="tvRemoveForYou">Remove for you</string>
+    <string name="tvRemoveForEveryone">Remove for everyone</string>
+
 </resources>

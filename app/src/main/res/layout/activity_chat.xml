@@ -100,7 +100,6 @@
             app:srcCompat="@drawable/ic_video_camera" />
     </RelativeLayout>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

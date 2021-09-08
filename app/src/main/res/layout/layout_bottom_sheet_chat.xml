@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llBottomSheetChat"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_corner_white_10dp_topleft_topright"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rlCopy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="?selectableItemBackground"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/ivCopy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvCopy"
+            android:layout_alignBottom="@+id/tvCopy"
+            android:layout_marginStart="10dp"
+            app:srcCompat="@drawable/ic_copy" />
+
+        <TextView
+            android:id="@+id/tvCopy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/ivCopy"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:text="@string/tvCopy"
+            android:textAlignment="center"
+            android:textColor="@color/color_1"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlRemoveForYou"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/ivRemoveForYou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvRemoveForYou"
+            android:layout_alignBottom="@+id/tvRemoveForYou"
+            android:layout_marginStart="10dp"
+            app:srcCompat="@drawable/ic_trash" />
+
+        <TextView
+            android:id="@+id/tvRemoveForYou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/ivRemoveForYou"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:text="@string/tvRemoveForYou"
+            android:textAlignment="center"
+            android:textColor="@color/color_1"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlRemoveForEveryone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/ivRemoveForEveryone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvRemoveForEveryone"
+            android:layout_alignBottom="@+id/tvRemoveForEveryone"
+            android:layout_marginStart="10dp"
+            app:srcCompat="@drawable/ic_delete" />
+
+        <TextView
+            android:id="@+id/tvRemoveForEveryone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/ivRemoveForEveryone"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:text="@string/tvRemoveForEveryone"
+            android:textAlignment="center"
+            android:textColor="@color/color_1"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+</LinearLayout>

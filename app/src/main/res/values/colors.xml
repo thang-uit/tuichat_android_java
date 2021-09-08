@@ -30,6 +30,7 @@
     <color name="color_9">#8A8787</color> // BText for time message
     <color name="color_10">#BCBCBC</color> // Shimmer
     <color name="color_11">#3CD561</color> // Status online
+    <color name="color_12">#9F9E9E</color> // Bottom sheet chat
 
 
     <!--    Background Colors-->

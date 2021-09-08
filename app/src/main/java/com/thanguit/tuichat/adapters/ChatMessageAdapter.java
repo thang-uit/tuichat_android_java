@@ -41,8 +41,11 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
     private String senderRoom;
     private String receiverRoom;
 
-    private final int ITEM_SEND = 1;
-    private final int ITEM_RECEIVE = 2;
+    private static final int ITEM_SEND = 1;
+    private static final int ITEM_RECEIVE = 2;
+
+    private static final String CHAT_SEND = "CHAT_SEND";
+    private static final String CHAT_RECEIVE = "CHAT_RECEIVE";
 
     private FirebaseDatabase firebaseDatabase;
 
@@ -111,6 +114,14 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                     sendViewHolder.itemChatMessageSendBinding.ivImage.setVisibility(View.GONE);
                     sendViewHolder.itemChatMessageSendBinding.tvSend.setVisibility(View.VISIBLE);
                 }
+
+                sendViewHolder.itemChatMessageSendBinding.llChatSend.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        return false;
+                    }
+                });
+
             } else {
                 ReactionsConfig config = new ReactionsConfigBuilder(context)
                         .withReactions(emoticon)
@@ -137,6 +148,13 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                     } else {
                         sendViewHolder.itemChatMessageSendBinding.ivEmoticon.setVisibility(View.GONE);
                     }
+
+                    sendViewHolder.itemChatMessageSendBinding.llChatSend.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View view) {
+                            return false;
+                        }
+                    });
                 } else {
                     ReceiveViewHolder receiveViewHolder = (ReceiveViewHolder) holder;
 
@@ -161,6 +179,13 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                     } else {
                         receiveViewHolder.itemChatMessageReceiveBinding.ivEmoticon.setImageResource(R.drawable.ic_add_1);
                     }
+
+                    receiveViewHolder.itemChatMessageReceiveBinding.llChatReceive.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View view) {
+                            return false;
+                        }
+                    });
 
                     ReactionPopup popup = new ReactionPopup(context, config, (index) -> {
                         if (index < 0) {

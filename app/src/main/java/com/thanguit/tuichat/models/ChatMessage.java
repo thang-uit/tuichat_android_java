@@ -1,6 +1,9 @@
 package com.thanguit.tuichat.models;
 
-public class ChatMessage {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ChatMessage implements Parcelable {
     private String messageID;
     private String message;
     private String image;
@@ -9,12 +12,6 @@ public class ChatMessage {
     private int emoticon = -1;
 
     public ChatMessage() {
-    }
-
-    public ChatMessage(String senderID, String message, String time) {
-        this.senderID = senderID;
-        this.message = message;
-        this.time = time;
     }
 
     public ChatMessage(String senderID, String message, String image, String time) {
@@ -31,6 +28,27 @@ public class ChatMessage {
         this.time = time;
         this.emoticon = emoticon;
     }
+
+    protected ChatMessage(Parcel in) {
+        messageID = in.readString();
+        message = in.readString();
+        image = in.readString();
+        senderID = in.readString();
+        time = in.readString();
+        emoticon = in.readInt();
+    }
+
+    public static final Creator<ChatMessage> CREATOR = new Creator<ChatMessage>() {
+        @Override
+        public ChatMessage createFromParcel(Parcel in) {
+            return new ChatMessage(in);
+        }
+
+        @Override
+        public ChatMessage[] newArray(int size) {
+            return new ChatMessage[size];
+        }
+    };
 
     public String getMessageID() {
         return messageID;
@@ -78,5 +96,20 @@ public class ChatMessage {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(messageID);
+        parcel.writeString(message);
+        parcel.writeString(image);
+        parcel.writeString(senderID);
+        parcel.writeString(time);
+        parcel.writeInt(emoticon);
     }
 }
