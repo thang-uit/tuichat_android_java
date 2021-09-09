@@ -6,6 +6,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -68,6 +69,20 @@ public class AnimationScale {
                 circleImageView.startAnimation(scaleDownAnimation);
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
                 circleImageView.startAnimation(scaleUpAnimation);
+            }
+            return false;
+        });
+    }
+
+    public void eventLinearLayout(Context context, LinearLayout linearLayout) {
+        this.scaleUpAnimation = AnimationUtils.loadAnimation(context, R.anim.scale_up);
+        this.scaleDownAnimation = AnimationUtils.loadAnimation(context, R.anim.scale_down);
+
+        linearLayout.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                linearLayout.startAnimation(scaleDownAnimation);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                linearLayout.startAnimation(scaleUpAnimation);
             }
             return false;
         });

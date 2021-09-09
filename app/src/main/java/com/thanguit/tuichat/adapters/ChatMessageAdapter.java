@@ -449,9 +449,9 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                             .removeValue(new DatabaseReference.CompletionListener() {
                                 @Override
                                 public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                    if (chatMessageList.size() == getItemCount()) {
+                                    if (chatMessageList != null) {
                                         HashMap<String, Object> lastMessageObj = new HashMap<>();
-                                        if (chatMessageList.size() == 0) {
+                                        if (chatMessageList.isEmpty()) {
                                             lastMessageObj.put("lastMessage", context.getString(R.string.tvLastMessage).trim());
                                         } else {
                                             lastMessageObj.put("lastMessage", chatMessageList.get(chatMessageList.size() - 1).getMessage().trim());
@@ -481,9 +481,9 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                                             .removeValue(new DatabaseReference.CompletionListener() {
                                                 @Override
                                                 public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                                    HashMap<String, Object> lastMessageObj = new HashMap<>();
-                                                    if (chatMessageList.size() == getItemCount()) {
-                                                        if (chatMessageList.size() == 0) {
+                                                    if (chatMessageList != null) {
+                                                        HashMap<String, Object> lastMessageObj = new HashMap<>();
+                                                        if (chatMessageList.isEmpty()) {
                                                             lastMessageObj.put("lastMessage", context.getString(R.string.tvLastMessage).trim());
                                                         } else {
                                                             lastMessageObj.put("lastMessage", chatMessageList.get(chatMessageList.size() - 1).getMessage().trim());

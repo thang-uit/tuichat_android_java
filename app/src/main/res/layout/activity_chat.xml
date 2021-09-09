@@ -126,6 +126,27 @@
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/animation_2" />
 
+        <LinearLayout
+            android:id="@+id/llToBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/shape_oval_corner_30dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/rvChatMessage"
+            app:layout_constraintEnd_toEndOf="@+id/rvChatMessage"
+            app:layout_constraintStart_toStartOf="@+id/rvChatMessage">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_arrow_down" />
+        </LinearLayout>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cvChat"
             android:layout_width="match_parent"

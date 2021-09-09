@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.animation.ObjectAnimator;
@@ -123,6 +124,7 @@ public class ChatActivity extends AppCompatActivity {
 //        animationScale.eventImageView(this, activityChatBinding.ivCall);
         animationScale.eventImageView(this, activityChatBinding.ivPicture);
         animationScale.eventImageView(this, activityChatBinding.ivSend);
+        animationScale.eventLinearLayout(this, activityChatBinding.llToBottom);
         activityChatBinding.tvUserName.setSelected(true);
 
         Intent intent = getIntent();
@@ -191,7 +193,9 @@ public class ChatActivity extends AppCompatActivity {
 
                         chatMessageList = new ArrayList<>();
                         chatMessageAdapter = new ChatMessageAdapter(this, chatMessageList, user.getUid(), avatar, senderRoom, receiverRoom);
-                        activityChatBinding.rvChatMessage.setLayoutManager(new LinearLayoutManager(this));
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+                        linearLayoutManager.setStackFromEnd(true); // Scroll to end element in list
+                        activityChatBinding.rvChatMessage.setLayoutManager(linearLayoutManager);
                         activityChatBinding.rvChatMessage.setAdapter(chatMessageAdapter);
 
                         firebaseDatabase.getReference().child("chats").child(senderRoom).child("messages")
@@ -205,7 +209,6 @@ public class ChatActivity extends AppCompatActivity {
                                             chatMessageList.add(chatMessage);
                                         }
                                         chatMessageAdapter.notifyDataSetChanged();
-                                        activityChatBinding.rvChatMessage.smoothScrollToPosition(activityChatBinding.rvChatMessage.getAdapter().getItemCount());
                                     }
 
                                     @Override
@@ -213,8 +216,30 @@ public class ChatActivity extends AppCompatActivity {
                                     }
                                 });
 
-//                        Log.d("TAG", "Bruh: " + activityChatBinding.rvChatMessage.getAdapter().getItemCount());
-//                        activityChatBinding.rvChatMessage.smoothScrollToPosition(activityChatBinding.rvChatMessage.getAdapter().getItemCount());
+                        activityChatBinding.rvChatMessage.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                            @Override
+                            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                                super.onScrollStateChanged(recyclerView, newState);
+                            }
+
+                            @Override
+                            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                                super.onScrolled(recyclerView, dx, dy);
+
+                                if (dy > 0) {
+                                    activityChatBinding.llToBottom.setVisibility(View.GONE);
+                                } else if (dy < 0) {
+                                    activityChatBinding.llToBottom.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        });
+
+                        activityChatBinding.llToBottom.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                activityChatBinding.rvChatMessage.smoothScrollToPosition(activityChatBinding.rvChatMessage.getAdapter().getItemCount());
+                            }
+                        });
 
                         activityChatBinding.ivSend.setOnClickListener(new View.OnClickListener() {
                             @Override
