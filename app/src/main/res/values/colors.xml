@@ -18,11 +18,10 @@
 
     <color name="colorGradient1">#FFD000</color>
     <color name="colorGradient2">#FECE2F</color>
-
     <color name="colorGradient3">#CFD9DF</color>
     <color name="colorGradient4">#E2EBF0</color>
 
-    <color name="color_1">#000000</color> // Main Text color (Chính)
+    <color name="color_1">#000000</color> // Main Text color (Chính) (Có thay đổi)
     <color name="color_2">#000000</color> // For button, edittext, icon, tab, toolbar, ... (No change)
     <color name="color_3">#4D4E4E</color> // Text color (Phụ)
     <color name="color_4">#C4C4C4</color> // Setup User Avatar

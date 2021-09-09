@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="15dp"
+    android:layout_margin="10dp"
     android:background="@drawable/shape_corner_white_15dp"
     android:orientation="vertical">
 
@@ -33,7 +33,7 @@
             android:id="@+id/tvDialogContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="15dp"
             android:gravity="center"
             android:padding="12dp"
             android:text="@string/tvDialogContent"
@@ -45,8 +45,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="2dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="5dp">
 
             <Button
                 android:id="@+id/btnDialogCancel"
@@ -61,7 +61,7 @@
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/color_2"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textStyle="normal" />
 
             <Button
@@ -76,7 +76,7 @@
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/color_2"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>

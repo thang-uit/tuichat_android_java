@@ -43,6 +43,7 @@ import com.thanguit.tuichat.databinding.LayoutTextviewDialogBinding;
 import com.thanguit.tuichat.models.ChatMessage;
 import com.thanguit.tuichat.utils.MyToast;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ChatMessageAdapter extends RecyclerView.Adapter {
@@ -448,6 +449,16 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                             .removeValue(new DatabaseReference.CompletionListener() {
                                 @Override
                                 public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                    if (chatMessageList.size() == getItemCount()) {
+                                        HashMap<String, Object> lastMessageObj = new HashMap<>();
+                                        if (chatMessageList.size() == 0) {
+                                            lastMessageObj.put("lastMessage", context.getString(R.string.tvLastMessage).trim());
+                                        } else {
+                                            lastMessageObj.put("lastMessage", chatMessageList.get(chatMessageList.size() - 1).getMessage().trim());
+                                        }
+                                        firebaseDatabase.getReference().child("chats").child(senderRoom.trim()).updateChildren(lastMessageObj);
+                                    }
+
                                     dialog.dismiss();
                                     bottomSheetDialog.dismiss();
                                     MyToast.makeText(context, MyToast.SUCCESS, context.getString(R.string.toast11), MyToast.SHORT).show();
@@ -470,6 +481,17 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
                                             .removeValue(new DatabaseReference.CompletionListener() {
                                                 @Override
                                                 public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                                    HashMap<String, Object> lastMessageObj = new HashMap<>();
+                                                    if (chatMessageList.size() == getItemCount()) {
+                                                        if (chatMessageList.size() == 0) {
+                                                            lastMessageObj.put("lastMessage", context.getString(R.string.tvLastMessage).trim());
+                                                        } else {
+                                                            lastMessageObj.put("lastMessage", chatMessageList.get(chatMessageList.size() - 1).getMessage().trim());
+                                                        }
+                                                        firebaseDatabase.getReference().child("chats").child(senderRoom.trim()).updateChildren(lastMessageObj);
+                                                        firebaseDatabase.getReference().child("chats").child(receiverRoom.trim()).updateChildren(lastMessageObj);
+                                                    }
+
                                                     dialog.dismiss();
                                                     bottomSheetDialog.dismiss();
                                                     MyToast.makeText(context, MyToast.SUCCESS, context.getString(R.string.toast11), MyToast.SHORT).show();
