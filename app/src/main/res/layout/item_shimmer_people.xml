@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:background="?selectableItemBackground"
+    android:padding="5dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civAvatar"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/shape_shimmer_oval_corner_60dp" />
+
+    <LinearLayout
+        android:id="@+id/llChatInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/civAvatar"
+        android:layout_alignBottom="@+id/civAvatar"
+        android:layout_toEndOf="@+id/civAvatar"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvChatName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/shape_shimmer_corner_50dp"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</RelativeLayout>

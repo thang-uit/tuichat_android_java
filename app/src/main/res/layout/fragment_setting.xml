@@ -1,9 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#90CAF9"
+    android:background="@color/color_5"
+    android:orientation="vertical"
     tools:context=".fragments.SettingFragment">
 
-</FrameLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:id="@+id/rlSetting"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/tvTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/tvTheme"
+                android:textColor="@color/color_1"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/btnSwitchTheme"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@+id/tvTheme"
+                android:layout_alignBottom="@+id/tvTheme"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                app:lottie_rawRes="@raw/animation_3" />
+
+            <TextView
+                android:id="@+id/tvLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTheme"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="20dp"
+                android:text="@string/tvLanguage"
+                android:textColor="@color/color_1"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvEnglish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tvLanguage"
+                android:layout_alignBottom="@+id/tvLanguage"
+                android:layout_alignParentEnd="true"
+                android:gravity="center"
+                android:text="English"
+                android:textColor="@color/color_1"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvVietNamese"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tvLanguage"
+                android:layout_alignBottom="@+id/tvLanguage"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@+id/tvEnglish"
+                android:gravity="center"
+                android:text="VietNamese"
+                android:textColor="@color/color_1"
+                android:textSize="16sp" />
+
+            <!--            <Button-->
+            <!--                android:id="@+id/btnRating"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_below="@+id/tvLanguage"-->
+            <!--                android:layout_centerInParent="true"-->
+            <!--                android:layout_marginTop="20dp"-->
+            <!--                android:background="@drawable/shape_corner_gradient1_10dp"-->
+            <!--                android:fontFamily="@font/comfortaa"-->
+            <!--                android:gravity="center"-->
+            <!--                android:padding="5dp"-->
+            <!--                android:text="@string/btnRating"-->
+            <!--                android:textAlignment="center"-->
+            <!--                android:textAllCaps="false"-->
+            <!--                android:textColor="@color/colorMain1"-->
+            <!--                android:textSize="16sp"-->
+            <!--                android:textStyle="bold" />-->
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

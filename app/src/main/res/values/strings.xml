@@ -84,4 +84,10 @@
     <string name="btnDialog11">Cancel</string>
     <string name="btnDialog22">Delete</string>
 
+    <string name="edtSearchPeople">Search</string>
+
+    <string name="tvTheme">Theme</string>
+    <string name="tvLanguage">Language</string>
+
+
 </resources>

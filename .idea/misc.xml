@@ -90,12 +90,14 @@
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/content_phone_number.xml" value="0.25416666666666665" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/fragment_chat.xml" value="0.264" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/fragment_people.xml" value="0.20244565217391305" />
-        <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/fragment_setting.xml" value="0.20244565217391305" />
+        <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/fragment_setting.xml" value="0.264" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/item_chat_message.xml" value="0.2151268115942029" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/item_chat_message_receive.xml" value="0.8" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/item_chat_message_send.xml" value="0.4" />
-        <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/item_conversation.xml" value="0.6" />
+        <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/item_conversation.xml" value="0.264" />
+        <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/item_people.xml" value="0.23097826086956522" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/item_shimmer_conversation.xml" value="0.21829710144927536" />
+        <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/item_shimmer_people.xml" value="0.23097826086956522" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/item_shimmer_story.xml" value="0.21829710144927536" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/item_story.xml" value="0.4" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/layout_bottom_sheet_chat.xml" value="0.4" />
