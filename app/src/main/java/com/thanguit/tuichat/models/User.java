@@ -9,6 +9,7 @@ public class User implements Parcelable {
     private String phoneNumber;
     private String email;
     private String avatar;
+    private String status;
     private String token;
 
     public User() {
@@ -37,6 +38,7 @@ public class User implements Parcelable {
         phoneNumber = in.readString();
         email = in.readString();
         avatar = in.readString();
+        status = in.readString();
         token = in.readString();
     }
 
@@ -100,6 +102,14 @@ public class User implements Parcelable {
         this.token = token;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -112,6 +122,7 @@ public class User implements Parcelable {
         parcel.writeString(phoneNumber);
         parcel.writeString(email);
         parcel.writeString(avatar);
+        parcel.writeString(status);
         parcel.writeString(token);
     }
 }

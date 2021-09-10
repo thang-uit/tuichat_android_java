@@ -102,7 +102,7 @@ public class ChatFragment extends Fragment {
         loadingDialog = LoadingDialog.getInstance();
 
         initializeViews();
-        listeners();
+//        listeners();
     }
 
     @Override
@@ -122,7 +122,11 @@ public class ChatFragment extends Fragment {
                     userList = new ArrayList<>();
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         User user = dataSnapshot.getValue(User.class);
-                        userList.add(user);
+                        if (user.getUid().trim().equals(currentUser.getUid().trim())) {
+                            userList.add(0, user);
+                        } else {
+                            userList.add(user);
+                        }
                     }
                     userAdapter = new UserAdapter(getContext(), userList);
                     fragmentChatBinding.rvChat.setHasFixedSize(true);
@@ -137,71 +141,69 @@ public class ChatFragment extends Fragment {
                 }
             });
 
-            FirebaseManager.getInstance().getUserInfo(currentUser.getUid().trim());
-            FirebaseManager.getInstance().setReadUserInformation(new FirebaseManager.GetUserInformationListener() {
-                @Override
-                public void getUserInformationListener(User user) {
-                    if (user != null) {
-                        mUser = new User();
-                        mUser = user;
-
-                        Picasso.get()
-                                .load(user.getAvatar())
-                                .placeholder(R.drawable.ic_user_avatar)
-                                .error(R.drawable.ic_user_avatar)
-                                .into(fragmentChatBinding.civStory);
-                    }
-                }
-            });
-
-            firebaseDatabase.getReference().child(STORY_DATABASE.trim()).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        userStoryList = new ArrayList<>();
-
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            UserStory userStory = new UserStory();
-                            userStory.setName(dataSnapshot.child("name").getValue(String.class));
-                            userStory.setAvatar(dataSnapshot.child("avatar").getValue(String.class));
-                            userStory.setLastUpdated(dataSnapshot.child("lastUpdated").getValue(String.class));
-
-                            List<Story> storyList = new ArrayList<>();
-                            for (DataSnapshot dataSnapshot1 : dataSnapshot.child("stories").getChildren()) {
-                                Story story = dataSnapshot1.getValue(Story.class);
-                                storyList.add(story);
-                            }
-                            userStory.setStoryList(storyList);
-                            userStoryList.add(userStory);
-                        }
-
-                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
-                        fragmentChatBinding.rvStory.setLayoutManager(linearLayoutManager);
-                        storyAdapter = new StoryAdapter(getContext(), userStoryList);
-                        fragmentChatBinding.rvStory.setHasFixedSize(true);
-                        fragmentChatBinding.rvStory.setAdapter(storyAdapter);
-
-                        fragmentChatBinding.sflItemStory.setVisibility(View.GONE);
-                        fragmentChatBinding.rvStory.setVisibility(View.VISIBLE);
-                    } else {
-                        fragmentChatBinding.sflItemStory.setVisibility(View.GONE);
-                        fragmentChatBinding.rvStory.setVisibility(View.VISIBLE);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
+//            FirebaseManager.getInstance().getUserInfo(currentUser.getUid().trim());
+//            FirebaseManager.getInstance().setReadUserInformation(new FirebaseManager.GetUserInformationListener() {
+//                @Override
+//                public void getUserInformationListener(User user) {
+//                    if (user != null) {
+//                        mUser = new User();
+//                        mUser = user;
+//
+//                        Picasso.get()
+//                                .load(user.getAvatar())
+//                                .placeholder(R.drawable.ic_user_avatar)
+//                                .error(R.drawable.ic_user_avatar)
+//                                .into(fragmentChatBinding.civStory);
+//                    }
+//                }
+//            });
+//
+//            firebaseDatabase.getReference().child(STORY_DATABASE.trim()).addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    if (snapshot.exists()) {
+//                        userStoryList = new ArrayList<>();
+//
+//                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                            UserStory userStory = new UserStory();
+//                            userStory.setName(dataSnapshot.child("name").getValue(String.class));
+//                            userStory.setAvatar(dataSnapshot.child("avatar").getValue(String.class));
+//                            userStory.setLastUpdated(dataSnapshot.child("lastUpdated").getValue(String.class));
+//
+//                            List<Story> storyList = new ArrayList<>();
+//                            for (DataSnapshot dataSnapshot1 : dataSnapshot.child("stories").getChildren()) {
+//                                Story story = dataSnapshot1.getValue(Story.class);
+//                                storyList.add(story);
+//                            }
+//                            userStory.setStoryList(storyList);
+//                            userStoryList.add(userStory);
+//                        }
+//
+//                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
+//                        fragmentChatBinding.rvStory.setLayoutManager(linearLayoutManager);
+//                        storyAdapter = new StoryAdapter(getContext(), userStoryList);
+//                        fragmentChatBinding.rvStory.setHasFixedSize(true);
+//                        fragmentChatBinding.rvStory.setAdapter(storyAdapter);
+//
+//                        fragmentChatBinding.sflItemStory.setVisibility(View.GONE);
+//                        fragmentChatBinding.rvStory.setVisibility(View.VISIBLE);
+//                    } else {
+//                        fragmentChatBinding.sflItemStory.setVisibility(View.GONE);
+//                        fragmentChatBinding.rvStory.setVisibility(View.VISIBLE);
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//                }
+//            });
         }
-
     }
 
     private void listeners() {
         fragmentChatBinding.cslStory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                activityResultLauncher.launch("image/*");
                 PermissionListener permissionlistener = new PermissionListener() {
                     @Override
                     public void onPermissionGranted() {

@@ -88,7 +88,6 @@ public class ChatActivity extends AppCompatActivity {
     private ChatMessageAdapter chatMessageAdapter;
 
     private static final String USER_CHAT_STORAGE = "USER_CHAT/";
-    private static final String STATUS_DATABASE = "status";
     private static final String STATUS_DATABASE_ONLINE = "online";
     private static final String STATUS_DATABASE_OFFLINE = "offline";
     private static final String TYPING = "true";
@@ -142,7 +141,7 @@ public class ChatActivity extends AppCompatActivity {
                             .placeholder(R.drawable.ic_user_avatar)
                             .error(R.drawable.ic_user_avatar)
                             .into(activityChatBinding.civAvatar);
-                    firebaseDatabase.getReference().child(STATUS_DATABASE.trim()).child(receiverID.trim()).addValueEventListener(new ValueEventListener() {
+                    firebaseDatabase.getReference().child("users/" + receiverID.trim() + "/status").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
@@ -234,10 +233,23 @@ public class ChatActivity extends AppCompatActivity {
                             }
                         });
 
+                        firebaseDatabase.getReference().child("chats").child(senderRoom.trim()).child("lastMessage")
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        activityChatBinding.llToBottom.setVisibility(View.VISIBLE);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
+
                         activityChatBinding.llToBottom.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 activityChatBinding.rvChatMessage.smoothScrollToPosition(activityChatBinding.rvChatMessage.getAdapter().getItemCount());
+                                activityChatBinding.llToBottom.setVisibility(View.GONE);
                             }
                         });
 
