@@ -88,6 +88,8 @@
 
     <string name="tvTheme">Theme</string>
     <string name="tvLanguage">Language</string>
+    <string name="tvVietnamFlag">Vietnamese</string>
+    <string name="tvEnglandFlag">English</string>
 
 
 </resources>

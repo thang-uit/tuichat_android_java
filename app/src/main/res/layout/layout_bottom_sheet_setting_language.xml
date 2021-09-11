@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llBottomSheetChat"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_corner_white_15dp_topleft_topright"
+    android:orientation="vertical"
+    android:paddingBottom="10dp">
+
+    <ImageView
+        android:id="@+id/ivDrag"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/ic_line" />
+
+    <RelativeLayout
+        android:id="@+id/rlVietnamFlag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/ivVietnamFlag"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_alignTop="@+id/tvVietnamFlag"
+            android:layout_alignBottom="@+id/tvVietnamFlag"
+            android:layout_marginStart="10dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_vietnam_flag" />
+
+        <TextView
+            android:id="@+id/tvVietnamFlag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_toStartOf="@+id/ivVietnamChecked"
+            android:layout_toEndOf="@+id/ivVietnamFlag"
+            android:ellipsize="marquee"
+            android:gravity="center_vertical"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:text="@string/tvVietnamFlag"
+            android:textColor="@color/color_1"
+            android:textSize="20sp"
+            android:textStyle="normal" />
+
+        <ImageView
+            android:id="@+id/ivVietnamChecked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlEnglandFlag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/ivEnglandFlag"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_alignTop="@+id/tvEnglandFlag"
+            android:layout_alignBottom="@+id/tvEnglandFlag"
+            android:layout_marginStart="10dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_england_flag" />
+
+        <TextView
+            android:id="@+id/tvEnglandFlag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_toStartOf="@+id/ivEnglandChecked"
+            android:layout_toEndOf="@+id/ivEnglandFlag"
+            android:ellipsize="marquee"
+            android:gravity="center_vertical"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:text="@string/tvEnglandFlag"
+            android:textColor="@color/color_1"
+            android:textSize="20sp"
+            android:textStyle="normal" />
+
+        <ImageView
+            android:id="@+id/ivEnglandChecked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_checked" />
+    </RelativeLayout>
+
+</LinearLayout>

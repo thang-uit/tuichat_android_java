@@ -364,8 +364,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
     private void openChatBottomSheetDialog(String layout, ChatMessage chatMessage) {
         bottomSheetDialog = new BottomSheetDialog(context, R.style.BottomSheetDialogTheme);
         View view = LayoutInflater.from(context).inflate(R.layout.layout_bottom_sheet_chat, null);
-        LayoutBottomSheetChatBinding layoutBottomSheetChatBinding;
-        layoutBottomSheetChatBinding = LayoutBottomSheetChatBinding.bind(view);
+        LayoutBottomSheetChatBinding layoutBottomSheetChatBinding = LayoutBottomSheetChatBinding.bind(view);
         bottomSheetDialog.setContentView(view);
         bottomSheetDialog.setCancelable(true);
 
