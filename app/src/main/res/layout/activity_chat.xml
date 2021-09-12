@@ -23,7 +23,7 @@
             android:background="?selectableItemBackground"
             android:gravity="center"
             android:padding="10dp"
-            app:srcCompat="@drawable/ic_back" />
+            app:srcCompat="@drawable/ic_arrow_left" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cslAvatar"

@@ -3,6 +3,8 @@ package com.thanguit.tuichat.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 public class User implements Parcelable {
     private String uid;
     private String name;
@@ -124,5 +126,19 @@ public class User implements Parcelable {
         parcel.writeString(avatar);
         parcel.writeString(status);
         parcel.writeString(token);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "User{" +
+                "uid='" + uid + '\'' +
+                ", name='" + name + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", status='" + status + '\'' +
+                ", token='" + token + '\'' +
+                '}';
     }
 }

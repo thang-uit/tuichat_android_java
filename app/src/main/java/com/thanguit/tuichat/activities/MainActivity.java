@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationBarView;
@@ -92,6 +94,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void listeners() {
+        activityMainBinding.civAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
         activityMainBinding.bnvNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

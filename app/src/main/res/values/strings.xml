@@ -92,5 +92,7 @@
     <string name="tvVietnamFlag">Vietnamese</string>
     <string name="tvEnglandFlag">English</string>
 
+    <string name="tvPersonalTitle">Personal information</string>
+    <string name="tvPersonalName">Name</string>
 
 </resources>

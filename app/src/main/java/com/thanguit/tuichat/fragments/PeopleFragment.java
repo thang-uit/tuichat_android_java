@@ -66,7 +66,7 @@ public class PeopleFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+        requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING); // Open soft keyboard without push up bottom navigation
     }
 
     @Override
@@ -100,7 +100,6 @@ public class PeopleFragment extends Fragment {
             });
         }
     }
-
 
     private void listeners() {
         fragmentPeopleBinding.edtSearchPeople.addTextChangedListener(new TextWatcher() {

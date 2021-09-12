@@ -36,6 +36,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.thanguit.tuichat.R;
@@ -139,25 +140,42 @@ public class LoginActivity extends AppCompatActivity {
                                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
                                             if (firebaseUser != null) {
-                                                Log.d(TAG_2, "User Information: " + firebaseUser.toString());
+                                                firebaseDatabase.getReference()
+                                                        .child(USER_DATABASE.trim())
+                                                        .child(firebaseUser.getUid())
+                                                        .get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            User dataUser = task.getResult().getValue(User.class);
+                                                            if (dataUser != null) {
+                                                                Log.d(TAG_2, "User Information: " + dataUser.toString());
+                                                                updateUI();
+                                                            } else {
+                                                                String uid = firebaseUser.getUid();
+                                                                String name = firebaseUser.getDisplayName();
+                                                                String phoneNumber = "Null";
+                                                                if (firebaseUser.getPhoneNumber() != null) {
+                                                                    phoneNumber = firebaseUser.getPhoneNumber();
+                                                                }
+                                                                String email = "Null";
+                                                                if (firebaseUser.getEmail() != null) {
+                                                                    email = firebaseUser.getEmail();
+                                                                }
+                                                                String avatar = "Null";
+                                                                if (firebaseUser.getPhotoUrl() != null) {
+                                                                    avatar = firebaseUser.getPhotoUrl() + "?height=500&access_token=" + loginResult.getAccessToken().getToken();
+                                                                }
 
-                                                String uid = firebaseUser.getUid();
-                                                String name = firebaseUser.getDisplayName();
-                                                String phoneNumber = "Null";
-                                                if (firebaseUser.getPhoneNumber() != null) {
-                                                    phoneNumber = firebaseUser.getPhoneNumber();
-                                                }
-                                                String email = "Null";
-                                                if (firebaseUser.getEmail() != null) {
-                                                    email = firebaseUser.getEmail();
-                                                }
-                                                String avatar = "Null";
-                                                if (firebaseUser.getPhotoUrl() != null) {
-                                                    avatar = firebaseUser.getPhotoUrl() + "?height=500&access_token=" + loginResult.getAccessToken().getToken();
-                                                }
-
-                                                User user = new User(uid, name, phoneNumber, email, avatar);
-                                                addUserIntoDatabase(user);
+                                                                User user = new User(uid, name, phoneNumber, email, avatar);
+                                                                addUserIntoDatabase(user);
+                                                            }
+                                                        } else {
+                                                            Log.e("firebase", "Error getting data", task.getException());
+                                                            MyToast.makeText(LoginActivity.this, MyToast.ERROR, getString(R.string.toast3), MyToast.SHORT).show();
+                                                        }
+                                                    }
+                                                });
                                             }
                                         } else {
                                             // If sign in fails, display a message to the user.
@@ -207,25 +225,44 @@ public class LoginActivity extends AppCompatActivity {
 
                                     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                                     if (firebaseUser != null) {
-                                        Log.d(TAG_1, "User Information: " + firebaseUser.toString());
+                                        firebaseDatabase.getReference()
+                                                .child(USER_DATABASE.trim())
+                                                .child(firebaseUser.getUid())
+                                                .get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    User dataUser = task.getResult().getValue(User.class);
+                                                    if (dataUser != null) {
+                                                        Log.d(TAG_1, "User Information: " + dataUser.toString());
+                                                        updateUI();
+                                                    } else {
+                                                        Log.d(TAG_1, "User Information: " + firebaseUser.toString());
 
-                                        String uid = firebaseUser.getUid();
-                                        String name = firebaseUser.getDisplayName();
-                                        String phoneNumber = "Null";
-                                        if (firebaseUser.getPhoneNumber() != null) {
-                                            phoneNumber = firebaseUser.getPhoneNumber();
-                                        }
-                                        String email = "Null";
-                                        if (firebaseUser.getEmail() != null) {
-                                            email = firebaseUser.getEmail();
-                                        }
-                                        String avatar = "Null";
-                                        if (firebaseUser.getPhotoUrl() != null) {
-                                            avatar = firebaseUser.getPhotoUrl().toString().replace("s96-c", "s500-c");
-                                        }
+                                                        String uid = firebaseUser.getUid();
+                                                        String name = firebaseUser.getDisplayName();
+                                                        String phoneNumber = "Null";
+                                                        if (firebaseUser.getPhoneNumber() != null) {
+                                                            phoneNumber = firebaseUser.getPhoneNumber();
+                                                        }
+                                                        String email = "Null";
+                                                        if (firebaseUser.getEmail() != null) {
+                                                            email = firebaseUser.getEmail();
+                                                        }
+                                                        String avatar = "Null";
+                                                        if (firebaseUser.getPhotoUrl() != null) {
+                                                            avatar = firebaseUser.getPhotoUrl().toString().replace("s96-c", "s500-c");
+                                                        }
 
-                                        User user = new User(uid, name, phoneNumber, email, avatar);
-                                        addUserIntoDatabase(user);
+                                                        User user = new User(uid, name, phoneNumber, email, avatar);
+                                                        addUserIntoDatabase(user);
+                                                    }
+                                                } else {
+                                                    Log.e("firebase", "Error getting data", task.getException());
+                                                    MyToast.makeText(LoginActivity.this, MyToast.ERROR, getString(R.string.toast3), MyToast.SHORT).show();
+                                                }
+                                            }
+                                        });
                                     }
                                 } else {
                                     // If sign in fails, display a message to the user.

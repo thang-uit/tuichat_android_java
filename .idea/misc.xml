@@ -37,6 +37,7 @@
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/drawable/ic_love.xml" value="0.2703125" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/drawable/ic_mobile_auth.xml" value="0.2703125" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/drawable/ic_mobile_login.xml" value="0.2703125" />
+        <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/drawable/ic_photo.xml" value="0.2703125" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/drawable/ic_picture.xml" value="0.2703125" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/drawable/ic_plus.xml" value="0.2703125" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/drawable/ic_send.xml" value="0.2703125" />
@@ -91,6 +92,7 @@
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/activity_phone_number.xml" value="0.264" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/activity_setup_profile.xml" value="0.264" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/activity_splash.xml" value="0.25416666666666665" />
+        <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/activity_user_profile.xml" value="0.4" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/content_phone_number.xml" value="0.25416666666666665" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/fragment_chat.xml" value="0.264" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/fragment_people.xml" value="0.20244565217391305" />

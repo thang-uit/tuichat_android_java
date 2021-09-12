@@ -93,7 +93,6 @@ public class ChatActivity extends AppCompatActivity {
     private static final String TYPING = "true";
     private static final String NOT_TYPING = "false";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
