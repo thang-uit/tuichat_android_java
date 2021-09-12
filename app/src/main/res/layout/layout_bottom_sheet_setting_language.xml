@@ -55,9 +55,12 @@
             android:id="@+id/ivVietnamChecked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvVietnamFlag"
+            android:layout_alignBottom="@+id/tvVietnamFlag"
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
-            android:scaleType="centerCrop" />
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_checked" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -99,10 +102,10 @@
             android:id="@+id/ivEnglandChecked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvEnglandFlag"
+            android:layout_alignBottom="@+id/tvEnglandFlag"
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
-            android:scaleType="centerCrop"
             app:srcCompat="@drawable/ic_checked" />
     </RelativeLayout>
-
 </LinearLayout>

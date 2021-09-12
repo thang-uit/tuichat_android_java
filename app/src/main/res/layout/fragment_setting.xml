@@ -76,11 +76,21 @@
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/tvLanguage"
                     android:layout_alignBottom="@+id/tvLanguage"
-                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toStartOf="@+id/ivArrow"
                     android:gravity="center"
                     android:text="@string/tvEnglandFlag"
                     android:textColor="@color/color_1"
                     android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/ivArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tvLanguage"
+                    android:layout_alignBottom="@+id/tvLanguage"
+                    android:layout_alignParentEnd="true"
+                    app:srcCompat="@drawable/ic_arrow_right" />
             </RelativeLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
