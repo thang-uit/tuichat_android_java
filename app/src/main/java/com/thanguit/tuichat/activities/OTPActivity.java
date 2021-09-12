@@ -173,7 +173,6 @@ public class OTPActivity extends AppCompatActivity {
                                 Intent intent = new Intent(OTPActivity.this, SetupProfileActivity.class);
                                 startActivity(intent);
                                 finishAffinity();
-
                             } else {
                                 Log.d(TAG, "signInWithCredential:failure", task.getException());
 

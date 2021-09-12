@@ -35,6 +35,7 @@
     <string name="edtPNumber">Your phone number</string>
     <string name="edtPNumberError">Enter your phone number</string>
     <string name="btnPhoneNumber">Continue</string>
+    <string name="btnBack">Sign in with another form</string>
 
     <string name="tvOTP">OTP Verification</string>
     <string name="tvOTPTip">Please enter the OTP sent to you</string>

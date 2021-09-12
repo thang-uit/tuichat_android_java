@@ -1,6 +1,7 @@
 package com.thanguit.tuichat.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,10 +54,12 @@ public class PhoneNumberActivity extends AppCompatActivity {
         activityPhoneNumberBinding.ccpCountryCodePicker.resetToDefaultCountry();
 
         activityPhoneNumberBinding.edtPNumber.requestFocus();
+
+        animationScale.eventButton(this, activityPhoneNumberBinding.btnPhoneNumber);
+        animationScale.eventButton(this, activityPhoneNumberBinding.btnBack);
     }
 
     private void listeners() {
-        animationScale.eventButton(this, activityPhoneNumberBinding.btnPhoneNumber);
         activityPhoneNumberBinding.btnPhoneNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,5 +80,11 @@ public class PhoneNumberActivity extends AppCompatActivity {
             }
         });
 
+        activityPhoneNumberBinding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 }
