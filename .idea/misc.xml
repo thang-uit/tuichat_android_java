@@ -56,6 +56,7 @@
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/drawable/ic_video_camera.xml" value="0.2703125" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/drawable/ic_vietnam_flag.xml" value="0.2703125" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/drawable/ic_warning.xml" value="0.2703125" />
+        <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/drawable/shape_background_edt_corner_10dp_border.xml" value="0.2703125" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/drawable/shape_background_edt_corner_20dp.xml" value="0.2703125" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/drawable/shape_background_gradient_1_corner_10dp.xml" value="0.2703125" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/drawable/shape_background_gradient_2_corner_10dp.xml" value="0.2703125" />
@@ -92,7 +93,7 @@
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/activity_phone_number.xml" value="0.264" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/activity_setup_profile.xml" value="0.264" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/activity_splash.xml" value="0.25416666666666665" />
-        <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/activity_user_profile.xml" value="0.4" />
+        <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/activity_user_profile.xml" value="0.264" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/content_phone_number.xml" value="0.25416666666666665" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/fragment_chat.xml" value="0.264" />
         <entry key="..\:/mobile/tuichat_android_java/app/src/main/res/layout/fragment_people.xml" value="0.20244565217391305" />

@@ -94,5 +94,6 @@
 
     <string name="tvPersonalTitle">Personal information</string>
     <string name="tvPersonalName">Name</string>
+    <string name="edtUserName">Name</string>
 
 </resources>
