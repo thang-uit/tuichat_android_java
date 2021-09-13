@@ -413,17 +413,18 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
     private void openConfirmDialog(String layout, BottomSheetDialog bottomSheetDialog, ChatMessage chatMessage, String senderRoom, String receiverRoom) {
         dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_textview_dialog, null);
-        LayoutTextviewDialogBinding layoutTextviewDialogBinding;
-        layoutTextviewDialogBinding = LayoutTextviewDialogBinding.bind(view);
-        dialog.setContentView(view);
+
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        LayoutTextviewDialogBinding layoutTextviewDialogBinding = LayoutTextviewDialogBinding.inflate(layoutInflater);
+        dialog.setContentView(layoutTextviewDialogBinding.getRoot());
         dialog.setCancelable(true);
 
         Window window = (Window) dialog.getWindow();
         if (window == null) {
             return;
         }
-//        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         WindowManager.LayoutParams windowAttributes = window.getAttributes();
         windowAttributes.gravity = Gravity.CENTER;

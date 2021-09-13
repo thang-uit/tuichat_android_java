@@ -82,8 +82,10 @@
 
     <string name="tvDialogContent1">This message will be removed for you. Other chat members will still be able to see it.</string>
     <string name="tvDialogContent2">You\'ll permanently remove this message for all chat members. They can see you unsent a message.</string>
+    <string name="tvDialogContent3">Do you want to sign out?</string>
     <string name="btnDialog11">Cancel</string>
     <string name="btnDialog22">Delete</string>
+    <string name="btnDialog23">Logout</string>
 
     <string name="edtSearchPeople">Search</string>
 
@@ -95,5 +97,10 @@
     <string name="tvPersonalTitle">Personal information</string>
     <string name="tvPersonalName">Name</string>
     <string name="edtUserName">Name</string>
+    <string name="edtEmail">abc@gmail.com</string>
+
+    <string name="btnLogout">Logout</string>
+
+
 
 </resources>

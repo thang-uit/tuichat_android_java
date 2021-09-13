@@ -115,8 +115,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:cardElevation="10dp">
+                android:layout_marginTop="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -132,6 +131,40 @@
                         android:background="@drawable/shape_background_edt_corner_10dp_border"
                         android:hint="@string/edtUserName"
                         android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:maxLength="100"
+                        android:maxLines="1"
+                        android:padding="10dp"
+                        android:textColor="@color/color_2"
+                        android:textColorHighlight="@color/color_main_1"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/edtEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/shape_background_edt_corner_10dp_border"
+                        android:hint="@string/edtEmail"
+                        android:imeOptions="actionDone"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="100"
+                        android:maxLines="1"
+                        android:padding="10dp"
+                        android:textColor="@color/color_2"
+                        android:textColorHighlight="@color/color_main_1"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/edtPhoneNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/shape_background_edt_corner_10dp_border"
+                        android:digits="0123456789"
+                        android:hint="@string/edtPNumber"
+                        android:imeOptions="actionDone"
+                        android:inputType="phone"
                         android:maxLength="100"
                         android:maxLines="1"
                         android:padding="10dp"
@@ -141,30 +174,18 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
+            <Button
+                android:id="@+id/btnLogout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginTop="10dp"
-                android:padding="10dp"
-                app:cardElevation="10dp">
+                android:background="@color/color_main_5"
+                android:text="@string/btnLogout"
+                android:textAlignment="center"
+                android:textColor="@color/color_main_3"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <!--                    <Button-->
-                    <!--                        android:id="@+id/btnLogout"-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="50dp"-->
-                    <!--                        android:background="@color/colorMain4"-->
-                    <!--                        android:fontFamily="@font/comfortaa"-->
-                    <!--                        android:text="@string/btnLogout"-->
-                    <!--                        android:textAlignment="center"-->
-                    <!--                        android:textColor="@color/colorMain1"-->
-                    <!--                        android:textSize="20sp"-->
-                    <!--                        android:textStyle="bold" />-->
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>
