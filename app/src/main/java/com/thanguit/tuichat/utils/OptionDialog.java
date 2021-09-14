@@ -21,7 +21,12 @@ import com.thanguit.tuichat.animations.AnimationScale;
 
 public class OptionDialog extends Dialog {
     private Context context;
-    private Dialog dialog;
+
+    private String title;
+    private String content;
+    private String negativeButton;
+    private String positiveButton;
+    private boolean setCancelable;
 
     private SetActionButtonListener setActionButtonListener;
 
@@ -29,9 +34,14 @@ public class OptionDialog extends Dialog {
         super(context);
     }
 
-    public OptionDialog(Context context, SetActionButtonListener setActionButtonListener) {
+    public OptionDialog(Context context, String title, String content, String negativeButton, String positiveButton, boolean setCancelable, SetActionButtonListener setActionButtonListener) {
         super(context);
         this.context = context;
+        this.title = title;
+        this.content = content;
+        this.negativeButton = negativeButton;
+        this.positiveButton = positiveButton;
+        this.setCancelable = setCancelable;
         this.setActionButtonListener = setActionButtonListener;
     }
 
@@ -41,8 +51,8 @@ public class OptionDialog extends Dialog {
         void setPositiveButtonListener(Dialog dialog);
     }
 
-    public Dialog setViewDialog(String title, String content, String negativeButton, String positiveButton, boolean setCancelable) {
-        dialog = new Dialog(this.context);
+    public Dialog setViewDialog() {
+        final Dialog dialog = new Dialog(this.context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_textview_dialog);
 
