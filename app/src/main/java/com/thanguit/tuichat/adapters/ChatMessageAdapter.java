@@ -42,6 +42,7 @@ import com.thanguit.tuichat.databinding.LayoutBottomSheetChatBinding;
 import com.thanguit.tuichat.databinding.LayoutTextviewDialogBinding;
 import com.thanguit.tuichat.models.ChatMessage;
 import com.thanguit.tuichat.utils.MyToast;
+import com.thanguit.tuichat.utils.OptionDialog;
 
 import java.util.HashMap;
 import java.util.List;
@@ -411,105 +412,93 @@ public class ChatMessageAdapter extends RecyclerView.Adapter {
     }
 
     private void openConfirmDialog(String layout, BottomSheetDialog bottomSheetDialog, ChatMessage chatMessage, String senderRoom, String receiverRoom) {
-        dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        LayoutTextviewDialogBinding layoutTextviewDialogBinding = LayoutTextviewDialogBinding.inflate(layoutInflater);
-        dialog.setContentView(layoutTextviewDialogBinding.getRoot());
-        dialog.setCancelable(true);
-
-        Window window = (Window) dialog.getWindow();
-        if (window == null) {
-            return;
-        }
-
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        WindowManager.LayoutParams windowAttributes = window.getAttributes();
-        windowAttributes.gravity = Gravity.CENTER;
-        window.setAttributes(windowAttributes);
-
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-        AnimationScale.getInstance().eventButton(context, layoutTextviewDialogBinding.btnDialogCancel);
-        AnimationScale.getInstance().eventButton(context, layoutTextviewDialogBinding.btnDialogAction);
-
-        layoutTextviewDialogBinding.btnDialogCancel.setText(context.getString(R.string.btnDialog11).trim());
-        layoutTextviewDialogBinding.btnDialogAction.setText(context.getString(R.string.btnDialog22).trim());
-
         if (layout.equals("REMOVE_FOR_YOU")) {
-            layoutTextviewDialogBinding.tvDialogTitle.setText(context.getString(R.string.tvRemoveForYou).trim());
-            layoutTextviewDialogBinding.tvDialogContent.setText(context.getString(R.string.tvDialogContent1).trim());
+            OptionDialog removeForYouDialog = new OptionDialog(
+                    context,
+                    context.getString(R.string.tvRemoveForYou).trim(),
+                    context.getString(R.string.tvDialogContent1).trim(),
+                    context.getString(R.string.btnDialog11).trim(),
+                    context.getString(R.string.btnDialog22),
+                    true,
+                    new OptionDialog.SetActionButtonListener() {
+                        @Override
+                        public void setNegativeButtonListener(Dialog dialog) {
+                            dialog.dismiss();
+                        }
 
-            layoutTextviewDialogBinding.btnDialogAction.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    firebaseDatabase.getReference().child("chats").child(senderRoom).child("messages").child(chatMessage.getMessageID())
-                            .removeValue(new DatabaseReference.CompletionListener() {
-                                @Override
-                                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                    if (chatMessageList != null) {
-                                        HashMap<String, Object> lastMessageObj = new HashMap<>();
-                                        if (chatMessageList.isEmpty()) {
-                                            lastMessageObj.put("lastMessage", context.getString(R.string.tvLastMessage).trim());
-                                        } else {
-                                            lastMessageObj.put("lastMessage", chatMessageList.get(chatMessageList.size() - 1).getMessage().trim());
-                                        }
-                                        firebaseDatabase.getReference().child("chats").child(senderRoom.trim()).updateChildren(lastMessageObj);
-                                    }
-
-                                    dialog.dismiss();
-                                    bottomSheetDialog.dismiss();
-                                    MyToast.makeText(context, MyToast.SUCCESS, context.getString(R.string.toast11), MyToast.SHORT).show();
-                                }
-                            });
-                }
-            });
-        } else {
-            layoutTextviewDialogBinding.tvDialogTitle.setText(context.getString(R.string.tvRemoveForEveryone).trim());
-            layoutTextviewDialogBinding.tvDialogContent.setText(context.getString(R.string.tvDialogContent2).trim());
-
-            layoutTextviewDialogBinding.btnDialogAction.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    firebaseDatabase.getReference().child("chats").child(senderRoom).child("messages").child(chatMessage.getMessageID())
-                            .removeValue(new DatabaseReference.CompletionListener() {
-                                @Override
-                                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                    firebaseDatabase.getReference().child("chats").child(receiverRoom).child("messages").child(chatMessage.getMessageID())
-                                            .removeValue(new DatabaseReference.CompletionListener() {
-                                                @Override
-                                                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                                    if (chatMessageList != null) {
-                                                        HashMap<String, Object> lastMessageObj = new HashMap<>();
-                                                        if (chatMessageList.isEmpty()) {
-                                                            lastMessageObj.put("lastMessage", context.getString(R.string.tvLastMessage).trim());
-                                                        } else {
-                                                            lastMessageObj.put("lastMessage", chatMessageList.get(chatMessageList.size() - 1).getMessage().trim());
-                                                        }
-                                                        firebaseDatabase.getReference().child("chats").child(senderRoom.trim()).updateChildren(lastMessageObj);
-                                                        firebaseDatabase.getReference().child("chats").child(receiverRoom.trim()).updateChildren(lastMessageObj);
-                                                    }
-
-                                                    dialog.dismiss();
-                                                    bottomSheetDialog.dismiss();
-                                                    MyToast.makeText(context, MyToast.SUCCESS, context.getString(R.string.toast11), MyToast.SHORT).show();
+                        @Override
+                        public void setPositiveButtonListener(Dialog dialog) {
+                            firebaseDatabase.getReference().child("chats").child(senderRoom).child("messages").child(chatMessage.getMessageID())
+                                    .removeValue(new DatabaseReference.CompletionListener() {
+                                        @Override
+                                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                            if (chatMessageList != null) {
+                                                HashMap<String, Object> lastMessageObj = new HashMap<>();
+                                                if (chatMessageList.isEmpty()) {
+                                                    lastMessageObj.put("lastMessage", context.getString(R.string.tvLastMessage).trim());
+                                                } else {
+                                                    lastMessageObj.put("lastMessage", chatMessageList.get(chatMessageList.size() - 1).getMessage().trim());
                                                 }
-                                            });
-                                }
-                            });
-                }
-            });
+                                                firebaseDatabase.getReference().child("chats").child(senderRoom.trim()).updateChildren(lastMessageObj);
+                                            }
+
+                                            dialog.dismiss();
+                                            bottomSheetDialog.dismiss();
+                                            MyToast.makeText(context, MyToast.SUCCESS, context.getString(R.string.toast11), MyToast.SHORT).show();
+                                        }
+                                    });
+                        }
+                    }
+            );
+            removeForYouDialog.show();
+        } else {
+            OptionDialog removeForEveryoneDialog = new OptionDialog(
+                    context,
+                    context.getString(R.string.tvRemoveForEveryone).trim(),
+                    context.getString(R.string.tvDialogContent2).trim(),
+                    context.getString(R.string.btnDialog11).trim(),
+                    context.getString(R.string.btnDialog22),
+                    true,
+                    new OptionDialog.SetActionButtonListener() {
+                        @Override
+                        public void setNegativeButtonListener(Dialog dialog) {
+                            dialog.dismiss();
+                        }
+
+                        @Override
+                        public void setPositiveButtonListener(Dialog dialog) {
+                            firebaseDatabase.getReference().child("chats").child(senderRoom).child("messages").child(chatMessage.getMessageID())
+                                    .removeValue(new DatabaseReference.CompletionListener() {
+                                        @Override
+                                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                            firebaseDatabase.getReference().child("chats").child(receiverRoom).child("messages").child(chatMessage.getMessageID())
+                                                    .removeValue(new DatabaseReference.CompletionListener() {
+                                                        @Override
+                                                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                                            if (chatMessageList != null) {
+                                                                HashMap<String, Object> lastMessageObj = new HashMap<>();
+                                                                if (chatMessageList.isEmpty()) {
+                                                                    lastMessageObj.put("lastMessage", context.getString(R.string.tvLastMessage).trim());
+                                                                } else {
+                                                                    lastMessageObj.put("lastMessage", chatMessageList.get(chatMessageList.size() - 1).getMessage().trim());
+                                                                }
+                                                                firebaseDatabase.getReference().child("chats").child(senderRoom.trim()).updateChildren(lastMessageObj);
+                                                                firebaseDatabase.getReference().child("chats").child(receiverRoom.trim()).updateChildren(lastMessageObj);
+                                                            }
+
+                                                            dialog.dismiss();
+                                                            bottomSheetDialog.dismiss();
+                                                            MyToast.makeText(context, MyToast.SUCCESS, context.getString(R.string.toast11), MyToast.SHORT).show();
+                                                        }
+                                                    });
+                                        }
+                                    });
+                        }
+                    }
+            );
+            removeForEveryoneDialog.show();
         }
-
-        layoutTextviewDialogBinding.btnDialogCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
     }
 }

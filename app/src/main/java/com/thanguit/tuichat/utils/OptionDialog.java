@@ -20,13 +20,13 @@ import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.animations.AnimationScale;
 
 public class OptionDialog {
-    private Context context;
-    private String title;
-    private String content;
-    private String negativeButton;
-    private String positiveButton;
-    private boolean setCancelable;
-    private SetActionButtonListener setActionButtonListener;
+    private final Context context;
+    private final String title;
+    private final String content;
+    private final String negativeButton;
+    private final String positiveButton;
+    private final boolean setCancelable;
+    private final SetActionButtonListener setActionButtonListener;
 
     public OptionDialog(Context context, String title, String content, String negativeButton, String positiveButton, boolean setCancelable, SetActionButtonListener setActionButtonListener) {
         this.context = context;
@@ -59,7 +59,7 @@ public class OptionDialog {
         WindowManager.LayoutParams windowAttributes = window.getAttributes();
         windowAttributes.gravity = Gravity.CENTER;
         window.setAttributes(windowAttributes);
-        dialog.setCancelable(setCancelable);
+        dialog.setCancelable(this.setCancelable);
 
         TextView tvDialogTitle = dialog.findViewById(R.id.tvDialogTitle);
         TextView tvDialogContent = dialog.findViewById(R.id.tvDialogContent);
@@ -69,10 +69,10 @@ public class OptionDialog {
         AnimationScale.getInstance().eventButton(this.context, btnDialogCancel);
         AnimationScale.getInstance().eventButton(this.context, btnDialogAction);
 
-        tvDialogTitle.setText(title.trim());
-        tvDialogContent.setText(content.trim());
-        btnDialogCancel.setText(negativeButton.trim());
-        btnDialogAction.setText(positiveButton.trim());
+        tvDialogTitle.setText(this.title.trim());
+        tvDialogContent.setText(this.content.trim());
+        btnDialogCancel.setText(this.negativeButton.trim());
+        btnDialogAction.setText(this.positiveButton.trim());
 
         btnDialogCancel.setOnClickListener(new View.OnClickListener() {
             @Override
