@@ -27,6 +27,7 @@
     <string name="toast9">Upload successful!</string>
     <string name="toast10">Message copied</string>
     <string name="toast11">Delete successful</string>
+    <string name="toast12">Update successful</string>
 
     <string name="tvDeveloper">Thanguit Developer</string>
 
@@ -98,9 +99,9 @@
     <string name="tvPersonalName">Name</string>
     <string name="edtUserName">Name</string>
     <string name="edtEmail">abc@gmail.com</string>
+    <string name="tvEmail">Email</string>
 
-    <string name="btnLogout">Logout</string>
-
-
+    <string name="btnLogout">Sign out</string>
+    <string name="btnSave">Save</string>
 
 </resources>

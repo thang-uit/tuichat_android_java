@@ -43,11 +43,9 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/color_5"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -115,7 +113,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                app:cardElevation="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -124,8 +123,16 @@
                     android:orientation="vertical"
                     android:padding="10dp">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="@string/edtUserName"
+                        android:textColor="@color/color_1"
+                        android:textSize="16sp" />
+
                     <EditText
-                        android:id="@+id/edtUserName"
+                        android:id="@+id/edtName"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/shape_background_edt_corner_10dp_border"
@@ -139,11 +146,19 @@
                         android:textColorHighlight="@color/color_main_1"
                         android:textSize="18sp" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="@string/tvEmail"
+                        android:textColor="@color/color_1"
+                        android:textSize="16sp" />
+
                     <EditText
                         android:id="@+id/edtEmail"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
                         android:background="@drawable/shape_background_edt_corner_10dp_border"
                         android:hint="@string/edtEmail"
                         android:imeOptions="actionDone"
@@ -155,22 +170,56 @@
                         android:textColorHighlight="@color/color_main_1"
                         android:textSize="18sp" />
 
-                    <EditText
-                        android:id="@+id/edtPhoneNumber"
+                    <LinearLayout
+                        android:id="@+id/llPhoneNumber"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/shape_background_edt_corner_10dp_border"
-                        android:digits="0123456789"
-                        android:hint="@string/edtPNumber"
-                        android:imeOptions="actionDone"
-                        android:inputType="phone"
-                        android:maxLength="100"
-                        android:maxLines="1"
-                        android:padding="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:elevation="0dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <com.hbb20.CountryCodePicker
+                            android:id="@+id/ccpCountryCodePicker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center" />
+
+                        <EditText
+                            android:id="@+id/edtPhoneNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/shape_background_edt_corner_10dp_border"
+                            android:digits="0123456789"
+                            android:hint="@string/edtPNumber"
+                            android:imeOptions="actionDone"
+                            android:inputType="phone"
+                            android:maxLength="100"
+                            android:maxLines="1"
+                            android:padding="10dp"
+                            android:textColor="@color/color_2"
+                            android:textColorHighlight="@color/color_main_1"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btnSave"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/shape_background_gradient_1_corner_10dp"
+                        android:elevation="0dp"
+                        android:text="@string/btnSave"
+                        android:textAllCaps="false"
                         android:textColor="@color/color_2"
-                        android:textColorHighlight="@color/color_main_1"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -178,8 +227,9 @@
                 android:id="@+id/btnLogout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:background="@color/color_main_5"
+                android:elevation="0dp"
                 android:text="@string/btnLogout"
                 android:textAlignment="center"
                 android:textColor="@color/color_main_3"
@@ -187,5 +237,5 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 </LinearLayout>

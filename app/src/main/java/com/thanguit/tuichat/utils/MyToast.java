@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +28,6 @@ public class MyToast extends Toast {
         toast.setDuration(duration);
 
         View layout = LayoutInflater.from(context).inflate(R.layout.layout_toast, null, false);
-        LinearLayout llBackgroundToast = layout.findViewById(R.id.llBackgroundToast);
         ImageView ivIconToast = layout.findViewById(R.id.ivIconToast);
         TextView tvTextToast = layout.findViewById(R.id.tvTextToast);
         if (content.isEmpty()) {
@@ -40,24 +38,20 @@ public class MyToast extends Toast {
 
         switch (type) {
             case SUCCESS: {
-                llBackgroundToast.setBackgroundResource(R.drawable.shape_success_corner_10dp);
                 ivIconToast.setImageResource(R.drawable.ic_success_2);
                 break;
             }
             case ERROR: {
-                llBackgroundToast.setBackgroundResource(R.drawable.shape_error_corner_10dp);
                 ivIconToast.setImageResource(R.drawable.ic_error);
                 break;
             }
 
             case WARNING: {
-                llBackgroundToast.setBackgroundResource(R.drawable.shape_warning_corner_10dp);
                 ivIconToast.setImageResource(R.drawable.ic_warning);
                 break;
             }
 
             case INFORMATION: {
-                llBackgroundToast.setBackgroundResource(R.drawable.shape_info_corner_10dp);
                 ivIconToast.setImageResource(R.drawable.ic_info);
                 break;
             }

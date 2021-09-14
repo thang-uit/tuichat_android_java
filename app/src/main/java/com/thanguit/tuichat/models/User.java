@@ -34,6 +34,11 @@ public class User implements Parcelable {
         this.avatar = avatar;
     }
 
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
     protected User(Parcel in) {
         uid = in.readString();
         name = in.readString();
