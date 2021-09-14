@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -104,7 +105,7 @@ public class SetupProfileActivity extends AppCompatActivity {
                                         String uid = firebaseUser.getUid();
                                         String name = activitySetupProfileBinding.edtSetupProfileName.getText().toString().trim();
                                         String phoneNumber = firebaseUser.getPhoneNumber();
-                                        String email = "Null";
+                                        String email = "";
                                         String avatar = uri.toString().trim();
 
                                         User user = new User(uid, name, phoneNumber, email, avatar);
@@ -112,6 +113,13 @@ public class SetupProfileActivity extends AppCompatActivity {
                                                 .child(USER_DATABASE.trim())
                                                 .child(uid)
                                                 .setValue(user)
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        loadingDialog.cancelLoading();
+                                                        MyToast.makeText(SetupProfileActivity.this, MyToast.ERROR, getString(R.string.toast3), MyToast.SHORT).show();
+                                                    }
+                                                })
                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void unused) {
