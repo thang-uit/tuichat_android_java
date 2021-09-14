@@ -19,23 +19,16 @@ import androidx.appcompat.app.AlertDialog;
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.animations.AnimationScale;
 
-public class OptionDialog extends Dialog {
+public class OptionDialog {
     private Context context;
-
     private String title;
     private String content;
     private String negativeButton;
     private String positiveButton;
     private boolean setCancelable;
-
     private SetActionButtonListener setActionButtonListener;
 
-    public OptionDialog(@NonNull Context context) {
-        super(context);
-    }
-
     public OptionDialog(Context context, String title, String content, String negativeButton, String positiveButton, boolean setCancelable, SetActionButtonListener setActionButtonListener) {
-        super(context);
         this.context = context;
         this.title = title;
         this.content = content;
@@ -51,12 +44,16 @@ public class OptionDialog extends Dialog {
         void setPositiveButtonListener(Dialog dialog);
     }
 
-    public Dialog setViewDialog() {
+    public void show() {
         final Dialog dialog = new Dialog(this.context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_textview_dialog);
 
         Window window = (Window) dialog.getWindow();
+        if (window == null) {
+            return;
+        }
+
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         WindowManager.LayoutParams windowAttributes = window.getAttributes();
@@ -91,6 +88,6 @@ public class OptionDialog extends Dialog {
             }
         });
 
-        return dialog;
+        dialog.show();
     }
 }

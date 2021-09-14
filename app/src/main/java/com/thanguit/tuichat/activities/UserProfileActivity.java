@@ -3,12 +3,13 @@ package com.thanguit.tuichat.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -18,7 +19,6 @@ import com.thanguit.tuichat.animations.AnimationScale;
 import com.thanguit.tuichat.database.FirebaseManager;
 import com.thanguit.tuichat.databinding.ActivityUserProfileBinding;
 import com.thanguit.tuichat.utils.LoadingDialog;
-import com.thanguit.tuichat.utils.OpenSoftKeyboard;
 import com.thanguit.tuichat.utils.OptionDialog;
 
 public class UserProfileActivity extends AppCompatActivity {
@@ -36,9 +36,13 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            int startColor = getWindow().getStatusBarColor();
-            int endColor = ContextCompat.getColor(this, R.color.color_main_1);
-            ObjectAnimator.ofArgb(getWindow(), "statusBarColor", startColor, endColor).start();
+            Window window = this.getWindow();
+            // clear FLAG_TRANSLUCENT_STATUS flag:
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            // finally change the color
+            window.setStatusBarColor(ContextCompat.getColor(this, R.color.color_main_1));
         }
         activityUserProfileBinding = ActivityUserProfileBinding.inflate(getLayoutInflater());
         setContentView(activityUserProfileBinding.getRoot());
@@ -75,7 +79,7 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void openLogoutDialog() {
-        OptionDialog optionDialog = new OptionDialog(this,
+        OptionDialog logoutDialog = new OptionDialog(this,
                 getResources().getString(R.string.btnDialog23).trim(),
                 getResources().getString(R.string.tvDialogContent3).trim(),
                 getResources().getString(R.string.btnDialog11).trim(),
@@ -96,6 +100,6 @@ public class UserProfileActivity extends AppCompatActivity {
                         finishAffinity();
                     }
                 });
-        optionDialog.setViewDialog().show();
+        logoutDialog.show();
     }
 }

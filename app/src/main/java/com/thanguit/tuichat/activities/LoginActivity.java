@@ -6,12 +6,9 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -62,7 +59,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private AnimationScale animationScale;
 
-    private static final String USER_AVATAR_STORAGE = "USER_AVATAR";
     private static final String USER_DATABASE = "users";
 
     @Override
