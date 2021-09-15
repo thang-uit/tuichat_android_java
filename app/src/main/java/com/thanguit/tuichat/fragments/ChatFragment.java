@@ -129,7 +129,6 @@ public class ChatFragment extends Fragment {
                         }
                     }
                     userAdapter = new UserAdapter(getContext(), userList);
-                    fragmentChatBinding.rvChat.setHasFixedSize(true);
                     fragmentChatBinding.rvChat.setAdapter(userAdapter);
 
                     fragmentChatBinding.sflItemConversation.setVisibility(View.GONE);

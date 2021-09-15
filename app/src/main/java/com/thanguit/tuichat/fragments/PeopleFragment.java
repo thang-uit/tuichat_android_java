@@ -13,16 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
 import com.thanguit.tuichat.adapters.PeopleAdapter;
-import com.thanguit.tuichat.adapters.UserAdapter;
 import com.thanguit.tuichat.databinding.FragmentPeopleBinding;
 import com.thanguit.tuichat.models.User;
 
@@ -47,7 +44,7 @@ public class PeopleFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fragmentPeopleBinding = FragmentPeopleBinding.inflate(inflater, container, false);
         return fragmentPeopleBinding.getRoot();
     }
@@ -59,14 +56,26 @@ public class PeopleFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
+        userList = new ArrayList<>();
+
         initializeViews();
         listeners();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING); // Open soft keyboard without push up bottom navigation
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
     @Override
@@ -81,17 +90,19 @@ public class PeopleFragment extends Fragment {
             firebaseDatabase.getReference().child("users").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    userList = new ArrayList<>();
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        User user = dataSnapshot.getValue(User.class);
-                        userList.add(user);
-                    }
-                    peopleAdapter = new PeopleAdapter(getContext(), userList);
-                    fragmentPeopleBinding.rvPeople.setHasFixedSize(true);
-                    fragmentPeopleBinding.rvPeople.setAdapter(peopleAdapter);
+                    if (snapshot.exists()) {
+                        userList = new ArrayList<>();
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            User user = dataSnapshot.getValue(User.class);
+                            userList.add(user);
+                        }
+                        peopleAdapter = new PeopleAdapter(getContext(), userList);
+                        fragmentPeopleBinding.rvPeople.setHasFixedSize(true);
+                        fragmentPeopleBinding.rvPeople.setAdapter(peopleAdapter);
 
-                    fragmentPeopleBinding.sflItemPeople.setVisibility(View.GONE);
-                    fragmentPeopleBinding.rvPeople.setVisibility(View.VISIBLE);
+                        fragmentPeopleBinding.sflItemPeople.setVisibility(View.GONE);
+                        fragmentPeopleBinding.rvPeople.setVisibility(View.VISIBLE);
+                    }
                 }
 
                 @Override
@@ -113,17 +124,25 @@ public class PeopleFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String keyWord = editable.toString().toLowerCase().trim(); // Chuyển kí tự về dạng chữ viết thường để tìm kiếm cho nhanh
-                searching(keyWord);
+                String keyWord = editable.toString().trim(); // Chuyển kí tự về dạng chữ viết thường để tìm kiếm cho nhanh
+                if (!keyWord.isEmpty()) {
+                    searching(keyWord);
+                } else {
+                    searching("");
+                }
             }
         });
     }
 
     private void searching(String keyWord) {
-        FirebaseRecyclerOptions<User> userFirebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<User>()
-                .setQuery(firebaseDatabase.getReference().child("users")
-                        .orderByChild("name")
-                        .startAt(keyWord).endAt(keyWord + "~"), User.class)
-                .build();
+        List<User> userLists = new ArrayList<>();
+        for (User data : userList) {
+            if (data.getName().trim().contains(keyWord)) {
+                userLists.add(data);
+            }
+        }
+        peopleAdapter = new PeopleAdapter(getContext(), userLists);
+        fragmentPeopleBinding.rvPeople.setHasFixedSize(true);
+        fragmentPeopleBinding.rvPeople.setAdapter(peopleAdapter);
     }
 }
