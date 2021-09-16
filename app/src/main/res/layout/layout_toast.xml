@@ -10,7 +10,7 @@
         android:id="@+id/llBackgroundToast"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_main_3"
+        android:background="?attr/color_main_3"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -28,7 +28,7 @@
             android:layout_marginStart="10dp"
             android:text="@string/tvToast"
             android:textAllCaps="false"
-            android:textColor="@color/color_2"
+            android:textColor="?attr/color_2"
             android:textSize="14sp"
             android:textStyle="normal" />
     </LinearLayout>

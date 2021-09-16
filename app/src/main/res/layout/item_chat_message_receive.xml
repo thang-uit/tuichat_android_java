@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:gravity="start"
         android:text="@string/tvTime"
-        android:textColor="@color/color_9"
+        android:textColor="?attr/color_9"
         android:textSize="11sp"
         android:textStyle="normal"
         android:visibility="gone"
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="@string/tvReceive"
-            android:textColor="@color/color_2"
+            android:textColor="?attr/color_2"
             android:textSize="15sp"
             android:textStyle="normal" />
     </LinearLayout>

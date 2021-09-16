@@ -8,8 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,12 +27,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
-import com.squareup.picasso.Picasso;
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.adapters.StoryAdapter;
 import com.thanguit.tuichat.adapters.UserAdapter;
 import com.thanguit.tuichat.animations.AnimationScale;
-import com.thanguit.tuichat.database.FirebaseManager;
 import com.thanguit.tuichat.databinding.FragmentChatBinding;
 import com.thanguit.tuichat.models.Story;
 import com.thanguit.tuichat.models.User;
@@ -116,23 +112,19 @@ public class ChatFragment extends Fragment {
 
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
+            userList = new ArrayList<>();
+            userAdapter = new UserAdapter(getActivity(), userList);
+            fragmentChatBinding.rvChat.setAdapter(userAdapter);
+
             firebaseDatabase.getReference().child("users").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    userList = new ArrayList<>();
+                    userList.clear();
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         User user = dataSnapshot.getValue(User.class);
-                        if (user.getUid().trim().equals(currentUser.getUid().trim())) {
-                            userList.add(0, user);
-                        } else {
-                            userList.add(user);
-                        }
+                        userList.add(user);
                     }
-                    userAdapter = new UserAdapter(getContext(), userList);
-                    fragmentChatBinding.rvChat.setAdapter(userAdapter);
-
-                    fragmentChatBinding.sflItemConversation.setVisibility(View.GONE);
-                    fragmentChatBinding.rvChat.setVisibility(View.VISIBLE);
+                    userAdapter.notifyDataSetChanged();
                 }
 
                 @Override

@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_5"
+    android:background="?attr/color_5"
     android:orientation="vertical"
     tools:context=".fragments.PeopleFragment">
 
@@ -22,8 +23,9 @@
         android:maxLength="100"
         android:maxLines="1"
         android:padding="10dp"
-        android:textColor="@color/color_2"
-        android:textColorHighlight="@color/color_main_1"
+        android:textColor="?attr/color_2"
+        android:textColorHighlight="?attr/color_main_1"
+        android:textColorHint="?attr/color_13"
         android:textSize="16sp" />
 
     <com.facebook.shimmer.ShimmerFrameLayout
@@ -32,7 +34,8 @@
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -87,7 +90,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        android:background="@color/color_5"
-        android:visibility="gone"
+        android:background="?attr/color_5"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 </LinearLayout>

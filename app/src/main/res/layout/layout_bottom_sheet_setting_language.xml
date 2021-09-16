@@ -47,7 +47,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:text="@string/tvVietnamFlag"
-            android:textColor="@color/color_1"
+            android:textColor="?attr/color_1"
             android:textSize="20sp"
             android:textStyle="normal" />
 
@@ -94,7 +94,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:text="@string/tvEnglandFlag"
-            android:textColor="@color/color_1"
+            android:textColor="?attr/color_1"
             android:textSize="20sp"
             android:textStyle="normal" />
 

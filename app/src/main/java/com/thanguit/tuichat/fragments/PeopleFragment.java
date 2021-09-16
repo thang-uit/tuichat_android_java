@@ -87,21 +87,21 @@ public class PeopleFragment extends Fragment {
     private void initializeViews() {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
+            userList = new ArrayList<>();
+            peopleAdapter = new PeopleAdapter(getContext(), userList);
+            fragmentPeopleBinding.rvPeople.setHasFixedSize(true);
+            fragmentPeopleBinding.rvPeople.setAdapter(peopleAdapter);
+
             firebaseDatabase.getReference().child("users").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-                        userList = new ArrayList<>();
+                        userList.clear();
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             User user = dataSnapshot.getValue(User.class);
                             userList.add(user);
                         }
-                        peopleAdapter = new PeopleAdapter(getContext(), userList);
-                        fragmentPeopleBinding.rvPeople.setHasFixedSize(true);
-                        fragmentPeopleBinding.rvPeople.setAdapter(peopleAdapter);
-
-                        fragmentPeopleBinding.sflItemPeople.setVisibility(View.GONE);
-                        fragmentPeopleBinding.rvPeople.setVisibility(View.VISIBLE);
+                        peopleAdapter.notifyDataSetChanged();
                     }
                 }
 

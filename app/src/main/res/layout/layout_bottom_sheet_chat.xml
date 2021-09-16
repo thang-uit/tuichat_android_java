@@ -46,7 +46,7 @@
             android:scrollHorizontally="true"
             android:text="@string/tvCopy"
             android:textAlignment="center"
-            android:textColor="@color/color_1"
+            android:textColor="?attr/color_1"
             android:textSize="18sp"
             android:textStyle="bold" />
     </RelativeLayout>
@@ -81,7 +81,7 @@
             android:scrollHorizontally="true"
             android:text="@string/tvRemoveForYou"
             android:textAlignment="center"
-            android:textColor="@color/color_1"
+            android:textColor="?attr/color_1"
             android:textSize="18sp"
             android:textStyle="bold" />
     </RelativeLayout>
@@ -116,7 +116,7 @@
             android:scrollHorizontally="true"
             android:text="@string/tvRemoveForEveryone"
             android:textAlignment="center"
-            android:textColor="@color/color_1"
+            android:textColor="?attr/color_1"
             android:textSize="18sp"
             android:textStyle="bold" />
     </RelativeLayout>
