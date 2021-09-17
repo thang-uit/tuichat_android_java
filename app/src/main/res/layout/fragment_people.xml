@@ -5,7 +5,7 @@
     android:id="@+id/llRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/color_5"
+    android:background="@color/color_5"
     android:orientation="vertical"
     tools:context=".fragments.PeopleFragment">
 
@@ -23,9 +23,9 @@
         android:maxLength="100"
         android:maxLines="1"
         android:padding="10dp"
-        android:textColor="?attr/color_2"
-        android:textColorHighlight="?attr/color_main_1"
-        android:textColorHint="?attr/color_13"
+        android:textColor="@color/color_2"
+        android:textColorHighlight="@color/color_main_1"
+        android:textColorHint="@color/color_13"
         android:textSize="16sp" />
 
     <com.facebook.shimmer.ShimmerFrameLayout
@@ -90,6 +90,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        android:background="?attr/color_5"
+        android:background="@color/color_5"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 </LinearLayout>

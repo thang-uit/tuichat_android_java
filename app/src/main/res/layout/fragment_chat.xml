@@ -134,7 +134,7 @@
             android:id="@+id/rvChat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/color_5"
+            android:background="@color/color_5"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     </androidx.cardview.widget.CardView>

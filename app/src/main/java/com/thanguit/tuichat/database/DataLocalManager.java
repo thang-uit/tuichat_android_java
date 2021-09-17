@@ -32,4 +32,12 @@ public class DataLocalManager {
     public static boolean getTheme() {
         return DataLocalManager.getInstance().sharedPreferencesManager.getBooleanValue(THEME.trim());
     }
+
+    public static void setLanguage(String code) {
+        DataLocalManager.getInstance().sharedPreferencesManager.putStringValue(LANGUAGE.trim(), code);
+    }
+
+    public static String getLanguage() {
+        return DataLocalManager.getInstance().sharedPreferencesManager.getStringValue(LANGUAGE.trim());
+    }
 }

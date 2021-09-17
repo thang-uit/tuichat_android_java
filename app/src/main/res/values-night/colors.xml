@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    <color name="purple_200">#FFBB86FC</color>-->
-<!--    <color name="purple_500">#FF6200EE</color>-->
-<!--    <color name="purple_700">#FF3700B3</color>-->
-<!--    <color name="teal_200">#FF03DAC5</color>-->
-<!--    <color name="teal_700">#FF018786</color>-->
-<!--    <color name="black">#FF000000</color>-->
-<!--    <color name="white">#FFFFFFFF</color>-->
+    <!--    <color name="purple_200">#FFBB86FC</color>-->
+    <!--    <color name="purple_500">#FF6200EE</color>-->
+    <!--    <color name="purple_700">#FF3700B3</color>-->
+    <!--    <color name="teal_200">#FF03DAC5</color>-->
+    <!--    <color name="teal_700">#FF018786</color>-->
+    <!--    <color name="black">#FF000000</color>-->
+    <!--    <color name="white">#FFFFFFFF</color>-->
 
     <color name="color_main_1">#FFD000</color>
-    <color name="color_main_2">#21FFC107</color>
+    <color name="color_main_2">#1E1E1E</color>
     <color name="color_main_3">#FFFFFF</color>
     <color name="color_main_4">#000000</color>
     <color name="color_main_5">#FF0000</color>
@@ -28,11 +28,11 @@
     <color name="success_color">#17B978</color>
     <color name="info_color">#0004FF</color>
 
-    <color name="color_1">#000000</color> // Main Text color (Chính) (Có thay đổi)
+    <color name="color_1">#FFFFFF</color> // Main Text color (Chính) (Có thay đổi)
     <color name="color_2">#000000</color> // For button, edittext, icon, tab, toolbar, ... (No change)
-    <color name="color_3">#4D4E4E</color> // Text color (Phụ)
+    <color name="color_3">#CACACA</color> // Text color (Phụ)
     <color name="color_4">#C4C4C4</color> // Setup User Avatar
-    <color name="color_5">#FFFFFF</color> // Main background (Trắng sữa, tinh khiết)
+    <color name="color_5">#1E1E1E</color> // Main background ()
     <color name="color_6">#F4F4F4</color> // EditText Box Chat
     <color name="color_7">#E2EBF0</color> // Text receive
     <color name="color_8">#C1C1C1</color> // Background reactions icon
@@ -41,5 +41,5 @@
     <color name="color_11">#3CD561</color> // Status online
     <color name="color_12">#9F9E9E</color> // Bottom sheet chat
     <color name="color_13">#A6A6A6</color> // EditText Color hint
-    <color name="color_14">#FFFFFF</color> // Background phụ
+    <color name="color_14">#353535</color> // Background phụ
 </resources>

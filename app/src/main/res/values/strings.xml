@@ -6,7 +6,6 @@
     <string name="channel_name">TuiChat Channel</string>
     <string name="channel_description">Notification message</string>
 
-
     <string name="btnLoginPhoneNumber">Continue with phone number</string>
     <string name="btnLoginGoogle">Continue with Google</string>
     <string name="btnLoginFacebook">Continue with Facebook</string>
@@ -36,7 +35,7 @@
     <string name="edtPNumber">Your phone number</string>
     <string name="edtPNumberError">Enter your phone number</string>
     <string name="btnPhoneNumber">Continue</string>
-    <string name="btnBack">Sign in with another form</string>
+    <string name="btnBack">Sign in with another way</string>
 
     <string name="tvOTP">OTP Verification</string>
     <string name="tvOTPTip">Please enter the OTP sent to you</string>
@@ -82,7 +81,7 @@
     <string name="btnDialog2">Action 2</string>
 
     <string name="tvDialogContent1">This message will be removed for you. Other chat members will still be able to see it.</string>
-    <string name="tvDialogContent2">You\'ll permanently remove this message for all chat members. They can see you unsent a message.</string>
+    <string name="tvDialogContent2">You\'ll permanently remove this message for all chat members.</string>
     <string name="tvDialogContent3">Do you want to sign out?</string>
     <string name="btnDialog11">Cancel</string>
     <string name="btnDialog22">Delete</string>
@@ -103,5 +102,4 @@
 
     <string name="btnLogout">Sign out</string>
     <string name="btnSave">Save</string>
-
 </resources>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TuiChat</string>
+
+    <string name="facebook_app_id">2892103481040828</string>
+    <string name="fb_login_protocol_scheme">fb2892103481040828</string>
+    <string name="channel_name">TuiChat Channel</string>
+    <string name="channel_description">Notification message</string>
+
+    <string name="btnLoginPhoneNumber">Tiếp tục với số điện thoại</string>
+    <string name="btnLoginGoogle">Tiếp tục với Google</string>
+    <string name="btnLoginFacebook">Tiếp tục với Facebook</string>
+
+    <string name="hours">h trước</string>
+    <string name="minutes">p trước</string>
+    <string name="days">d trước</string>
+    <string name="today">Hôm nay</string>
+
+    <string name="toast1">Quá nhiều yêu cầu. Vui lòng đợi 2 phút và thử lại sau</string>
+    <string name="toast2">Lỗi! Vui lòng nhập chính xác số điện thoại</string>
+    <string name="toast3">Lỗi! Vui lòng thử lại sau</string>
+    <string name="toast4">Chọn ảnh</string>
+    <string name="toast5">Đã hủy đăng nhập</string>
+    <string name="toast6">Đã được cho phép</string>
+    <string name="toast7">Đã bị từ chối</string>
+    <string name="toast8">Tải lên thất bại! Vui lòng thử lại sau</string>
+    <string name="toast9">Tải lên thành công</string>
+    <string name="toast10">Đã sao chép tin nhắn</string>
+    <string name="toast11">Xóa thành công</string>
+    <string name="toast12">Cập nhật thành công</string>
+
+    <string name="tvDeveloper">Thanguit Developer</string>
+
+    <string name="tvPhoneNumber">Xác minh số điện thoại của bạn</string>
+    <string name="tvPhoneNumberTip">TuiChat sẽ gửi tin nhắn SMS để xác minh số điện thoại của bạn</string>
+    <string name="edtPNumber">Số điện thoại</string>
+    <string name="edtPNumberError">Nhập số điện thoại</string>
+    <string name="btnPhoneNumber">Tiếp tục</string>
+    <string name="btnBack">Đăng nhập bằng cách khác</string>
+
+    <string name="tvOTP">Xác thực OTP</string>
+    <string name="tvOTPTip">Vui lòng nhập mã OTP đã được gửi cho bạn</string>
+    <string name="btnVerifyOTP">Xác thực</string>
+    <string name="tvErrorPhoneNumber">Null</string>
+    <string name="edtOTPError">Thiếu</string>
+
+    <string name="tvLoading">Đợi xíu...🐌</string>
+
+    <string name="tvToast">Đây là nội dung</string>
+    <string name="tvSetupProfile">Thông tin cá nhân</string>
+    <string name="tvSetupProfileTip">Đặt tên của bạn và một ảnh đại diện thật xinh xắn</string>
+    <string name="edtSetupProfileName">Nhập tên</string>
+    <string name="btnSetupProfile">Thiết lập hồ sơ</string>
+    <string name="edtSetupProfileNameError">Nhập tên</string>
+
+    <string name="menuActionChat">Trò chuyện</string>
+    <string name="menuActionPeople">Mọi người</string>
+    <string name="menuActionSetting">Cài đặt</string>
+
+    <string name="tvChatName">Bạn bè</string>
+    <string name="tvLastMessage">Nhấp để chat</string>
+    <string name="tvChatTime">00:00</string>
+
+    <string name="edtChatMessage">Nhập gì đó</string>
+    <string name="tvUserName">Tên người dùng</string>
+
+    <string name="tvSend">Tin nhắn gửi</string>
+    <string name="tvReceive">Tin nhắn nhận</string>
+    <string name="tvTime">00:00</string>
+
+    <string name="tedBottomPicker1">Xong</string>
+    <string name="tedBottomPicker2">Chưa có ảnh nào</string>
+    <string name="tedBottomPicker3">Bạn chỉ có thể chọn tối đa 5 hình ảnh</string>
+
+    <string name="tvCopy">Sao chép</string>
+    <string name="tvRemoveForYou">Xóa ở phía bạn</string>
+    <string name="tvRemoveForEveryone">Xóa với tất cả mọi người</string>
+
+    <string name="tvDialogTitle">Tiêu đề</string>
+    <string name="tvDialogContent">Nội dung</string>
+    <string name="btnDialog1">Hành động 1</string>
+    <string name="btnDialog2">Hành động 2</string>
+    <string name="tvDialogContent1">Tin nhắn này sẽ được xóa ở phía bạn. Các thành viên trò chuyện khác sẽ vẫn có thể nhìn thấy nó.</string>
+    <string name="tvDialogContent2">Bạn sẽ xóa vĩnh viễn tin nhắn này đối với tất cả các thành viên trò chuyện.</string>
+    <string name="tvDialogContent3">Bạn có muốn đăng xuất</string>
+    <string name="btnDialog11">Hủy</string>
+    <string name="btnDialog22">Xóa</string>
+    <string name="btnDialog23">Đăng xuất</string>
+
+    <string name="edtSearchPeople">Tìm kiếm</string>
+
+    <string name="tvTheme">Giao diện</string>
+    <string name="tvLanguage">Ngôn ngữ</string>
+    <string name="tvVietnamFlag">Vietnamese</string>
+    <string name="tvEnglandFlag">English</string>
+
+    <string name="tvPersonalTitle">Thông tin cá nhân</string>
+    <string name="tvPersonalName">Tên</string>
+    <string name="edtUserName">Tên</string>
+    <string name="edtEmail">abc@gmail.com</string>
+    <string name="tvEmail">Email</string>
+
+    <string name="btnLogout">Đăng xuất</string>
+    <string name="btnSave">Lưu</string>
+</resources>

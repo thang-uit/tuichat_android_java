@@ -35,5 +35,4 @@
             android:background="@drawable/shape_shimmer_corner_50dp"
             android:textSize="12sp" />
     </LinearLayout>
-
 </RelativeLayout>

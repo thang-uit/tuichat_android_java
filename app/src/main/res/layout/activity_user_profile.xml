@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/color_5"
+    android:background="@color/color_5"
     android:orientation="vertical"
     tools:context=".activities.UserProfileActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="?attr/color_main_1">
+        android:background="@color/color_main_1">
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ibBack"
@@ -39,7 +39,7 @@
             android:scrollHorizontally="true"
             android:text="@string/tvPersonalTitle"
             android:textAlignment="center"
-            android:textColor="?attr/color_2"
+            android:textColor="@color/color_2"
             android:textSize="18sp"
             android:textStyle="bold" />
     </RelativeLayout>
@@ -61,7 +61,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?attr/color_5"
+                    android:background="@color/color_5"
                     android:padding="10dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -76,7 +76,7 @@
                             android:layout_width="150dp"
                             android:layout_height="150dp"
                             android:src="@drawable/ic_user_avatar"
-                            app:civ_border_color="?attr/color_main_1"
+                            app:civ_border_color="@color/color_main_1"
                             app:civ_border_width="2dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -105,7 +105,7 @@
                         android:scrollHorizontally="true"
                         android:text="@string/tvPersonalName"
                         android:textAlignment="center"
-                        android:textColor="?attr/color_1"
+                        android:textColor="@color/color_1"
                         android:textSize="24sp"
                         android:textStyle="bold" />
                 </RelativeLayout>
@@ -120,7 +120,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?attr/color_5"
+                    android:background="@color/color_5"
                     android:orientation="vertical"
                     android:padding="10dp">
 
@@ -129,7 +129,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="4dp"
                         android:text="@string/edtUserName"
-                        android:textColor="?attr/color_1"
+                        android:textColor="@color/color_1"
                         android:textSize="16sp" />
 
                     <EditText
@@ -143,9 +143,9 @@
                         android:maxLength="100"
                         android:maxLines="1"
                         android:padding="10dp"
-                        android:textColor="?attr/color_2"
-                        android:textColorHighlight="?attr/color_main_1"
-                        android:textColorHint="?attr/color_13"
+                        android:textColor="@color/color_2"
+                        android:textColorHighlight="@color/color_main_1"
+                        android:textColorHint="@color/color_13"
                         android:textSize="18sp" />
 
                     <TextView
@@ -154,7 +154,7 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="4dp"
                         android:text="@string/tvEmail"
-                        android:textColor="?attr/color_1"
+                        android:textColor="@color/color_1"
                         android:textSize="16sp" />
 
                     <EditText
@@ -168,9 +168,9 @@
                         android:maxLength="100"
                         android:maxLines="1"
                         android:padding="10dp"
-                        android:textColor="?attr/color_2"
-                        android:textColorHighlight="?attr/color_main_1"
-                        android:textColorHint="?attr/color_13"
+                        android:textColor="@color/color_2"
+                        android:textColorHighlight="@color/color_main_1"
+                        android:textColorHint="@color/color_13"
                         android:textSize="18sp" />
 
                     <LinearLayout
@@ -203,8 +203,8 @@
                             android:maxLength="100"
                             android:maxLines="1"
                             android:padding="10dp"
-                            android:textColor="?attr/color_2"
-                            android:textColorHighlight="?attr/color_main_1"
+                            android:textColor="@color/color_2"
+                            android:textColorHighlight="@color/color_main_1"
                             android:textSize="18sp" />
                     </LinearLayout>
 
@@ -220,7 +220,7 @@
                         android:elevation="0dp"
                         android:text="@string/btnSave"
                         android:textAllCaps="false"
-                        android:textColor="?attr/color_2"
+                        android:textColor="@color/color_2"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -231,11 +231,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
-                android:background="?attr/color_main_5"
+                android:background="@color/color_main_5"
                 android:elevation="0dp"
                 android:text="@string/btnLogout"
                 android:textAlignment="center"
-                android:textColor="?attr/color_main_3"
+                android:textColor="@color/color_main_3"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 

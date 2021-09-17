@@ -1,8 +1,6 @@
 package com.thanguit.tuichat.activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
@@ -20,10 +18,8 @@ import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.adapters.ViewPagerAdapter;
 import com.thanguit.tuichat.animations.AnimationScale;
 import com.thanguit.tuichat.animations.ZoomOutPageTransformer;
-import com.thanguit.tuichat.database.DataLocalManager;
 import com.thanguit.tuichat.database.FirebaseManager;
 import com.thanguit.tuichat.databinding.ActivityMainBinding;
-import com.thanguit.tuichat.utils.MyToast;
 
 public class MainActivity extends AppCompat {
     private ActivityMainBinding activityMainBinding;
@@ -48,9 +44,6 @@ public class MainActivity extends AppCompat {
 
         initializeViews();
         listeners();
-
-        DataLocalManager.init(this);
-        MyToast.makeText(this, MyToast.INFORMATION, "Theme" + DataLocalManager.getTheme(), MyToast.SHORT).show();
     }
 
     @Override

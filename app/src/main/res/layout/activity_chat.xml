@@ -5,7 +5,7 @@
     android:id="@+id/rlRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/color_5"
+    android:background="@color/color_5"
     tools:context=".activities.ChatActivity">
 
     <RelativeLayout
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentTop="true"
-        android:background="?attr/color_main_1">
+        android:background="@color/color_main_1">
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ibBack"
@@ -73,7 +73,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:text="@string/tvUserName"
-            android:textColor="?attr/color_2"
+            android:textColor="@color/color_2"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -105,13 +105,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/rlChatInfo"
-        android:background="?attr/color_5">
+        android:background="@color/color_5">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvChatMessage"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="?attr/color_5"
+            android:background="@color/color_5"
             app:layout_constraintBottom_toTopOf="@+id/cvChat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -154,7 +154,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="?attr/color_5"
+            android:background="@color/color_5"
             app:cardElevation="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -165,7 +165,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="?attr/color_14"
+                android:background="@color/color_14"
                 android:gravity="center"
                 android:padding="8dp">
 
@@ -194,9 +194,9 @@
                     android:padding="10dp"
                     android:scrollbarStyle="insideInset"
                     android:scrollbars="vertical"
-                    android:textColor="?attr/color_2"
-                    android:textColorHighlight="?attr/color_main_1"
-                    android:textColorHint="?attr/color_13"
+                    android:textColor="@color/color_2"
+                    android:textColorHighlight="@color/color_main_1"
+                    android:textColorHint="@color/color_13"
                     android:textSize="17sp" />
 
                 <ImageView

@@ -8,9 +8,9 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.database.DataLocalManager;
+import com.thanguit.tuichat.utils.SettingLanguage;
 
 public class AppCompat extends AppCompatActivity {
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,5 +22,7 @@ public class AppCompat extends AppCompatActivity {
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+
+        SettingLanguage.getInstance().changeLanguage(this, DataLocalManager.getLanguage());
     }
 }

@@ -19,7 +19,7 @@
         android:text="@string/tvDialogTitle"
         android:textAlignment="center"
         android:textAllCaps="true"
-        android:textColor="?attr/color_2"
+        android:textColor="@color/color_2"
         android:textSize="22sp"
         android:textStyle="bold" />
 
@@ -38,7 +38,7 @@
             android:padding="12dp"
             android:text="@string/tvDialogContent"
             android:textAlignment="center"
-            android:textColor="?attr/color_1"
+            android:textColor="@color/color_1"
             android:textSize="18sp"
             android:textStyle="normal" />
 
@@ -60,7 +60,7 @@
                 android:text="@string/btnDialog1"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textColor="?attr/color_2"
+                android:textColor="@color/color_2"
                 android:textSize="16sp"
                 android:textStyle="normal" />
 
@@ -75,7 +75,7 @@
                 android:text="@string/btnDialog2"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textColor="?attr/color_2"
+                android:textColor="@color/color_2"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
