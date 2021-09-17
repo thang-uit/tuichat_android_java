@@ -44,7 +44,7 @@ import com.thanguit.tuichat.utils.MyToast;
 
 import java.util.Arrays;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompat {
     private static final String TAG = "LoginActivity";
     private static final String TAG_1 = "Login with Google";
     private static final String TAG_2 = "Login with Facebook";

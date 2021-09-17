@@ -43,7 +43,7 @@ import java.util.List;
 import gun0912.tedbottompicker.TedBottomPicker;
 import gun0912.tedbottompicker.TedBottomSheetDialogFragment;
 
-public class UserProfileActivity extends AppCompatActivity {
+public class UserProfileActivity extends AppCompat {
     private ActivityUserProfileBinding activityUserProfileBinding;
 
     private FirebaseAuth firebaseAuth;
@@ -59,12 +59,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            setTheme(R.style.Theme_Dark);
-        } else {
-            setTheme(R.style.Theme_Light);
-        }
-
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = this.getWindow();

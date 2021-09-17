@@ -30,7 +30,7 @@ import com.thanguit.tuichat.databinding.ActivityOtpactivityBinding;
 
 import java.util.concurrent.TimeUnit;
 
-public class OTPActivity extends AppCompatActivity {
+public class OTPActivity extends AppCompat {
     private ActivityOtpactivityBinding activityOtpactivityBinding;
     private static final String TAG = "OTPActivity";
 

@@ -28,7 +28,7 @@ import com.thanguit.tuichat.utils.LoadingDialog;
 import com.thanguit.tuichat.utils.MyToast;
 import com.thanguit.tuichat.utils.OpenSoftKeyboard;
 
-public class SetupProfileActivity extends AppCompatActivity {
+public class SetupProfileActivity extends AppCompat {
     private ActivitySetupProfileBinding activitySetupProfileBinding;
     private static final String TAG = "SetupProfileActivity";
 

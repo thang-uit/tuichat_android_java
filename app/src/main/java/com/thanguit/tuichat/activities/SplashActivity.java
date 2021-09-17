@@ -16,7 +16,7 @@ import android.view.animation.AnimationUtils;
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.databinding.ActivitySplashBinding;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompat {
     private ActivitySplashBinding activitySplashBinding;
     private static final String TAG = "SplashActivity";
 

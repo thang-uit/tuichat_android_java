@@ -16,8 +16,10 @@ import android.view.ViewGroup;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.thanguit.tuichat.R;
+import com.thanguit.tuichat.database.DataLocalManager;
 import com.thanguit.tuichat.databinding.FragmentSettingBinding;
 import com.thanguit.tuichat.databinding.LayoutBottomSheetSettingLanguageBinding;
+import com.thanguit.tuichat.utils.MyToast;
 
 public class SettingFragment extends Fragment {
     private FragmentSettingBinding fragmentSettingBinding;
@@ -26,8 +28,6 @@ public class SettingFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
 
     private final Handler handler = new Handler();
-
-    private boolean theme = true;
 
     public SettingFragment() {
     }
@@ -48,9 +48,21 @@ public class SettingFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        DataLocalManager.init(getContext());
 
         initializeViews();
         listeners();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (DataLocalManager.getTheme()) {
+            fragmentSettingBinding.btnSwitchTheme.setMinAndMaxProgress(0.5f, 1.0f); // Tối
+        } else {
+            fragmentSettingBinding.btnSwitchTheme.setMinAndMaxProgress(0.1f, 0.5f); // Sáng
+        }
     }
 
     @Override
@@ -60,6 +72,11 @@ public class SettingFragment extends Fragment {
     }
 
     private void initializeViews() {
+        if (DataLocalManager.getTheme()) {
+            fragmentSettingBinding.btnSwitchTheme.setMinAndMaxProgress(0.5f, 1.0f); // Tối
+        } else {
+            fragmentSettingBinding.btnSwitchTheme.setMinAndMaxProgress(0.1f, 0.5f); // Sáng
+        }
     }
 
     private void listeners() {
@@ -86,29 +103,38 @@ public class SettingFragment extends Fragment {
     }
 
     private void setTheme() {
-        if (theme) {
-            fragmentSettingBinding.btnSwitchTheme.setMinAndMaxProgress(0.1f, 0.5f); // Tối
-            fragmentSettingBinding.btnSwitchTheme.playAnimation();
-            theme = false;
-
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                }
-            }, 1800);
-        } else {
+        if (DataLocalManager.getTheme()) {
+            DataLocalManager.setTheme(false);
+            fragmentSettingBinding.btnSwitchTheme.setClickable(false);
+            fragmentSettingBinding.rlSettingTheme.setClickable(false);
             fragmentSettingBinding.btnSwitchTheme.setMinAndMaxProgress(0.65f, 1.0f); // Sáng
             fragmentSettingBinding.btnSwitchTheme.playAnimation();
-            theme = true;
 
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    fragmentSettingBinding.btnSwitchTheme.setClickable(true);
+                    fragmentSettingBinding.rlSettingTheme.setClickable(true);
+                }
+            }, 1800);
+        } else {
+            DataLocalManager.setTheme(true);
+            fragmentSettingBinding.btnSwitchTheme.setClickable(false);
+            fragmentSettingBinding.rlSettingTheme.setClickable(false);
+            fragmentSettingBinding.btnSwitchTheme.setMinAndMaxProgress(0.1f, 0.5f); // Tối
+            fragmentSettingBinding.btnSwitchTheme.playAnimation();
+
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    fragmentSettingBinding.btnSwitchTheme.setClickable(true);
+                    fragmentSettingBinding.rlSettingTheme.setClickable(true);
                 }
             }, 1800);
         }
+        MyToast.makeText(getContext(), MyToast.INFORMATION, "Theme" + DataLocalManager.getTheme(), MyToast.SHORT).show();
     }
 
     private void openLanguageDialog() {
@@ -117,7 +143,6 @@ public class SettingFragment extends Fragment {
         LayoutBottomSheetSettingLanguageBinding binding = LayoutBottomSheetSettingLanguageBinding.bind(view);
         bottomSheetDialog.setContentView(view);
         bottomSheetDialog.setCancelable(true);
-
 
         binding.tvVietnamFlag.setSelected(true);
         binding.tvEnglandFlag.setSelected(true);

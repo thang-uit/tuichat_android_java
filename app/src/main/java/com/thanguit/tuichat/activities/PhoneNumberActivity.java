@@ -14,7 +14,7 @@ import com.thanguit.tuichat.animations.AnimationScale;
 import com.thanguit.tuichat.databinding.ActivityPhoneNumberBinding;
 import com.thanguit.tuichat.utils.OpenSoftKeyboard;
 
-public class PhoneNumberActivity extends AppCompatActivity {
+public class PhoneNumberActivity extends AppCompat {
     private ActivityPhoneNumberBinding activityPhoneNumberBinding;
     private static final String TAG = "PhoneNumberActivity";
 
