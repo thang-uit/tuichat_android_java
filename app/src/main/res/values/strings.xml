@@ -102,4 +102,7 @@
 
     <string name="btnLogout">Sign out</string>
     <string name="btnSave">Save</string>
+
+    <string name="tv_state">Calling…</string>
+
 </resources>

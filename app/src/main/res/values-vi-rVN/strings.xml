@@ -102,4 +102,6 @@
 
     <string name="btnLogout">Đăng xuất</string>
     <string name="btnSave">Lưu</string>
+
+    <string name="tv_state">Đang gọi…</string>
 </resources>

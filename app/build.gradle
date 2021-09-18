@@ -59,6 +59,8 @@ dependencies {
     implementation 'gun0912.ted:tedbottompicker:2.0.1'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
+    implementation 'com.stringee.sdk.android:stringee-android-sdk:1.7.0'
+
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

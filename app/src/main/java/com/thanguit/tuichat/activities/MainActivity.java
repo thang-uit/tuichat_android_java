@@ -5,6 +5,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -14,6 +15,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
+import com.stringee.StringeeClient;
+import com.stringee.call.StringeeCall;
+import com.stringee.call.StringeeCall2;
+import com.stringee.exception.StringeeError;
+import com.stringee.listener.StringeeConnectionListener;
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.adapters.ViewPagerAdapter;
 import com.thanguit.tuichat.animations.AnimationScale;
@@ -21,9 +27,12 @@ import com.thanguit.tuichat.animations.ZoomOutPageTransformer;
 import com.thanguit.tuichat.database.FirebaseManager;
 import com.thanguit.tuichat.databinding.ActivityMainBinding;
 
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompat {
     private ActivityMainBinding activityMainBinding;
     private static final String TAG = "MainActivity";
+    private static final String STRINGEE = "Stringee";
 
     private FirebaseManager firebaseManager;
 
@@ -31,6 +40,9 @@ public class MainActivity extends AppCompat {
     private FirebaseAuth firebaseAuth;
 
     private AnimationScale animationScale;
+
+    private String token1 = "eyJjdHkiOiJzdHJpbmdlZS1hcGk7dj0xIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiJTS0JGRGZ3NDJhVWZTWUNvSThINTk4Zkd0aHJ3cTRlRVEtMTYzMTk4MDk4OSIsImlzcyI6IlNLQkZEZnc0MmFVZlNZQ29JOEg1OThmR3RocndxNGVFUSIsImV4cCI6MTYzNDU3Mjk4OSwidXNlcklkIjoiTWFwSktNNTNHSWJhWVJvQ1NsTFJzYUZHTmRyMiJ9.NTA4QSWtEuPVocj9x1X2WzgSjLayTvFj9cf3TudicnQ";
+    public static StringeeClient stringeeClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +101,57 @@ public class MainActivity extends AppCompat {
                             .into(activityMainBinding.civAvatar);
                 }
             });
+
+
+            initAndConnectStringee();
         }
+    }
+
+    private void initAndConnectStringee() {
+        stringeeClient = new StringeeClient(this);
+        stringeeClient.setConnectionListener(new StringeeConnectionListener() {
+            @Override
+            public void onConnectionConnected(StringeeClient stringeeClient, boolean b) {
+                Log.d(STRINGEE, "Connect successfully");
+            }
+
+            @Override
+            public void onConnectionDisconnected(StringeeClient stringeeClient, boolean b) {
+                Log.d(STRINGEE, "Disconnected Connect");
+            }
+
+            @Override
+            public void onIncomingCall(StringeeCall stringeeCall) {
+                Log.d(STRINGEE, "onIncommingCall");
+            }
+
+            @Override
+            public void onIncomingCall2(StringeeCall2 stringeeCall2) {
+
+            }
+
+            @Override
+            public void onConnectionError(StringeeClient stringeeClient, StringeeError stringeeError) {
+
+            }
+
+            @Override
+            public void onRequestNewToken(StringeeClient stringeeClient) {
+
+            }
+
+            @Override
+            public void onCustomMessage(String s, JSONObject jsonObject) {
+
+            }
+
+            @Override
+            public void onTopicMessage(String s, JSONObject jsonObject) {
+
+            }
+        });
+
+        stringeeClient.connect(token1);
     }
 
     private void listeners() {
