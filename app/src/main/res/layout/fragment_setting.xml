@@ -40,15 +40,27 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/btnSwitchTheme"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
+                <!--                <com.airbnb.lottie.LottieAnimationView-->
+                <!--                    android:id="@+id/btnSwitchTheme"-->
+                <!--                    android:layout_width="60dp"-->
+                <!--                    android:layout_height="match_parent"-->
+                <!--                    android:layout_alignTop="@+id/tvTheme"-->
+                <!--                    android:layout_alignBottom="@+id/tvTheme"-->
+                <!--                    android:layout_alignParentTop="true"-->
+                <!--                    android:layout_alignParentEnd="true"-->
+                <!--                    app:lottie_rawRes="@raw/animation_3" />-->
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/swcSwitchTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/tvTheme"
                     android:layout_alignBottom="@+id/tvTheme"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
-                    app:lottie_rawRes="@raw/animation_3" />
+                    app:switchMinWidth="50dp"
+                    app:thumbTint="@drawable/switch_thumb"
+                    app:trackTint="@drawable/switch_track" />
             </RelativeLayout>
 
             <RelativeLayout

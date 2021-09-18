@@ -13,6 +13,7 @@
     <color name="color_main_3">#FFFFFF</color>
     <color name="color_main_4">#000000</color>
     <color name="color_main_5">#FF0000</color>
+    <color name="color_main_6">#FFED9B</color>
 
     <color name="btnLoginFacebook">#1877F2</color>
     <color name="btnLoginGoogle">#333333</color>

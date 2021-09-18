@@ -12,9 +12,9 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.firebase.auth.FirebaseAuth;
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.activities.MainActivity;
 import com.thanguit.tuichat.database.DataLocalManager;
@@ -69,11 +69,7 @@ public class SettingFragment extends Fragment {
     }
 
     private void initializeViews() {
-        if (DataLocalManager.getTheme()) {
-            fragmentSettingBinding.btnSwitchTheme.setMinAndMaxProgress(0.5f, 1.0f); // Tối
-        } else {
-            fragmentSettingBinding.btnSwitchTheme.setMinAndMaxProgress(0.1f, 0.5f); // Sáng
-        }
+        fragmentSettingBinding.swcSwitchTheme.setChecked(DataLocalManager.getTheme());
 
         if (DataLocalManager.getLanguage().equals(VIETNAMESE)) {
             fragmentSettingBinding.tvSettingLanguage.setText(getResources().getString(R.string.tvVietnamFlag));
@@ -83,17 +79,10 @@ public class SettingFragment extends Fragment {
     }
 
     private void listeners() {
-        fragmentSettingBinding.btnSwitchTheme.setOnClickListener(new View.OnClickListener() {
+        fragmentSettingBinding.swcSwitchTheme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                setTheme();
-            }
-        });
-
-        fragmentSettingBinding.rlSettingTheme.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setTheme();
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                setTheme(isChecked);
             }
         });
 
@@ -105,37 +94,14 @@ public class SettingFragment extends Fragment {
         });
     }
 
-    private void setTheme() {
-        if (DataLocalManager.getTheme()) {
-            DataLocalManager.setTheme(false);
-            fragmentSettingBinding.btnSwitchTheme.setClickable(false);
-            fragmentSettingBinding.rlSettingTheme.setClickable(false);
-            fragmentSettingBinding.btnSwitchTheme.setMinAndMaxProgress(0.65f, 1.0f); // Sáng
-            fragmentSettingBinding.btnSwitchTheme.playAnimation();
-
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    fragmentSettingBinding.btnSwitchTheme.setClickable(true);
-                    fragmentSettingBinding.rlSettingTheme.setClickable(true);
-                }
-            }, 1800);
-        } else {
+    private void setTheme(boolean isChecked) {
+        if (isChecked) {
             DataLocalManager.setTheme(true);
-            fragmentSettingBinding.btnSwitchTheme.setClickable(false);
-            fragmentSettingBinding.rlSettingTheme.setClickable(false);
-            fragmentSettingBinding.btnSwitchTheme.setMinAndMaxProgress(0.1f, 0.5f); // Tối
-            fragmentSettingBinding.btnSwitchTheme.playAnimation();
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    fragmentSettingBinding.btnSwitchTheme.setClickable(true);
-                    fragmentSettingBinding.rlSettingTheme.setClickable(true);
-                }
-            }, 1800);
+        } else {
+            DataLocalManager.setTheme(false);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
 
