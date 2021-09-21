@@ -364,6 +364,26 @@ public class ChatActivity extends AppCompat {
             }
         });
 
+        activityChatBinding.ibVideoCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent videoCallIntent = new Intent(ChatActivity.this, OutGoingCallActivity.class);
+                videoCallIntent.putExtra("USER", user);
+                videoCallIntent.putExtra("VIDEO_CALL", true);
+                startActivity(videoCallIntent);
+            }
+        });
+
+        activityChatBinding.ibCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent callIntent = new Intent(ChatActivity.this, OutGoingCallActivity.class);
+                callIntent.putExtra("USER", user);
+                callIntent.putExtra("VIDEO_CALL", false);
+                startActivity(callIntent);
+            }
+        });
+
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
             if (!user.getUid().trim().equals(currentUser.getUid().trim())) {

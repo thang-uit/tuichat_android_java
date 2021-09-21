@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_main_4"
-    tools:context=".activities.OutGoingCallActivity">
+    tools:context=".activities.InComingCallActivity">
 
     <FrameLayout
         android:id="@+id/v_remote"
@@ -41,7 +41,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_to"
+            android:id="@+id/tv_from"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -89,7 +89,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:visibility="gone">
 
             <ImageButton
                 android:id="@+id/ibSpeaker"
@@ -104,7 +105,8 @@
             android:id="@+id/flCamera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:visibility="gone">
 
             <ImageButton
                 android:id="@+id/ibCamera"
@@ -119,7 +121,8 @@
             android:id="@+id/flMicrophone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:visibility="gone">
 
             <ImageButton
                 android:id="@+id/ibMicrophone"
@@ -128,6 +131,21 @@
                 android:layout_gravity="center"
                 android:background="@drawable/shape_oval_corner_60dp_transparent"
                 app:srcCompat="@drawable/ic_microphone_on" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/flAnswerCall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:id="@+id/ibAnswerCall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/shape_oval_corner_60dp_green"
+                app:srcCompat="@drawable/ic_answer_call" />
         </FrameLayout>
     </LinearLayout>
 </RelativeLayout>
