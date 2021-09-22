@@ -98,7 +98,7 @@
             android:background="?selectableItemBackground"
             android:gravity="center"
             android:padding="10dp"
-            app:srcCompat="@drawable/ic_video_camera_on" />
+            app:srcCompat="@drawable/ic_video_camera" />
     </RelativeLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
