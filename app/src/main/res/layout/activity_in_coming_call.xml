@@ -8,12 +8,12 @@
     tools:context=".activities.InComingCallActivity">
 
     <FrameLayout
-        android:id="@+id/v_remote"
+        android:id="@+id/flRemote"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <FrameLayout
-        android:id="@+id/v_local"
+        android:id="@+id/flLocal"
         android:layout_width="100dp"
         android:layout_height="140dp"
         android:layout_alignParentEnd="true"
@@ -24,7 +24,7 @@
         android:background="@drawable/shape_background_call_corner_5dp" />
 
     <ImageButton
-        android:id="@+id/btn_switch"
+        android:id="@+id/btnSwitch"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
@@ -41,7 +41,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_from"
+            android:id="@+id/tvFrom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

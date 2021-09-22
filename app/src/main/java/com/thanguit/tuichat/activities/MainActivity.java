@@ -26,6 +26,8 @@ import com.thanguit.tuichat.animations.AnimationScale;
 import com.thanguit.tuichat.animations.ZoomOutPageTransformer;
 import com.thanguit.tuichat.database.FirebaseManager;
 import com.thanguit.tuichat.databinding.ActivityMainBinding;
+import com.thanguit.tuichat.utils.Common;
+import com.thanguit.tuichat.utils.MyToast;
 
 import org.json.JSONObject;
 
@@ -116,6 +118,7 @@ public class MainActivity extends AppCompat {
             @Override
             public void onConnectionConnected(StringeeClient stringeeClient, boolean b) {
                 Log.d(STRINGEE, "Connect successfully");
+                MyToast.makeText(MainActivity.this, MyToast.SUCCESS, "Connect successfully", MyToast.SHORT).show();
             }
 
             @Override
@@ -126,16 +129,47 @@ public class MainActivity extends AppCompat {
             @Override
             public void onIncomingCall(StringeeCall stringeeCall) {
                 Log.d(STRINGEE, "onIncommingCall");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (Common.isInCall) {
+                            stringeeCall.reject();
+                        } else {
+                            Common.callsMap.put(stringeeCall.getCallId(), stringeeCall);
+                            Intent intent = new Intent(MainActivity.this, InComingCallActivity.class);
+                            intent.putExtra("CALL_ID", stringeeCall.getCallId());
+                            startActivity(intent);
+                        }
+                    }
+                });
             }
 
             @Override
             public void onIncomingCall2(StringeeCall2 stringeeCall2) {
-
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (Common.isInCall) {
+//                            stringeeCall2.reject();
+//                        } else {
+//                            Common.calls2Map.put(stringeeCall2.getCallId(), stringeeCall2);
+//                            Intent intent = new Intent(MainActivity.this, IncomingCall2Activity.class);
+//                            intent.putExtra("call_id", stringeeCall2.getCallId());
+//                            startActivity(intent);
+//                        }
+//                    }
+//                });
             }
 
             @Override
             public void onConnectionError(StringeeClient stringeeClient, StringeeError stringeeError) {
-
+                Log.d("Stringee", "StringeeClient fails to connect: " + stringeeError.getMessage());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Common.reportMessage(MainActivity.this, "StringeeClient fails to connect: " + stringeeError.getMessage());
+                    }
+                });
             }
 
             @Override
@@ -154,7 +188,7 @@ public class MainActivity extends AppCompat {
             }
         });
 
-        stringeeClient.connect(token2);
+        stringeeClient.connect(token1);
     }
 
     private void listeners() {
