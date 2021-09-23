@@ -54,11 +54,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Picasso.get()
-                .load(userList.get(position).getAvatar())
+                .load(userList.get(holder.getLayoutPosition()).getAvatar())
                 .placeholder(R.drawable.ic_user_avatar)
                 .error(R.drawable.ic_user_avatar)
                 .into(holder.itemConversationBinding.civAvatar);
-        holder.itemConversationBinding.tvChatName.setText(userList.get(position).getName().trim());
+        holder.itemConversationBinding.tvChatName.setText(userList.get(holder.getLayoutPosition()).getName().trim());
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();

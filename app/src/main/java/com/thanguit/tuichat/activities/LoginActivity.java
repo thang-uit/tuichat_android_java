@@ -38,6 +38,7 @@ import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.animations.AnimationScale;
 import com.thanguit.tuichat.databinding.ActivityLoginBinding;
 import com.thanguit.tuichat.models.User;
+import com.thanguit.tuichat.utils.LoadingDialog;
 import com.thanguit.tuichat.utils.MyToast;
 
 import java.util.Arrays;
@@ -55,6 +56,7 @@ public class LoginActivity extends AppCompat {
     private CallbackManager callbackManager;
 
     private AnimationScale animationScale;
+    private LoadingDialog loadingDialog;
 
     private static final String USER_DATABASE = "users";
 
@@ -68,6 +70,7 @@ public class LoginActivity extends AppCompat {
         firebaseDatabase = FirebaseDatabase.getInstance();
         callbackManager = CallbackManager.Factory.create();
         animationScale = AnimationScale.getInstance();
+        loadingDialog = LoadingDialog.getInstance();
 
         initializeViews();
         listeners();
@@ -132,6 +135,8 @@ public class LoginActivity extends AppCompat {
                                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
                                             if (firebaseUser != null) {
+                                                loadingDialog.startLoading(LoginActivity.this, false);
+
                                                 firebaseDatabase.getReference()
                                                         .child(USER_DATABASE.trim())
                                                         .child(firebaseUser.getUid())
@@ -161,6 +166,7 @@ public class LoginActivity extends AppCompat {
 
                                                                 User user = new User(uid, name, phoneNumber, email, avatar);
                                                                 addUserIntoDatabase(user);
+                                                                loadingDialog.cancelLoading();
                                                             }
                                                         } else {
                                                             Log.e("firebase", "Error getting data", task.getException());
@@ -217,6 +223,8 @@ public class LoginActivity extends AppCompat {
 
                                     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                                     if (firebaseUser != null) {
+                                        loadingDialog.startLoading(LoginActivity.this, false);
+
                                         firebaseDatabase.getReference()
                                                 .child(USER_DATABASE.trim())
                                                 .child(firebaseUser.getUid())
@@ -256,6 +264,7 @@ public class LoginActivity extends AppCompat {
                                             }
                                         });
                                     }
+                                    loadingDialog.cancelLoading();
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.d(TAG_1, "signInWithCredential:failure", task.getException());
