@@ -318,5 +318,4 @@ public class OTPActivity extends AppCompat {
             return OTP.trim();
         }
     }
-
 }
