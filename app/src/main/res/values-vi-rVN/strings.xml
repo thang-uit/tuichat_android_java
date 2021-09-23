@@ -44,7 +44,7 @@
     <string name="tvErrorPhoneNumber">Null</string>
     <string name="edtOTPError">Thiếu</string>
 
-    <string name="tvLoading">Đợi xíu...🐌</string>
+    <string name="tvLoading">Đợi xíu nha...🐌</string>
 
     <string name="tvToast">Đây là nội dung</string>
     <string name="tvSetupProfile">Thông tin cá nhân</string>

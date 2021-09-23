@@ -17,11 +17,15 @@ import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.FirebaseDatabase;
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.animations.AnimationScale;
+import com.thanguit.tuichat.models.User;
 import com.thanguit.tuichat.utils.LoadingDialog;
 import com.thanguit.tuichat.utils.MyToast;
 import com.thanguit.tuichat.utils.OpenSoftKeyboard;
@@ -34,11 +38,14 @@ public class OTPActivity extends AppCompat {
     private static final String TAG = "OTPActivity";
 
     private FirebaseAuth firebaseAuth;
+    private FirebaseDatabase firebaseDatabase;
     private String verificationID;
 
     private AnimationScale animationScale;
     private LoadingDialog loadingDialog;
     private OpenSoftKeyboard openSoftKeyboard;
+
+    private static final String USER_DATABASE = "users";
 
     private static final String CODE_1 = "CODE_1";
     private static final String CODE_2 = "CODE_2";
@@ -54,6 +61,7 @@ public class OTPActivity extends AppCompat {
         setContentView(activityOtpactivityBinding.getRoot());
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
         animationScale = AnimationScale.getInstance();
         loadingDialog = LoadingDialog.getInstance();
         openSoftKeyboard = OpenSoftKeyboard.getInstance();
@@ -163,12 +171,38 @@ public class OTPActivity extends AppCompat {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "signInWithCredential:success");
+                                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                                if (firebaseUser != null) {
+                                    loadingDialog.startLoading(OTPActivity.this, false);
 
-                                Intent intent = new Intent(OTPActivity.this, SetupProfileActivity.class);
-                                startActivity(intent);
-                                finishAffinity();
+                                    firebaseDatabase.getReference()
+                                            .child(USER_DATABASE.trim())
+                                            .child(firebaseUser.getUid())
+                                            .get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                User dataUser = task.getResult().getValue(User.class);
+                                                if (dataUser != null) {
+                                                    // Sign in success, update UI with the signed-in user's information
+                                                    Log.d(TAG, "signInWithCredential:success");
+
+                                                    Intent intent1 = new Intent(OTPActivity.this, MainActivity.class);
+                                                    startActivity(intent1);
+                                                } else {
+                                                    Intent intent2 = new Intent(OTPActivity.this, SetupProfileActivity.class);
+                                                    startActivity(intent2);
+                                                }
+                                                loadingDialog.cancelLoading();
+                                                finishAffinity();
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.d(TAG, "signInWithCredential:failure", task.getException());
+                                    MyToast.makeText(OTPActivity.this, MyToast.ERROR, getString(R.string.toast3), MyToast.SHORT).show();
+                                }
                             } else {
                                 Log.d(TAG, "signInWithCredential:failure", task.getException());
 
