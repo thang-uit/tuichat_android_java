@@ -16,7 +16,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
@@ -27,54 +26,47 @@
         android:theme="@style/Theme.TuiChat"
         android:usesCleartextTraffic="true">
         <activity
-            android:showOnLockScreen="true"
-            android:showWhenLocked="true"
-            android:turnScreenOn="true"
-
             android:name=".activities.InComingCallActivity"
-            android:exported="true" />
-        <activity
+            android:exported="true"
             android:showOnLockScreen="true"
             android:showWhenLocked="true"
-            android:turnScreenOn="true"
-
+            android:turnScreenOn="true" />
+        <activity
             android:name=".activities.OutGoingCallActivity"
-            android:exported="true" />
-        <activity
+            android:exported="true"
             android:showOnLockScreen="true"
             android:showWhenLocked="true"
-            android:turnScreenOn="true"
-
+            android:turnScreenOn="true" />
+        <activity
             android:name=".activities.UserProfileActivity"
-            android:exported="true" />
-        <activity
+            android:exported="true"
             android:showOnLockScreen="true"
             android:showWhenLocked="true"
-            android:turnScreenOn="true"
-
+            android:turnScreenOn="true" />
+        <activity
             android:name=".activities.ChatActivity"
-            android:exported="true" />
-        <activity
+            android:exported="true"
             android:showOnLockScreen="true"
             android:showWhenLocked="true"
-            android:turnScreenOn="true"
-
+            android:turnScreenOn="true" />
+        <activity
             android:name=".activities.LoginActivity"
-            android:exported="true" />
-        <activity
+            android:exported="true"
             android:showOnLockScreen="true"
             android:showWhenLocked="true"
-            android:turnScreenOn="true"
-
+            android:turnScreenOn="true" />
+        <activity
             android:name=".activities.SetupProfileActivity"
-            android:exported="true" />
-        <activity
+            android:exported="true"
             android:showOnLockScreen="true"
             android:showWhenLocked="true"
-            android:turnScreenOn="true"
-
+            android:turnScreenOn="true" />
+        <activity
             android:name=".activities.SplashActivity"
-            android:exported="true">
+            android:exported="true"
+            android:showOnLockScreen="true"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -82,19 +74,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:showOnLockScreen="true"
-            android:showWhenLocked="true"
-            android:turnScreenOn="true"
-
             android:name=".activities.OTPActivity"
-            android:exported="true" />
-        <activity
+            android:exported="true"
             android:showOnLockScreen="true"
             android:showWhenLocked="true"
-            android:turnScreenOn="true"
-
+            android:turnScreenOn="true" />
+        <activity
             android:name=".activities.PhoneNumberActivity"
             android:exported="true"
+            android:showOnLockScreen="true"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true"
             android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".activities.MainActivity"
@@ -140,5 +130,4 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/color_main_4" />
     </application>
-
 </manifest>

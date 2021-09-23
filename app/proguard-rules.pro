@@ -20,6 +20,6 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--dontwarn org.webrtc.**
--keep class org.webrtc.** { *; }
--keep class com.stringee.** { *; }
+#-dontwarn org.webrtc.**
+#-keep class org.webrtc.** { *; }
+#-keep class com.stringee.** { *; }
