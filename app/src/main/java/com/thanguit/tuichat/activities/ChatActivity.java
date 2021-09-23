@@ -121,9 +121,6 @@ public class ChatActivity extends AppCompat {
     }
 
     private void initializeViews() {
-//        animationScale.eventImageView(this, activityChatBinding.ivBack);
-//        animationScale.eventImageView(this, activityChatBinding.ivVideoCall);
-//        animationScale.eventImageView(this, activityChatBinding.ivCall);
         animationScale.eventImageView(this, activityChatBinding.ivPicture);
         animationScale.eventImageView(this, activityChatBinding.ivSend);
         animationScale.eventLinearLayout(this, activityChatBinding.llToBottom);
