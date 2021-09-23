@@ -61,7 +61,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.itemConversationBinding.tvChatName.setText(userList.get(holder.getLayoutPosition()).getName().trim());
 
         firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
             String senderRoom = currentUser.getUid().trim() + userList.get(holder.getLayoutPosition()).getUid().trim();
 
