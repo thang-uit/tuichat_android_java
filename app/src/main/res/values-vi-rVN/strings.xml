@@ -87,6 +87,11 @@
     <string name="btnDialog22">Xóa</string>
     <string name="btnDialog23">Đăng xuất</string>
 
+    <string name="tvDialogTitle1">Kết thúc cuộc gọi</string>
+    <string name="tvDialogContent4">Bạn có muốn kết thúc cuộc gọi này?</string>
+    <string name="btnDialog12">Không</string>
+    <string name="btnDialog24">Đồng ý</string>
+
     <string name="edtSearchPeople">Tìm kiếm</string>
 
     <string name="tvTheme">Giao diện</string>
@@ -104,4 +109,13 @@
     <string name="btnSave">Lưu</string>
 
     <string name="tv_state">Đang gọi…</string>
+    <string name="stringeeState1">Bắt đầu</string>
+    <string name="stringeeState2">Kết thúc</string>
+    <string name="stringeeState3">Kết nối lại…</string>
+    <string name="stringeeState4">Cuộc gọi đi</string>
+    <string name="stringeeState5">Đổ chuông</string>
+    <string name="stringeeState6">Đang bắt đầu</string>
+    <string name="stringeeState7">Bận</string>
+
+    <string name="tvStop">Do đã hết kinh phí nên chức năng này đã tạm ngừng hoạt động.</string>
 </resources>

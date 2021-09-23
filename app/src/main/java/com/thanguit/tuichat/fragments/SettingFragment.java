@@ -1,5 +1,6 @@
 package com.thanguit.tuichat.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -67,6 +68,10 @@ public class SettingFragment extends Fragment {
 
     private void initializeViews() {
         fragmentSettingBinding.swcSwitchTheme.setChecked(DataLocalManager.getTheme());
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            fragmentSettingBinding.rlSettingLanguage.setVisibility(View.GONE);
+        }
 
         if (DataLocalManager.getLanguage().equals(VIETNAMESE)) {
             fragmentSettingBinding.tvSettingLanguage.setText(getResources().getString(R.string.tvVietnamFlag));

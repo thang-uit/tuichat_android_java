@@ -47,7 +47,8 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textColor="@color/color_main_3"
-            android:textSize="30sp" />
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_state"

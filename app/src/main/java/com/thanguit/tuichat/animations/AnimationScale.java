@@ -5,6 +5,7 @@ import android.view.MotionEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -55,6 +56,20 @@ public class AnimationScale {
                 imageView.startAnimation(scaleDownAnimation);
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
                 imageView.startAnimation(scaleUpAnimation);
+            }
+            return false;
+        });
+    }
+
+    public void eventImageButton(Context context, ImageButton imageButton) {
+        this.scaleUpAnimation = AnimationUtils.loadAnimation(context, R.anim.scale_up);
+        this.scaleDownAnimation = AnimationUtils.loadAnimation(context, R.anim.scale_down);
+
+        imageButton.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                imageButton.startAnimation(scaleDownAnimation);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                imageButton.startAnimation(scaleUpAnimation);
             }
             return false;
         });

@@ -47,7 +47,6 @@ import com.thanguit.tuichat.database.FirebaseManager;
 import com.thanguit.tuichat.databinding.ActivityChatBinding;
 import com.thanguit.tuichat.models.ChatMessage;
 import com.thanguit.tuichat.models.User;
-import com.thanguit.tuichat.utils.Common;
 import com.thanguit.tuichat.utils.LoadingDialog;
 import com.thanguit.tuichat.utils.MyToast;
 import com.thanguit.tuichat.utils.OpenSoftKeyboard;
@@ -368,28 +367,41 @@ public class ChatActivity extends AppCompat {
         activityChatBinding.ibVideoCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (MainActivity.stringeeClient.isConnected()) {
-                    Intent videoCallIntent = new Intent(ChatActivity.this, OutGoingCallActivity.class);
-                    videoCallIntent.putExtra("USER", user);
-                    videoCallIntent.putExtra("VIDEO_CALL", true);
-                    startActivity(videoCallIntent);
-                } else {
-                    Common.reportMessage(ChatActivity.this, "Stringee session not connected");
-                }
+                Intent callIntent = new Intent(ChatActivity.this, OutGoingCallActivity.class);
+                startActivity(callIntent);
+//                if (MainActivity.stringeeClient.isConnected()) {
+//                    Intent callIntent = new Intent(ChatActivity.this, OutGoingCallActivity.class);
+//
+////                    Bundle bundle = new Bundle();
+////                    bundle.putParcelable("USER", user);
+////                    bundle.putBoolean("VIDEO_CALL", true);
+////                    callIntent.putExtras(bundle);
+//
+//                    startActivity(callIntent);
+//                } else {
+//                    Common.reportMessage(ChatActivity.this, "Stringee session not connected");
+//                }
             }
         });
 
         activityChatBinding.ibCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (MainActivity.stringeeClient.isConnected()) {
-                    Intent callIntent = new Intent(ChatActivity.this, OutGoingCallActivity.class);
-                    callIntent.putExtra("USER", user);
-                    callIntent.putExtra("VIDEO_CALL", false);
-                    startActivity(callIntent);
-                } else {
-                    Common.reportMessage(ChatActivity.this, "Stringee session not connected");
-                }
+                Intent callIntent = new Intent(ChatActivity.this, OutGoingCallActivity.class);
+                startActivity(callIntent);
+
+//                if (MainActivity.stringeeClient.isConnected()) {
+//                    Intent callIntent = new Intent(ChatActivity.this, OutGoingCallActivity.class);
+//
+////                    Bundle bundle = new Bundle();
+////                    bundle.putParcelable("USER", user);
+////                    bundle.putBoolean("VIDEO_CALL", false);
+////                    callIntent.putExtras(bundle);
+//
+//                    startActivity(callIntent);
+//                } else {
+//                    Common.reportMessage(ChatActivity.this, "Stringee session not connected");
+//                }
             }
         });
 

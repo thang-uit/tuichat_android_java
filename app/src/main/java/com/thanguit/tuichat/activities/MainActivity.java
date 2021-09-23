@@ -5,7 +5,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -15,21 +14,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
-import com.stringee.StringeeClient;
-import com.stringee.call.StringeeCall;
-import com.stringee.call.StringeeCall2;
-import com.stringee.exception.StringeeError;
-import com.stringee.listener.StringeeConnectionListener;
 import com.thanguit.tuichat.R;
 import com.thanguit.tuichat.adapters.ViewPagerAdapter;
 import com.thanguit.tuichat.animations.AnimationScale;
 import com.thanguit.tuichat.animations.ZoomOutPageTransformer;
 import com.thanguit.tuichat.database.FirebaseManager;
 import com.thanguit.tuichat.databinding.ActivityMainBinding;
-import com.thanguit.tuichat.utils.Common;
-import com.thanguit.tuichat.utils.MyToast;
-
-import org.json.JSONObject;
 
 public class MainActivity extends AppCompat {
     private ActivityMainBinding activityMainBinding;
@@ -43,12 +33,12 @@ public class MainActivity extends AppCompat {
 
     private AnimationScale animationScale;
 
-    // Meizu M3 Note
-    private final String token1 = "eyJjdHkiOiJzdHJpbmdlZS1hcGk7dj0xIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiJTS0JGRGZ3NDJhVWZTWUNvSThINTk4Zkd0aHJ3cTRlRVEtMTYzMTk4MDk4OSIsImlzcyI6IlNLQkZEZnc0MmFVZlNZQ29JOEg1OThmR3RocndxNGVFUSIsImV4cCI6MTYzNDU3Mjk4OSwidXNlcklkIjoiTWFwSktNNTNHSWJhWVJvQ1NsTFJzYUZHTmRyMiJ9.NTA4QSWtEuPVocj9x1X2WzgSjLayTvFj9cf3TudicnQ";
-
-    // Android Virtual Pixel 3a
-    private final String token2 = "eyJjdHkiOiJzdHJpbmdlZS1hcGk7dj0xIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiJTS0JGRGZ3NDJhVWZTWUNvSThINTk4Zkd0aHJ3cTRlRVEtMTYzMTk4MTA0MCIsImlzcyI6IlNLQkZEZnc0MmFVZlNZQ29JOEg1OThmR3RocndxNGVFUSIsImV4cCI6MTYzNDU3MzA0MCwidXNlcklkIjoiZWZjVFNVcUNPV1hqNW9tckVNRzVZZEhLRG9WMiJ9.gZgFh-34CLlgpf7pMmvfT18eengMdNLeo8WY5_9rFB0";
-    public static StringeeClient stringeeClient;
+//    // Meizu M3 Note
+//    private final String token1 = "eyJjdHkiOiJzdHJpbmdlZS1hcGk7dj0xIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiJTS0JGRGZ3NDJhVWZTWUNvSThINTk4Zkd0aHJ3cTRlRVEtMTYzMTk4MDk4OSIsImlzcyI6IlNLQkZEZnc0MmFVZlNZQ29JOEg1OThmR3RocndxNGVFUSIsImV4cCI6MTYzNDU3Mjk4OSwidXNlcklkIjoiTWFwSktNNTNHSWJhWVJvQ1NsTFJzYUZHTmRyMiJ9.NTA4QSWtEuPVocj9x1X2WzgSjLayTvFj9cf3TudicnQ";
+//
+//    // Android Virtual Pixel 3a
+//    private final String token2 = "eyJjdHkiOiJzdHJpbmdlZS1hcGk7dj0xIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiJTS0JGRGZ3NDJhVWZTWUNvSThINTk4Zkd0aHJ3cTRlRVEtMTYzMTk4MTA0MCIsImlzcyI6IlNLQkZEZnc0MmFVZlNZQ29JOEg1OThmR3RocndxNGVFUSIsImV4cCI6MTYzNDU3MzA0MCwidXNlcklkIjoiZWZjVFNVcUNPV1hqNW9tckVNRzVZZEhLRG9WMiJ9.gZgFh-34CLlgpf7pMmvfT18eengMdNLeo8WY5_9rFB0";
+//    public static StringeeClient stringeeClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,88 +98,84 @@ public class MainActivity extends AppCompat {
                 }
             });
 
-            initAndConnectStringee();
+//            initAndConnectStringee();
         }
     }
 
-    private void initAndConnectStringee() {
-        stringeeClient = new StringeeClient(this);
-        stringeeClient.setConnectionListener(new StringeeConnectionListener() {
-            @Override
-            public void onConnectionConnected(StringeeClient stringeeClient, boolean b) {
-                Log.d(STRINGEE, "Connect successfully");
-                MyToast.makeText(MainActivity.this, MyToast.SUCCESS, "Connect successfully", MyToast.SHORT).show();
-            }
-
-            @Override
-            public void onConnectionDisconnected(StringeeClient stringeeClient, boolean b) {
-                Log.d(STRINGEE, "Disconnected Connect");
-            }
-
-            @Override
-            public void onIncomingCall(StringeeCall stringeeCall) {
-                Log.d(STRINGEE, "onIncommingCall");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (Common.isInCall) {
-                            stringeeCall.reject();
-                        } else {
-                            Common.callsMap.put(stringeeCall.getCallId(), stringeeCall);
-                            Intent intent = new Intent(MainActivity.this, InComingCallActivity.class);
-                            intent.putExtra("CALL_ID", stringeeCall.getCallId());
-                            startActivity(intent);
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onIncomingCall2(StringeeCall2 stringeeCall2) {
+//    private void initAndConnectStringee() {
+//        stringeeClient = new StringeeClient(this);
+//        stringeeClient.setConnectionListener(new StringeeConnectionListener() {
+//            @Override
+//            public void onConnectionConnected(StringeeClient stringeeClient, boolean b) {
+//                Log.d(STRINGEE, "Connect successfully");
+//            }
+//
+//            @Override
+//            public void onConnectionDisconnected(StringeeClient stringeeClient, boolean b) {
+//                Log.d(STRINGEE, "Disconnected Connect");
+//            }
+//
+//            @Override
+//            public void onIncomingCall(StringeeCall stringeeCall) {
+//                Log.d(STRINGEE, "onIncommingCall");
 //                runOnUiThread(new Runnable() {
 //                    @Override
 //                    public void run() {
 //                        if (Common.isInCall) {
-//                            stringeeCall2.reject();
+//                            stringeeCall.reject();
 //                        } else {
-//                            Common.calls2Map.put(stringeeCall2.getCallId(), stringeeCall2);
-//                            Intent intent = new Intent(MainActivity.this, IncomingCall2Activity.class);
-//                            intent.putExtra("call_id", stringeeCall2.getCallId());
+//                            Common.callsMap.put(stringeeCall.getCallId(), stringeeCall);
+//                            Intent intent = new Intent(MainActivity.this, InComingCallActivity.class);
+//                            intent.putExtra("CALL_ID", stringeeCall.getCallId());
 //                            startActivity(intent);
 //                        }
 //                    }
 //                });
-            }
+//            }
+//
+//            @Override
+//            public void onIncomingCall2(StringeeCall2 stringeeCall2) {
+////                runOnUiThread(new Runnable() {
+////                    @Override
+////                    public void run() {
+////                        if (Common.isInCall) {
+////                            stringeeCall2.reject();
+////                        } else {
+////                            Common.calls2Map.put(stringeeCall2.getCallId(), stringeeCall2);
+////                            Intent intent = new Intent(MainActivity.this, IncomingCall2Activity.class);
+////                            intent.putExtra("call_id", stringeeCall2.getCallId());
+////                            startActivity(intent);
+////                        }
+////                    }
+////                });
+//            }
+//
+//            @Override
+//            public void onConnectionError(StringeeClient stringeeClient, StringeeError stringeeError) {
+//                Log.d("Stringee", "StringeeClient fails to connect: " + stringeeError.getMessage());
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Common.reportMessage(MainActivity.this, "StringeeClient fails to connect: " + stringeeError.getMessage());
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onRequestNewToken(StringeeClient stringeeClient) {
+//            }
+//
+//            @Override
+//            public void onCustomMessage(String s, JSONObject jsonObject) {
+//            }
+//
+//            @Override
+//            public void onTopicMessage(String s, JSONObject jsonObject) {
+//            }
+//        });
 
-            @Override
-            public void onConnectionError(StringeeClient stringeeClient, StringeeError stringeeError) {
-                Log.d("Stringee", "StringeeClient fails to connect: " + stringeeError.getMessage());
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Common.reportMessage(MainActivity.this, "StringeeClient fails to connect: " + stringeeError.getMessage());
-                    }
-                });
-            }
-
-            @Override
-            public void onRequestNewToken(StringeeClient stringeeClient) {
-
-            }
-
-            @Override
-            public void onCustomMessage(String s, JSONObject jsonObject) {
-
-            }
-
-            @Override
-            public void onTopicMessage(String s, JSONObject jsonObject) {
-
-            }
-        });
-
-        stringeeClient.connect(token1);
-    }
+//        stringeeClient.connect(token2); //Important
+//    }
 
     private void listeners() {
         activityMainBinding.civAvatar.setOnClickListener(new View.OnClickListener() {

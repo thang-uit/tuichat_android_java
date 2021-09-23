@@ -87,6 +87,11 @@
     <string name="btnDialog22">Delete</string>
     <string name="btnDialog23">Sign out</string>
 
+    <string name="tvDialogTitle1">End the call</string>
+    <string name="tvDialogContent4">Do you want to end this call?</string>
+    <string name="btnDialog12">No</string>
+    <string name="btnDialog24">Yes</string>
+
     <string name="edtSearchPeople">Search</string>
 
     <string name="tvTheme">Theme</string>
@@ -104,5 +109,13 @@
     <string name="btnSave">Save</string>
 
     <string name="tv_state">Calling…</string>
+    <string name="stringeeState1">Started</string>
+    <string name="stringeeState2">Ended</string>
+    <string name="stringeeState3">Reconnecting…</string>
+    <string name="stringeeState4">Outgoing call</string>
+    <string name="stringeeState5">Ringing</string>
+    <string name="stringeeState6">Starting</string>
+    <string name="stringeeState7">Busy</string>
 
+    <string name="tvStop">Due to the lack of funding, this function has been temporarily discontinued.</string>
 </resources>
