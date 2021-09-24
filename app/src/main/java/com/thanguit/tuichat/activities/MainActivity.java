@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationBarView;
@@ -20,6 +21,7 @@ import com.thanguit.tuichat.animations.AnimationScale;
 import com.thanguit.tuichat.animations.ZoomOutPageTransformer;
 import com.thanguit.tuichat.database.FirebaseManager;
 import com.thanguit.tuichat.databinding.ActivityMainBinding;
+import com.thanguit.tuichat.utils.MyToast;
 
 public class MainActivity extends AppCompat {
     private ActivityMainBinding activityMainBinding;
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompat {
     private FirebaseAuth firebaseAuth;
 
     private AnimationScale animationScale;
+
+    private Toast myToast;
+    private long BACK_PRESS_TIME = 0;
 
 //    // Meizu M3 Note
 //    private final String token1 = "eyJjdHkiOiJzdHJpbmdlZS1hcGk7dj0xIiwidHlwIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiJTS0JGRGZ3NDJhVWZTWUNvSThINTk4Zkd0aHJ3cTRlRVEtMTYzMTk4MDk4OSIsImlzcyI6IlNLQkZEZnc0MmFVZlNZQ29JOEg1OThmR3RocndxNGVFUSIsImV4cCI6MTYzNDU3Mjk4OSwidXNlcklkIjoiTWFwSktNNTNHSWJhWVJvQ1NsTFJzYUZHTmRyMiJ9.NTA4QSWtEuPVocj9x1X2WzgSjLayTvFj9cf3TudicnQ";
@@ -64,6 +69,19 @@ public class MainActivity extends AppCompat {
     protected void onDestroy() {
         setStatusOffline();
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (BACK_PRESS_TIME + 2000 > System.currentTimeMillis()) {
+            myToast.cancel();
+            super.onBackPressed();
+            return;
+        } else {
+            myToast = MyToast.makeText(MainActivity.this, MyToast.INFORMATION, getString(R.string.toast13), MyToast.SHORT);
+            myToast.show();
+        }
+        BACK_PRESS_TIME = System.currentTimeMillis();
     }
 
     private void initializeViews() {

@@ -27,6 +27,7 @@
     <string name="toast10">Message copied</string>
     <string name="toast11">Delete successful</string>
     <string name="toast12">Update successful</string>
+    <string name="toast13">Press back again to exit the application</string>
 
     <string name="tvDeveloper">Thanguit Developer</string>
 
