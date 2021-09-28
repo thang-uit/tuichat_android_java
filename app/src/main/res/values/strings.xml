@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">TuiChat</string>
 
-    <string name="facebook_app_id">2892103481040828</string>
-    <string name="fb_login_protocol_scheme">fb2892103481040828</string>
+    <string name="facebook_app_id">589715442066422</string>
+    <string name="fb_login_protocol_scheme">fb589715442066422</string>
     <string name="channel_name">TuiChat Channel</string>
     <string name="channel_description">Notification message</string>
 
